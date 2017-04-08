@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fc0d4e7a661443db816342044c15080f" Name="Diagram1" ZoomLevel="85">
+        <EntityTypeShape EntityType="BSDBModel.TBL_AdminOffers" Width="1.5" PointX="8.25" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_Cities_CNFG" Width="1.5" PointX="7.5" PointY="38.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_InActiveShopList_CNFG" Width="1.5" PointX="10.5" PointY="30" IsExpanded="true" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_InActiveShopReasons_CNFG" Width="1.5" PointX="5.25" PointY="28.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_Infrastructure_CNFG" Width="1.5" PointX="15.75" PointY="37.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_InfrastructureCategories_CNFG" Width="1.5" PointX="5.25" PointY="31.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_OfferOnProducts" Width="1.5" PointX="18" PointY="30" IsExpanded="true" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_PostalCodes_CNFG" Width="1.5" PointX="12.75" PointY="38.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_ProductCategories_CNFG" Width="1.5" PointX="5.25" PointY="34.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_ProductImages" Width="1.5" PointX="15" PointY="27.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_Products" Width="1.5" PointX="12.75" PointY="32.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_ProductSubType_CNFG" Width="1.5" PointX="5.25" PointY="38" IsExpanded="true" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_ProductType_CNFG" Width="1.5" PointX="5.25" PointY="41.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_ShopCategory_CNFG" Width="1.5" PointX="5.25" PointY="44.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_ShopDirectory" Width="1.5" PointX="0.75" PointY="30.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_ShopLoginDetails" Width="1.5" PointX="3" PointY="26.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_ShopOffers" Width="1.5" PointX="15.75" PointY="31.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_Shops" Width="1.5" PointX="10.5" PointY="35.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_Shops5TopProducts" Width="1.5" PointX="12.75" PointY="28.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_ShopsInPostalCodes" Width="1.5" PointX="18" PointY="34.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_ShopTypes_CNFG" Width="1.5" PointX="5.25" PointY="47.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_States_CNFG" Width="1.5" PointX="5.25" PointY="51.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BSDBModel.Log" Width="1.5" PointX="5.25" PointY="54.5" IsExpanded="true" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Admin__Creat__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Admin__Updat__4AB81AF0" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.TBL_AdminOffers_fk0" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Citie__Creat__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Citie__Updat__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.TBL_Cities_CNFG_fk0" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.TBL_Infrastructure_CNFG_fk0" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.TBL_PostalCodes_CNFG_fk0" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_InAct__Creat__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_InAct__Updat__45F365D3" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.TBL_InActiveShopList_CNFG_fk0" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.TBL_InActiveShopList_CNFG_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_InAct__Creat__1B0907CE" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_InAct__Updat__1BFD2C07" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Infra__Creat__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Infra__Updat__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Infra__Creat__1FCDBCEB" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Infra__Updat__20C1E124" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.TBL_Shops_fk2" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Offer__Creat__6C190EBB" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Offer__Updat__6D0D32F4" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.TBL_OfferOnProducts_fk0" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Posta__Creat__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Posta__Updat__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.ShopesInPostalCodes_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Produ__Creat__30F848ED" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Produ__Updat__31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.TBL_Products_fk2" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Produ__Creat__70DDC3D8" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Produ__Updat__71D1E811" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.TBL_ProductImages_fk0" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.bsProductType" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Produ__Creat__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Produ__Updat__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.TBL_Products_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.TBL_Products_fk3" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Produ__Creat__164452B1" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Produ__Updat__173876EA" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Produ__Creat__117F9D94" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Produ__Updat__1273C1CD" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_ShopC__Creat__0CBAE877" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_ShopC__Updat__0DAF0CB0" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.TBL_Shops_fk3" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_ShopD__Creat__0E6E26BF" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_ShopD__Updat__0F624AF8" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_ShopL__ShopD__060DEAE8" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Shops__ShopD__34C8D9D1" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__Log__CreatedBy__239E4DCF" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_ShopL__Creat__07F6335A" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_ShopL__Updat__08EA5793" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_ShopO__Creat__5CD6CB2B" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_ShopO__Updat__5DCAEF64" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Shops__Creat__36B12243" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Shops__Creat__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Shops__Creat__6754599E" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Shops__Updat__37A5467C" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Shops__Updat__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Shops__Updat__68487DD7" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_ShopT__Creat__2C3393D0" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_ShopT__Updat__2D27B809" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_State__Creat__276EDEB3" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_State__Updat__286302EC" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.TBL_ShopOffers_fk0" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.ShopesInPostalCodes_fk0" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.TBL_Shops_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="BSDBModel.TBL_Shops5TopProducts_fk0" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

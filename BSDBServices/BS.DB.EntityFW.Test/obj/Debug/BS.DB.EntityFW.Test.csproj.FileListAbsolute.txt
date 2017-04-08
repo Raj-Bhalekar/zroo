@@ -1,0 +1,12 @@
+C:\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\BS.DB.EntityFW.Test.dll
+C:\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\BS.DB.EntityFW.Test.pdb
+C:\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\BS.DB.EntityFW.dll
+C:\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\EntityFramework.dll
+C:\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\BS.DB.EntityFW.pdb
+C:\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+C:\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\EntityFramework.xml
+C:\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\obj\Debug\BS.DB.EntityFW.Test.csprojResolveAssemblyReference.cache
+C:\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\obj\Debug\BS.DB.EntityFW.Test.dll
+C:\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\obj\Debug\BS.DB.EntityFW.Test.pdb
+C:\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\BS.DB.EntityFW.Test.dll.config

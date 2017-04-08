@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BSDBModelStoreContainer" CdmEntityContainer="BSDBEntities">
+    <EntitySetMapping Name="TBL_AdminOffers">
+      <EntityTypeMapping TypeName="BSDBModel.TBL_AdminOffers">
+        <MappingFragment StoreEntitySet="TBL_AdminOffers">
+          <ScalarProperty Name="AdminOfferID" ColumnName="AdminOfferID" />
+          <ScalarProperty Name="ShortText" ColumnName="ShortText" />
+          <ScalarProperty Name="LongText" ColumnName="LongText" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="CityID" ColumnName="CityID" />
+          <ScalarProperty Name="StateID" ColumnName="StateID" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_Cities_CNFG">
+      <EntityTypeMapping TypeName="BSDBModel.TBL_Cities_CNFG">
+        <MappingFragment StoreEntitySet="TBL_Cities_CNFG">
+          <ScalarProperty Name="CityID" ColumnName="CityID" />
+          <ScalarProperty Name="CityName" ColumnName="CityName" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="StateID" ColumnName="StateID" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_InActiveShopList_CNFG">
+      <EntityTypeMapping TypeName="BSDBModel.TBL_InActiveShopList_CNFG">
+        <MappingFragment StoreEntitySet="TBL_InActiveShopList_CNFG">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+          <ScalarProperty Name="ShopInActiveReasonID" ColumnName="ShopInActiveReasonID" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_InActiveShopReasons_CNFG">
+      <EntityTypeMapping TypeName="BSDBModel.TBL_InActiveShopReasons_CNFG">
+        <MappingFragment StoreEntitySet="TBL_InActiveShopReasons_CNFG">
+          <ScalarProperty Name="ShopInActiveReasonID" ColumnName="ShopInActiveReasonID" />
+          <ScalarProperty Name="InActiveReason" ColumnName="InActiveReason" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_Infrastructure_CNFG">
+      <EntityTypeMapping TypeName="BSDBModel.TBL_Infrastructure_CNFG">
+        <MappingFragment StoreEntitySet="TBL_Infrastructure_CNFG">
+          <ScalarProperty Name="InfrastructureID" ColumnName="InfrastructureID" />
+          <ScalarProperty Name="InfrastructureName" ColumnName="InfrastructureName" />
+          <ScalarProperty Name="CityID" ColumnName="CityID" />
+          <ScalarProperty Name="PostalCodeID" ColumnName="PostalCodeID" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="OpeningTime" ColumnName="OpeningTime" />
+          <ScalarProperty Name="ClosingTime" ColumnName="ClosingTime" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_InfrastructureCategories_CNFG">
+      <EntityTypeMapping TypeName="BSDBModel.TBL_InfrastructureCategories_CNFG">
+        <MappingFragment StoreEntitySet="TBL_InfrastructureCategories_CNFG">
+          <ScalarProperty Name="InfrastructureCategoryID" ColumnName="InfrastructureCategoryID" />
+          <ScalarProperty Name="InfrastructureCategoryName" ColumnName="InfrastructureCategoryName" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_OfferOnProducts">
+      <EntityTypeMapping TypeName="BSDBModel.TBL_OfferOnProducts">
+        <MappingFragment StoreEntitySet="TBL_OfferOnProducts">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="OfferID" ColumnName="OfferID" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_PostalCodes_CNFG">
+      <EntityTypeMapping TypeName="BSDBModel.TBL_PostalCodes_CNFG">
+        <MappingFragment StoreEntitySet="TBL_PostalCodes_CNFG">
+          <ScalarProperty Name="PostCodeID" ColumnName="PostCodeID" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CityID" ColumnName="CityID" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_ProductCategories_CNFG">
+      <EntityTypeMapping TypeName="BSDBModel.TBL_ProductCategories_CNFG">
+        <MappingFragment StoreEntitySet="TBL_ProductCategories_CNFG">
+          <ScalarProperty Name="ProductCategoryID" ColumnName="ProductCategoryID" />
+          <ScalarProperty Name="ProductCategoryName" ColumnName="ProductCategoryName" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_ProductImages">
+      <EntityTypeMapping TypeName="BSDBModel.TBL_ProductImages">
+        <MappingFragment StoreEntitySet="TBL_ProductImages">
+          <ScalarProperty Name="ImageID" ColumnName="ImageID" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="ProductImage" ColumnName="ProductImage" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_Products">
+      <EntityTypeMapping TypeName="BSDBModel.TBL_Products">
+        <MappingFragment StoreEntitySet="TBL_Products">
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="ProductBrand" ColumnName="ProductBrand" />
+          <ScalarProperty Name="BarCode" ColumnName="BarCode" />
+          <ScalarProperty Name="ProductTypeID" ColumnName="ProductTypeID" />
+          <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+          <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
+          <ScalarProperty Name="AvailableQuantity" ColumnName="AvailableQuantity" />
+          <ScalarProperty Name="OtherJsonDetails" ColumnName="OtherJsonDetails" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ProductCategoryID" ColumnName="ProductCategoryID" />
+          <ScalarProperty Name="ProductSubTypeID" ColumnName="ProductSubTypeID" />
+          <ScalarProperty Name="MRP" ColumnName="MRP" />
+          <ScalarProperty Name="ShopPrice" ColumnName="ShopPrice" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_ProductSubType_CNFG">
+      <EntityTypeMapping TypeName="BSDBModel.TBL_ProductSubType_CNFG">
+        <MappingFragment StoreEntitySet="TBL_ProductSubType_CNFG">
+          <ScalarProperty Name="ProductSubTypeID" ColumnName="ProductSubTypeID" />
+          <ScalarProperty Name="ProductSubTypeName" ColumnName="ProductSubTypeName" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_ProductType_CNFG">
+      <EntityTypeMapping TypeName="BSDBModel.TBL_ProductType_CNFG">
+        <MappingFragment StoreEntitySet="TBL_ProductType_CNFG">
+          <ScalarProperty Name="ProductTypeID" ColumnName="ProductTypeID" />
+          <ScalarProperty Name="ProductTypeName" ColumnName="ProductTypeName" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_ShopCategory_CNFG">
+      <EntityTypeMapping TypeName="BSDBModel.TBL_ShopCategory_CNFG">
+        <MappingFragment StoreEntitySet="TBL_ShopCategory_CNFG">
+          <ScalarProperty Name="ShopCategoryID" ColumnName="ShopCategoryID" />
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_ShopDirectory">
+      <EntityTypeMapping TypeName="BSDBModel.TBL_ShopDirectory">
+        <MappingFragment StoreEntitySet="TBL_ShopDirectory">
+          <ScalarProperty Name="ShopDirectoryID" ColumnName="ShopDirectoryID" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_ShopLoginDetails">
+      <EntityTypeMapping TypeName="BSDBModel.TBL_ShopLoginDetails">
+        <MappingFragment StoreEntitySet="TBL_ShopLoginDetails">
+          <ScalarProperty Name="ShopLoginDetailsID" ColumnName="ShopLoginDetailsID" />
+          <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+          <ScalarProperty Name="ShopDirectoryID" ColumnName="ShopDirectoryID" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_ShopOffers">
+      <EntityTypeMapping TypeName="BSDBModel.TBL_ShopOffers">
+        <MappingFragment StoreEntitySet="TBL_ShopOffers">
+          <ScalarProperty Name="OfferID" ColumnName="OfferID" />
+          <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+          <ScalarProperty Name="OfferShortText" ColumnName="OfferShortText" />
+          <ScalarProperty Name="OfferStartDate" ColumnName="OfferStartDate" />
+          <ScalarProperty Name="OfferEndDate" ColumnName="OfferEndDate" />
+          <ScalarProperty Name="OfferOnBrand" ColumnName="OfferOnBrand" />
+          <ScalarProperty Name="IsOfferOnProducts" ColumnName="IsOfferOnProducts" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="OfferDetailText" ColumnName="OfferDetailText" />
+          <ScalarProperty Name="OfferImage" ColumnName="OfferImage" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_Shops">
+      <EntityTypeMapping TypeName="BSDBModel.TBL_Shops">
+        <MappingFragment StoreEntitySet="TBL_Shops">
+          <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+          <ScalarProperty Name="ShopName" ColumnName="ShopName" />
+          <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+          <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+          <ScalarProperty Name="WhatsAppHikeNumber" ColumnName="WhatsAppHikeNumber" />
+          <ScalarProperty Name="ShopTypeID" ColumnName="ShopTypeID" />
+          <ScalarProperty Name="ShopOpningTime" ColumnName="ShopOpningTime" />
+          <ScalarProperty Name="ShopClosingTime" ColumnName="ShopClosingTime" />
+          <ScalarProperty Name="InfrastructureID" ColumnName="InfrastructureID" />
+          <ScalarProperty Name="ShopAddress" ColumnName="ShopAddress" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ShopCategoryID" ColumnName="ShopCategoryID" />
+          <ScalarProperty Name="ShopDirectoryID" ColumnName="ShopDirectoryID" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_Shops5TopProducts">
+      <EntityTypeMapping TypeName="BSDBModel.TBL_Shops5TopProducts">
+        <MappingFragment StoreEntitySet="TBL_Shops5TopProducts">
+          <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_ShopsInPostalCodes">
+      <EntityTypeMapping TypeName="BSDBModel.TBL_ShopsInPostalCodes">
+        <MappingFragment StoreEntitySet="TBL_ShopsInPostalCodes">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+          <ScalarProperty Name="PostalCodeID" ColumnName="PostalCodeID" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_ShopTypes_CNFG">
+      <EntityTypeMapping TypeName="BSDBModel.TBL_ShopTypes_CNFG">
+        <MappingFragment StoreEntitySet="TBL_ShopTypes_CNFG">
+          <ScalarProperty Name="ShopTypeID" ColumnName="ShopTypeID" />
+          <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_States_CNFG">
+      <EntityTypeMapping TypeName="BSDBModel.TBL_States_CNFG">
+        <MappingFragment StoreEntitySet="TBL_States_CNFG">
+          <ScalarProperty Name="StateID" ColumnName="StateID" />
+          <ScalarProperty Name="StateName" ColumnName="StateName" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Logs">
+      <EntityTypeMapping TypeName="BSDBModel.Log">
+        <MappingFragment StoreEntitySet="Log">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+          <ScalarProperty Name="Logged" ColumnName="Logged" />
+          <ScalarProperty Name="Level" ColumnName="Level" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="ServerName" ColumnName="ServerName" />
+          <ScalarProperty Name="Port" ColumnName="Port" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="Https" ColumnName="Https" />
+          <ScalarProperty Name="ServerAddress" ColumnName="ServerAddress" />
+          <ScalarProperty Name="Exception" ColumnName="Exception" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

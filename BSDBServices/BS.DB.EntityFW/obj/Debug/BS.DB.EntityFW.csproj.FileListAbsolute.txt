@@ -1,0 +1,11 @@
+C:\BSDBServices\BSDBServices\BS.DB.EntityFW\bin\Debug\BS.DB.EntityFW.dll.config
+C:\BSDBServices\BSDBServices\BS.DB.EntityFW\bin\Debug\BS.DB.EntityFW.dll
+C:\BSDBServices\BSDBServices\BS.DB.EntityFW\bin\Debug\BS.DB.EntityFW.pdb
+C:\BSDBServices\BSDBServices\BS.DB.EntityFW\bin\Debug\EntityFramework.dll
+C:\BSDBServices\BSDBServices\BS.DB.EntityFW\bin\Debug\EntityFramework.SqlServer.dll
+C:\BSDBServices\BSDBServices\BS.DB.EntityFW\bin\Debug\EntityFramework.xml
+C:\BSDBServices\BSDBServices\BS.DB.EntityFW\bin\Debug\EntityFramework.SqlServer.xml
+C:\BSDBServices\BSDBServices\BS.DB.EntityFW\obj\Debug\BS.DB.EntityFW.dll
+C:\BSDBServices\BSDBServices\BS.DB.EntityFW\obj\Debug\BS.DB.EntityFW.pdb
+C:\BSDBServices\BSDBServices\BS.DB.EntityFW\obj\Debug\BS.DB.EntityFW.Validations.ValidationMsg.resources
+C:\BSDBServices\BSDBServices\BS.DB.EntityFW\obj\Debug\BS.DB.EntityFW.csproj.GenerateResource.Cache

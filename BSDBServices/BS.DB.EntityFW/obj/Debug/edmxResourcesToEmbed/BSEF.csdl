@@ -1,0 +1,1548 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BSDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="TBL_AdminOffers">
+    <Key>
+      <PropertyRef Name="AdminOfferID" />
+    </Key>
+    <Property Name="AdminOfferID" Type="Int32" Nullable="false" />
+    <Property Name="ShortText" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LongText" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CityID" Type="Int32" />
+    <Property Name="StateID" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="Self.FK__TBL_Admin__Creat__49C3F6B7" FromRole="TBL_AdminOffers" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="Self.FK__TBL_Admin__Updat__4AB81AF0" FromRole="TBL_AdminOffers" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_Cities_CNFG" Relationship="Self.TBL_AdminOffers_fk0" FromRole="TBL_AdminOffers" ToRole="TBL_Cities_CNFG" />
+  </EntityType>
+  <EntityType Name="TBL_Cities_CNFG">
+    <Key>
+      <PropertyRef Name="CityID" />
+    </Key>
+    <Property Name="CityID" Type="Int32" Nullable="false" />
+    <Property Name="CityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="StateID" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="TBL_AdminOffers" Relationship="Self.TBL_AdminOffers_fk0" FromRole="TBL_Cities_CNFG" ToRole="TBL_AdminOffers" />
+    <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="Self.FK__TBL_Citie__Creat__3B75D760" FromRole="TBL_Cities_CNFG" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="Self.FK__TBL_Citie__Updat__3C69FB99" FromRole="TBL_Cities_CNFG" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_States_CNFG" Relationship="Self.TBL_Cities_CNFG_fk0" FromRole="TBL_Cities_CNFG" ToRole="TBL_States_CNFG" />
+    <NavigationProperty Name="TBL_Infrastructure_CNFG" Relationship="Self.TBL_Infrastructure_CNFG_fk0" FromRole="TBL_Cities_CNFG" ToRole="TBL_Infrastructure_CNFG" />
+    <NavigationProperty Name="TBL_PostalCodes_CNFG" Relationship="Self.TBL_PostalCodes_CNFG_fk0" FromRole="TBL_Cities_CNFG" ToRole="TBL_PostalCodes_CNFG" />
+  </EntityType>
+  <EntityType Name="TBL_InActiveShopList_CNFG">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ShopID" Type="Int32" Nullable="false" />
+    <Property Name="ShopInActiveReasonID" Type="Int32" Nullable="false" />
+    <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="Self.FK__TBL_InAct__Creat__44FF419A" FromRole="TBL_InActiveShopList_CNFG" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="Self.FK__TBL_InAct__Updat__45F365D3" FromRole="TBL_InActiveShopList_CNFG" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_Shops" Relationship="Self.TBL_InActiveShopList_CNFG_fk0" FromRole="TBL_InActiveShopList_CNFG" ToRole="TBL_Shops" />
+    <NavigationProperty Name="TBL_InActiveShopReasons_CNFG" Relationship="Self.TBL_InActiveShopList_CNFG_fk1" FromRole="TBL_InActiveShopList_CNFG" ToRole="TBL_InActiveShopReasons_CNFG" />
+  </EntityType>
+  <EntityType Name="TBL_InActiveShopReasons_CNFG">
+    <Key>
+      <PropertyRef Name="ShopInActiveReasonID" />
+    </Key>
+    <Property Name="ShopInActiveReasonID" Type="Int32" Nullable="false" />
+    <Property Name="InActiveReason" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="TBL_InActiveShopList_CNFG" Relationship="Self.TBL_InActiveShopList_CNFG_fk1" FromRole="TBL_InActiveShopReasons_CNFG" ToRole="TBL_InActiveShopList_CNFG" />
+    <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="Self.FK__TBL_InAct__Creat__1B0907CE" FromRole="TBL_InActiveShopReasons_CNFG" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="Self.FK__TBL_InAct__Updat__1BFD2C07" FromRole="TBL_InActiveShopReasons_CNFG" ToRole="TBL_ShopLoginDetails" />
+  </EntityType>
+  <EntityType Name="TBL_Infrastructure_CNFG">
+    <Key>
+      <PropertyRef Name="InfrastructureID" />
+    </Key>
+    <Property Name="InfrastructureID" Type="Int32" Nullable="false" />
+    <Property Name="InfrastructureName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CityID" Type="Int32" Nullable="false" />
+    <Property Name="PostalCodeID" Type="Int32" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="OpeningTime" Type="Time" Precision="7" />
+    <Property Name="ClosingTime" Type="Time" Precision="7" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="TBL_Cities_CNFG" Relationship="Self.TBL_Infrastructure_CNFG_fk0" FromRole="TBL_Infrastructure_CNFG" ToRole="TBL_Cities_CNFG" />
+    <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="Self.FK__TBL_Infra__Creat__403A8C7D" FromRole="TBL_Infrastructure_CNFG" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="Self.FK__TBL_Infra__Updat__412EB0B6" FromRole="TBL_Infrastructure_CNFG" ToRole="TBL_ShopLoginDetails" />
+  </EntityType>
+  <EntityType Name="TBL_InfrastructureCategories_CNFG">
+    <Key>
+      <PropertyRef Name="InfrastructureCategoryID" />
+    </Key>
+    <Property Name="InfrastructureCategoryID" Type="Int32" Nullable="false" />
+    <Property Name="InfrastructureCategoryName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="Self.FK__TBL_Infra__Creat__1FCDBCEB" FromRole="TBL_InfrastructureCategories_CNFG" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="Self.FK__TBL_Infra__Updat__20C1E124" FromRole="TBL_InfrastructureCategories_CNFG" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_Shops" Relationship="Self.TBL_Shops_fk2" FromRole="TBL_InfrastructureCategories_CNFG" ToRole="TBL_Shops" />
+  </EntityType>
+  <EntityType Name="TBL_OfferOnProducts">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="OfferID" Type="Int32" Nullable="false" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="Self.FK__TBL_Offer__Creat__6C190EBB" FromRole="TBL_OfferOnProducts" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="Self.FK__TBL_Offer__Updat__6D0D32F4" FromRole="TBL_OfferOnProducts" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_ShopOffers" Relationship="Self.TBL_OfferOnProducts_fk0" FromRole="TBL_OfferOnProducts" ToRole="TBL_ShopOffers" />
+  </EntityType>
+  <EntityType Name="TBL_PostalCodes_CNFG">
+    <Key>
+      <PropertyRef Name="PostCodeID" />
+    </Key>
+    <Property Name="PostCodeID" Type="Int32" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CityID" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="TBL_Cities_CNFG" Relationship="Self.TBL_PostalCodes_CNFG_fk0" FromRole="TBL_PostalCodes_CNFG" ToRole="TBL_Cities_CNFG" />
+    <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="Self.FK__TBL_Posta__Creat__534D60F1" FromRole="TBL_PostalCodes_CNFG" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="Self.FK__TBL_Posta__Updat__5441852A" FromRole="TBL_PostalCodes_CNFG" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_ShopsInPostalCodes" Relationship="Self.ShopesInPostalCodes_fk1" FromRole="TBL_PostalCodes_CNFG" ToRole="TBL_ShopsInPostalCodes" />
+  </EntityType>
+  <EntityType Name="TBL_ProductCategories_CNFG">
+    <Key>
+      <PropertyRef Name="ProductCategoryID" />
+    </Key>
+    <Property Name="ProductCategoryID" Type="Int32" Nullable="false" />
+    <Property Name="ProductCategoryName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="Self.FK__TBL_Produ__Creat__30F848ED" FromRole="TBL_ProductCategories_CNFG" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="Self.FK__TBL_Produ__Updat__31EC6D26" FromRole="TBL_ProductCategories_CNFG" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_Products" Relationship="Self.TBL_Products_fk2" FromRole="TBL_ProductCategories_CNFG" ToRole="TBL_Products" />
+  </EntityType>
+  <EntityType Name="TBL_ProductImages">
+    <Key>
+      <PropertyRef Name="ImageID" />
+    </Key>
+    <Property Name="ImageID" Type="Int32" Nullable="false" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="ProductImage" Type="Binary" MaxLength="1" FixedLength="true" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="Self.FK__TBL_Produ__Creat__70DDC3D8" FromRole="TBL_ProductImages" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="Self.FK__TBL_Produ__Updat__71D1E811" FromRole="TBL_ProductImages" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_Products" Relationship="Self.TBL_ProductImages_fk0" FromRole="TBL_ProductImages" ToRole="TBL_Products" />
+  </EntityType>
+  <EntityType Name="TBL_Products">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProductBrand" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BarCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProductTypeID" Type="Int32" />
+    <Property Name="ShopID" Type="Int32" Nullable="false" />
+    <Property Name="IsAvailable" Type="Boolean" Nullable="false" />
+    <Property Name="AvailableQuantity" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="OtherJsonDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="ProductCategoryID" Type="Int32" Nullable="false" />
+    <Property Name="ProductSubTypeID" Type="Int32" Nullable="false" />
+    <Property Name="MRP" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="ShopPrice" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="TBL_ProductCategories_CNFG" Relationship="Self.TBL_Products_fk2" FromRole="TBL_Products" ToRole="TBL_ProductCategories_CNFG" />
+    <NavigationProperty Name="TBL_ProductImages" Relationship="Self.TBL_ProductImages_fk0" FromRole="TBL_Products" ToRole="TBL_ProductImages" />
+    <NavigationProperty Name="TBL_ProductType_CNFG" Relationship="Self.bsProductType" FromRole="TBL_Products" ToRole="TBL_ProductType_CNFG" />
+    <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="Self.FK__TBL_Produ__Creat__4E88ABD4" FromRole="TBL_Products" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="Self.FK__TBL_Produ__Updat__4F7CD00D" FromRole="TBL_Products" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_Shops" Relationship="Self.TBL_Products_fk1" FromRole="TBL_Products" ToRole="TBL_Shops" />
+    <NavigationProperty Name="TBL_ProductSubType_CNFG" Relationship="Self.TBL_Products_fk3" FromRole="TBL_Products" ToRole="TBL_ProductSubType_CNFG" />
+  </EntityType>
+  <EntityType Name="TBL_ProductSubType_CNFG">
+    <Key>
+      <PropertyRef Name="ProductSubTypeID" />
+    </Key>
+    <Property Name="ProductSubTypeID" Type="Int32" Nullable="false" />
+    <Property Name="ProductSubTypeName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="TBL_Products" Relationship="Self.TBL_Products_fk3" FromRole="TBL_ProductSubType_CNFG" ToRole="TBL_Products" />
+    <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="Self.FK__TBL_Produ__Creat__164452B1" FromRole="TBL_ProductSubType_CNFG" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="Self.FK__TBL_Produ__Updat__173876EA" FromRole="TBL_ProductSubType_CNFG" ToRole="TBL_ShopLoginDetails" />
+  </EntityType>
+  <EntityType Name="TBL_ProductType_CNFG">
+    <Key>
+      <PropertyRef Name="ProductTypeID" />
+    </Key>
+    <Property Name="ProductTypeID" Type="Int32" Nullable="false" />
+    <Property Name="ProductTypeName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="TBL_Products" Relationship="Self.bsProductType" FromRole="TBL_ProductType_CNFG" ToRole="TBL_Products" />
+    <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="Self.FK__TBL_Produ__Creat__117F9D94" FromRole="TBL_ProductType_CNFG" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="Self.FK__TBL_Produ__Updat__1273C1CD" FromRole="TBL_ProductType_CNFG" ToRole="TBL_ShopLoginDetails" />
+  </EntityType>
+  <EntityType Name="TBL_ShopCategory_CNFG">
+    <Key>
+      <PropertyRef Name="ShopCategoryID" />
+    </Key>
+    <Property Name="ShopCategoryID" Type="Int32" Nullable="false" />
+    <Property Name="CategoryName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="Self.FK__TBL_ShopC__Creat__0CBAE877" FromRole="TBL_ShopCategory_CNFG" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="Self.FK__TBL_ShopC__Updat__0DAF0CB0" FromRole="TBL_ShopCategory_CNFG" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_Shops" Relationship="Self.TBL_Shops_fk3" FromRole="TBL_ShopCategory_CNFG" ToRole="TBL_Shops" />
+  </EntityType>
+  <EntityType Name="TBL_ShopDirectory">
+    <Key>
+      <PropertyRef Name="ShopDirectoryID" />
+    </Key>
+    <Property Name="ShopDirectoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="Self.FK__TBL_ShopD__Creat__0E6E26BF" FromRole="TBL_ShopDirectory" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="Self.FK__TBL_ShopD__Updat__0F624AF8" FromRole="TBL_ShopDirectory" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_ShopLoginDetails2" Relationship="Self.FK__TBL_ShopL__ShopD__060DEAE8" FromRole="TBL_ShopDirectory" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_Shops" Relationship="Self.FK__TBL_Shops__ShopD__34C8D9D1" FromRole="TBL_ShopDirectory" ToRole="TBL_Shops" />
+  </EntityType>
+  <EntityType Name="TBL_ShopLoginDetails">
+    <Key>
+      <PropertyRef Name="ShopLoginDetailsID" />
+    </Key>
+    <Property Name="ShopLoginDetailsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LoginName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="EmailID" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="ShopDirectoryID" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="TBL_AdminOffers" Relationship="Self.FK__TBL_Admin__Creat__49C3F6B7" FromRole="TBL_ShopLoginDetails" ToRole="TBL_AdminOffers" />
+    <NavigationProperty Name="TBL_AdminOffers1" Relationship="Self.FK__TBL_Admin__Updat__4AB81AF0" FromRole="TBL_ShopLoginDetails" ToRole="TBL_AdminOffers" />
+    <NavigationProperty Name="TBL_Cities_CNFG" Relationship="Self.FK__TBL_Citie__Creat__3B75D760" FromRole="TBL_ShopLoginDetails" ToRole="TBL_Cities_CNFG" />
+    <NavigationProperty Name="TBL_Cities_CNFG1" Relationship="Self.FK__TBL_Citie__Updat__3C69FB99" FromRole="TBL_ShopLoginDetails" ToRole="TBL_Cities_CNFG" />
+    <NavigationProperty Name="TBL_InActiveShopList_CNFG" Relationship="Self.FK__TBL_InAct__Creat__44FF419A" FromRole="TBL_ShopLoginDetails" ToRole="TBL_InActiveShopList_CNFG" />
+    <NavigationProperty Name="TBL_InActiveShopList_CNFG1" Relationship="Self.FK__TBL_InAct__Updat__45F365D3" FromRole="TBL_ShopLoginDetails" ToRole="TBL_InActiveShopList_CNFG" />
+    <NavigationProperty Name="TBL_InActiveShopReasons_CNFG" Relationship="Self.FK__TBL_InAct__Creat__1B0907CE" FromRole="TBL_ShopLoginDetails" ToRole="TBL_InActiveShopReasons_CNFG" />
+    <NavigationProperty Name="TBL_InActiveShopReasons_CNFG1" Relationship="Self.FK__TBL_InAct__Updat__1BFD2C07" FromRole="TBL_ShopLoginDetails" ToRole="TBL_InActiveShopReasons_CNFG" />
+    <NavigationProperty Name="TBL_Infrastructure_CNFG" Relationship="Self.FK__TBL_Infra__Creat__403A8C7D" FromRole="TBL_ShopLoginDetails" ToRole="TBL_Infrastructure_CNFG" />
+    <NavigationProperty Name="TBL_Infrastructure_CNFG1" Relationship="Self.FK__TBL_Infra__Updat__412EB0B6" FromRole="TBL_ShopLoginDetails" ToRole="TBL_Infrastructure_CNFG" />
+    <NavigationProperty Name="TBL_InfrastructureCategories_CNFG" Relationship="Self.FK__TBL_Infra__Creat__1FCDBCEB" FromRole="TBL_ShopLoginDetails" ToRole="TBL_InfrastructureCategories_CNFG" />
+    <NavigationProperty Name="TBL_InfrastructureCategories_CNFG1" Relationship="Self.FK__TBL_Infra__Updat__20C1E124" FromRole="TBL_ShopLoginDetails" ToRole="TBL_InfrastructureCategories_CNFG" />
+    <NavigationProperty Name="TBL_OfferOnProducts" Relationship="Self.FK__TBL_Offer__Creat__6C190EBB" FromRole="TBL_ShopLoginDetails" ToRole="TBL_OfferOnProducts" />
+    <NavigationProperty Name="TBL_OfferOnProducts1" Relationship="Self.FK__TBL_Offer__Updat__6D0D32F4" FromRole="TBL_ShopLoginDetails" ToRole="TBL_OfferOnProducts" />
+    <NavigationProperty Name="TBL_PostalCodes_CNFG" Relationship="Self.FK__TBL_Posta__Creat__534D60F1" FromRole="TBL_ShopLoginDetails" ToRole="TBL_PostalCodes_CNFG" />
+    <NavigationProperty Name="TBL_PostalCodes_CNFG1" Relationship="Self.FK__TBL_Posta__Updat__5441852A" FromRole="TBL_ShopLoginDetails" ToRole="TBL_PostalCodes_CNFG" />
+    <NavigationProperty Name="TBL_ProductCategories_CNFG" Relationship="Self.FK__TBL_Produ__Creat__30F848ED" FromRole="TBL_ShopLoginDetails" ToRole="TBL_ProductCategories_CNFG" />
+    <NavigationProperty Name="TBL_ProductCategories_CNFG1" Relationship="Self.FK__TBL_Produ__Updat__31EC6D26" FromRole="TBL_ShopLoginDetails" ToRole="TBL_ProductCategories_CNFG" />
+    <NavigationProperty Name="TBL_ProductImages" Relationship="Self.FK__TBL_Produ__Creat__70DDC3D8" FromRole="TBL_ShopLoginDetails" ToRole="TBL_ProductImages" />
+    <NavigationProperty Name="TBL_ProductImages1" Relationship="Self.FK__TBL_Produ__Updat__71D1E811" FromRole="TBL_ShopLoginDetails" ToRole="TBL_ProductImages" />
+    <NavigationProperty Name="TBL_Products" Relationship="Self.FK__TBL_Produ__Creat__4E88ABD4" FromRole="TBL_ShopLoginDetails" ToRole="TBL_Products" />
+    <NavigationProperty Name="TBL_Products1" Relationship="Self.FK__TBL_Produ__Updat__4F7CD00D" FromRole="TBL_ShopLoginDetails" ToRole="TBL_Products" />
+    <NavigationProperty Name="TBL_ProductSubType_CNFG" Relationship="Self.FK__TBL_Produ__Creat__164452B1" FromRole="TBL_ShopLoginDetails" ToRole="TBL_ProductSubType_CNFG" />
+    <NavigationProperty Name="TBL_ProductSubType_CNFG1" Relationship="Self.FK__TBL_Produ__Updat__173876EA" FromRole="TBL_ShopLoginDetails" ToRole="TBL_ProductSubType_CNFG" />
+    <NavigationProperty Name="TBL_ProductType_CNFG" Relationship="Self.FK__TBL_Produ__Creat__117F9D94" FromRole="TBL_ShopLoginDetails" ToRole="TBL_ProductType_CNFG" />
+    <NavigationProperty Name="TBL_ProductType_CNFG1" Relationship="Self.FK__TBL_Produ__Updat__1273C1CD" FromRole="TBL_ShopLoginDetails" ToRole="TBL_ProductType_CNFG" />
+    <NavigationProperty Name="TBL_ShopCategory_CNFG" Relationship="Self.FK__TBL_ShopC__Creat__0CBAE877" FromRole="TBL_ShopLoginDetails" ToRole="TBL_ShopCategory_CNFG" />
+    <NavigationProperty Name="TBL_ShopCategory_CNFG1" Relationship="Self.FK__TBL_ShopC__Updat__0DAF0CB0" FromRole="TBL_ShopLoginDetails" ToRole="TBL_ShopCategory_CNFG" />
+    <NavigationProperty Name="TBL_ShopDirectory" Relationship="Self.FK__TBL_ShopD__Creat__0E6E26BF" FromRole="TBL_ShopLoginDetails" ToRole="TBL_ShopDirectory" />
+    <NavigationProperty Name="TBL_ShopDirectory1" Relationship="Self.FK__TBL_ShopD__Updat__0F624AF8" FromRole="TBL_ShopLoginDetails" ToRole="TBL_ShopDirectory" />
+    <NavigationProperty Name="TBL_ShopDirectory2" Relationship="Self.FK__TBL_ShopL__ShopD__060DEAE8" FromRole="TBL_ShopLoginDetails" ToRole="TBL_ShopDirectory" />
+    <NavigationProperty Name="Logs" Relationship="Self.FK__Log__CreatedBy__239E4DCF" FromRole="TBL_ShopLoginDetails" ToRole="Log" />
+    <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="Self.FK__TBL_ShopL__Creat__07F6335A" FromRole="TBL_ShopLoginDetails" ToRole="TBL_ShopLoginDetails1" />
+    <NavigationProperty Name="TBL_ShopLoginDetails2" Relationship="Self.FK__TBL_ShopL__Creat__07F6335A" FromRole="TBL_ShopLoginDetails1" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_ShopLoginDetails11" Relationship="Self.FK__TBL_ShopL__Updat__08EA5793" FromRole="TBL_ShopLoginDetails" ToRole="TBL_ShopLoginDetails1" />
+    <NavigationProperty Name="TBL_ShopLoginDetails3" Relationship="Self.FK__TBL_ShopL__Updat__08EA5793" FromRole="TBL_ShopLoginDetails1" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_ShopOffers" Relationship="Self.FK__TBL_ShopO__Creat__5CD6CB2B" FromRole="TBL_ShopLoginDetails" ToRole="TBL_ShopOffers" />
+    <NavigationProperty Name="TBL_ShopOffers1" Relationship="Self.FK__TBL_ShopO__Updat__5DCAEF64" FromRole="TBL_ShopLoginDetails" ToRole="TBL_ShopOffers" />
+    <NavigationProperty Name="TBL_Shops" Relationship="Self.FK__TBL_Shops__Creat__36B12243" FromRole="TBL_ShopLoginDetails" ToRole="TBL_Shops" />
+    <NavigationProperty Name="TBL_Shops5TopProducts" Relationship="Self.FK__TBL_Shops__Creat__5812160E" FromRole="TBL_ShopLoginDetails" ToRole="TBL_Shops5TopProducts" />
+    <NavigationProperty Name="TBL_ShopsInPostalCodes" Relationship="Self.FK__TBL_Shops__Creat__6754599E" FromRole="TBL_ShopLoginDetails" ToRole="TBL_ShopsInPostalCodes" />
+    <NavigationProperty Name="TBL_Shops1" Relationship="Self.FK__TBL_Shops__Updat__37A5467C" FromRole="TBL_ShopLoginDetails" ToRole="TBL_Shops" />
+    <NavigationProperty Name="TBL_Shops5TopProducts1" Relationship="Self.FK__TBL_Shops__Updat__59063A47" FromRole="TBL_ShopLoginDetails" ToRole="TBL_Shops5TopProducts" />
+    <NavigationProperty Name="TBL_ShopsInPostalCodes1" Relationship="Self.FK__TBL_Shops__Updat__68487DD7" FromRole="TBL_ShopLoginDetails" ToRole="TBL_ShopsInPostalCodes" />
+    <NavigationProperty Name="TBL_ShopTypes_CNFG" Relationship="Self.FK__TBL_ShopT__Creat__2C3393D0" FromRole="TBL_ShopLoginDetails" ToRole="TBL_ShopTypes_CNFG" />
+    <NavigationProperty Name="TBL_ShopTypes_CNFG1" Relationship="Self.FK__TBL_ShopT__Updat__2D27B809" FromRole="TBL_ShopLoginDetails" ToRole="TBL_ShopTypes_CNFG" />
+    <NavigationProperty Name="TBL_States_CNFG" Relationship="Self.FK__TBL_State__Creat__276EDEB3" FromRole="TBL_ShopLoginDetails" ToRole="TBL_States_CNFG" />
+    <NavigationProperty Name="TBL_States_CNFG1" Relationship="Self.FK__TBL_State__Updat__286302EC" FromRole="TBL_ShopLoginDetails" ToRole="TBL_States_CNFG" />
+  </EntityType>
+  <EntityType Name="TBL_ShopOffers">
+    <Key>
+      <PropertyRef Name="OfferID" />
+    </Key>
+    <Property Name="OfferID" Type="Int32" Nullable="false" />
+    <Property Name="ShopID" Type="Int32" Nullable="false" />
+    <Property Name="OfferShortText" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="OfferStartDate" Type="DateTime" Precision="3" />
+    <Property Name="OfferEndDate" Type="DateTime" Precision="3" />
+    <Property Name="OfferOnBrand" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+    <Property Name="IsOfferOnProducts" Type="Boolean" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="OfferDetailText" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="OfferImage" Type="Binary" MaxLength="1" FixedLength="true" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="TBL_OfferOnProducts" Relationship="Self.TBL_OfferOnProducts_fk0" FromRole="TBL_ShopOffers" ToRole="TBL_OfferOnProducts" />
+    <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="Self.FK__TBL_ShopO__Creat__5CD6CB2B" FromRole="TBL_ShopOffers" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="Self.FK__TBL_ShopO__Updat__5DCAEF64" FromRole="TBL_ShopOffers" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_Shops" Relationship="Self.TBL_ShopOffers_fk0" FromRole="TBL_ShopOffers" ToRole="TBL_Shops" />
+  </EntityType>
+  <EntityType Name="TBL_Shops">
+    <Key>
+      <PropertyRef Name="ShopID" />
+    </Key>
+    <Property Name="ShopID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ShopName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="OwnerName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ContactNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="WhatsAppHikeNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ShopTypeID" Type="Int32" Nullable="false" />
+    <Property Name="ShopOpningTime" Type="Time" Precision="7" />
+    <Property Name="ShopClosingTime" Type="Time" Precision="7" />
+    <Property Name="InfrastructureID" Type="Int32" />
+    <Property Name="ShopAddress" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="ShopCategoryID" Type="Int32" Nullable="false" />
+    <Property Name="ShopDirectoryID" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="TBL_InActiveShopList_CNFG" Relationship="Self.TBL_InActiveShopList_CNFG_fk0" FromRole="TBL_Shops" ToRole="TBL_InActiveShopList_CNFG" />
+    <NavigationProperty Name="TBL_InfrastructureCategories_CNFG" Relationship="Self.TBL_Shops_fk2" FromRole="TBL_Shops" ToRole="TBL_InfrastructureCategories_CNFG" />
+    <NavigationProperty Name="TBL_Products" Relationship="Self.TBL_Products_fk1" FromRole="TBL_Shops" ToRole="TBL_Products" />
+    <NavigationProperty Name="TBL_ShopCategory_CNFG" Relationship="Self.TBL_Shops_fk3" FromRole="TBL_Shops" ToRole="TBL_ShopCategory_CNFG" />
+    <NavigationProperty Name="TBL_ShopDirectory" Relationship="Self.FK__TBL_Shops__ShopD__34C8D9D1" FromRole="TBL_Shops" ToRole="TBL_ShopDirectory" />
+    <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="Self.FK__TBL_Shops__Creat__36B12243" FromRole="TBL_Shops" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="Self.FK__TBL_Shops__Updat__37A5467C" FromRole="TBL_Shops" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_ShopOffers" Relationship="Self.TBL_ShopOffers_fk0" FromRole="TBL_Shops" ToRole="TBL_ShopOffers" />
+    <NavigationProperty Name="TBL_ShopsInPostalCodes" Relationship="Self.ShopesInPostalCodes_fk0" FromRole="TBL_Shops" ToRole="TBL_ShopsInPostalCodes" />
+    <NavigationProperty Name="TBL_ShopTypes_CNFG" Relationship="Self.TBL_Shops_fk1" FromRole="TBL_Shops" ToRole="TBL_ShopTypes_CNFG" />
+    <NavigationProperty Name="TBL_Shops5TopProducts" Relationship="Self.TBL_Shops5TopProducts_fk0" FromRole="TBL_Shops" ToRole="TBL_Shops5TopProducts" />
+  </EntityType>
+  <EntityType Name="TBL_Shops5TopProducts">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ShopID" Type="Int32" Nullable="false" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="Self.FK__TBL_Shops__Creat__5812160E" FromRole="TBL_Shops5TopProducts" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="Self.FK__TBL_Shops__Updat__59063A47" FromRole="TBL_Shops5TopProducts" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_Shops" Relationship="Self.TBL_Shops5TopProducts_fk0" FromRole="TBL_Shops5TopProducts" ToRole="TBL_Shops" />
+  </EntityType>
+  <EntityType Name="TBL_ShopsInPostalCodes">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ShopID" Type="Int32" Nullable="false" />
+    <Property Name="PostalCodeID" Type="Int32" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="TBL_PostalCodes_CNFG" Relationship="Self.ShopesInPostalCodes_fk1" FromRole="TBL_ShopsInPostalCodes" ToRole="TBL_PostalCodes_CNFG" />
+    <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="Self.FK__TBL_Shops__Creat__6754599E" FromRole="TBL_ShopsInPostalCodes" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="Self.FK__TBL_Shops__Updat__68487DD7" FromRole="TBL_ShopsInPostalCodes" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_Shops" Relationship="Self.ShopesInPostalCodes_fk0" FromRole="TBL_ShopsInPostalCodes" ToRole="TBL_Shops" />
+  </EntityType>
+  <EntityType Name="TBL_ShopTypes_CNFG">
+    <Key>
+      <PropertyRef Name="ShopTypeID" />
+    </Key>
+    <Property Name="ShopTypeID" Type="Int32" Nullable="false" />
+    <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="Self.FK__TBL_ShopT__Creat__2C3393D0" FromRole="TBL_ShopTypes_CNFG" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="Self.FK__TBL_ShopT__Updat__2D27B809" FromRole="TBL_ShopTypes_CNFG" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_Shops" Relationship="Self.TBL_Shops_fk1" FromRole="TBL_ShopTypes_CNFG" ToRole="TBL_Shops" />
+  </EntityType>
+  <EntityType Name="TBL_States_CNFG">
+    <Key>
+      <PropertyRef Name="StateID" />
+    </Key>
+    <Property Name="StateID" Type="Int32" Nullable="false" />
+    <Property Name="StateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="TBL_Cities_CNFG" Relationship="Self.TBL_Cities_CNFG_fk0" FromRole="TBL_States_CNFG" ToRole="TBL_Cities_CNFG" />
+    <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="Self.FK__TBL_State__Creat__276EDEB3" FromRole="TBL_States_CNFG" ToRole="TBL_ShopLoginDetails" />
+    <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="Self.FK__TBL_State__Updat__286302EC" FromRole="TBL_States_CNFG" ToRole="TBL_ShopLoginDetails" />
+  </EntityType>
+  <EntityType Name="Log">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Application" />
+      <PropertyRef Name="Logged" />
+      <PropertyRef Name="Level" />
+      <PropertyRef Name="Message" />
+      <PropertyRef Name="CreatedBy" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Application" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Logged" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Level" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="ServerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Port" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Https" Type="Boolean" />
+    <Property Name="ServerAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Exception" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="Self.FK__Log__CreatedBy__239E4DCF" FromRole="Log" ToRole="TBL_ShopLoginDetails" />
+  </EntityType>
+  <Association Name="FK__TBL_Admin__Creat__49C3F6B7">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+    <End Role="TBL_AdminOffers" Type="Self.TBL_AdminOffers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_AdminOffers">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_Admin__Updat__4AB81AF0">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+    <End Role="TBL_AdminOffers" Type="Self.TBL_AdminOffers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_AdminOffers">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TBL_AdminOffers_fk0">
+    <End Role="TBL_Cities_CNFG" Type="Self.TBL_Cities_CNFG" Multiplicity="0..1" />
+    <End Role="TBL_AdminOffers" Type="Self.TBL_AdminOffers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_Cities_CNFG">
+        <PropertyRef Name="CityID" />
+      </Principal>
+      <Dependent Role="TBL_AdminOffers">
+        <PropertyRef Name="CityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_Citie__Creat__3B75D760">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+    <End Role="TBL_Cities_CNFG" Type="Self.TBL_Cities_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_Cities_CNFG">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_Citie__Updat__3C69FB99">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+    <End Role="TBL_Cities_CNFG" Type="Self.TBL_Cities_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_Cities_CNFG">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TBL_Cities_CNFG_fk0">
+    <End Role="TBL_States_CNFG" Type="Self.TBL_States_CNFG" Multiplicity="1" />
+    <End Role="TBL_Cities_CNFG" Type="Self.TBL_Cities_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_States_CNFG">
+        <PropertyRef Name="StateID" />
+      </Principal>
+      <Dependent Role="TBL_Cities_CNFG">
+        <PropertyRef Name="StateID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TBL_Infrastructure_CNFG_fk0">
+    <End Role="TBL_Cities_CNFG" Type="Self.TBL_Cities_CNFG" Multiplicity="1" />
+    <End Role="TBL_Infrastructure_CNFG" Type="Self.TBL_Infrastructure_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_Cities_CNFG">
+        <PropertyRef Name="CityID" />
+      </Principal>
+      <Dependent Role="TBL_Infrastructure_CNFG">
+        <PropertyRef Name="CityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TBL_PostalCodes_CNFG_fk0">
+    <End Role="TBL_Cities_CNFG" Type="Self.TBL_Cities_CNFG" Multiplicity="1" />
+    <End Role="TBL_PostalCodes_CNFG" Type="Self.TBL_PostalCodes_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_Cities_CNFG">
+        <PropertyRef Name="CityID" />
+      </Principal>
+      <Dependent Role="TBL_PostalCodes_CNFG">
+        <PropertyRef Name="CityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_InAct__Creat__44FF419A">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+    <End Role="TBL_InActiveShopList_CNFG" Type="Self.TBL_InActiveShopList_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_InActiveShopList_CNFG">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_InAct__Updat__45F365D3">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+    <End Role="TBL_InActiveShopList_CNFG" Type="Self.TBL_InActiveShopList_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_InActiveShopList_CNFG">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TBL_InActiveShopList_CNFG_fk0">
+    <End Role="TBL_Shops" Type="Self.TBL_Shops" Multiplicity="1" />
+    <End Role="TBL_InActiveShopList_CNFG" Type="Self.TBL_InActiveShopList_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_Shops">
+        <PropertyRef Name="ShopID" />
+      </Principal>
+      <Dependent Role="TBL_InActiveShopList_CNFG">
+        <PropertyRef Name="ShopID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TBL_InActiveShopList_CNFG_fk1">
+    <End Role="TBL_InActiveShopReasons_CNFG" Type="Self.TBL_InActiveShopReasons_CNFG" Multiplicity="1" />
+    <End Role="TBL_InActiveShopList_CNFG" Type="Self.TBL_InActiveShopList_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_InActiveShopReasons_CNFG">
+        <PropertyRef Name="ShopInActiveReasonID" />
+      </Principal>
+      <Dependent Role="TBL_InActiveShopList_CNFG">
+        <PropertyRef Name="ShopInActiveReasonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_InAct__Creat__1B0907CE">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+    <End Role="TBL_InActiveShopReasons_CNFG" Type="Self.TBL_InActiveShopReasons_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_InActiveShopReasons_CNFG">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_InAct__Updat__1BFD2C07">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+    <End Role="TBL_InActiveShopReasons_CNFG" Type="Self.TBL_InActiveShopReasons_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_InActiveShopReasons_CNFG">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_Infra__Creat__403A8C7D">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+    <End Role="TBL_Infrastructure_CNFG" Type="Self.TBL_Infrastructure_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_Infrastructure_CNFG">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_Infra__Updat__412EB0B6">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+    <End Role="TBL_Infrastructure_CNFG" Type="Self.TBL_Infrastructure_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_Infrastructure_CNFG">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_Infra__Creat__1FCDBCEB">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+    <End Role="TBL_InfrastructureCategories_CNFG" Type="Self.TBL_InfrastructureCategories_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_InfrastructureCategories_CNFG">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_Infra__Updat__20C1E124">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+    <End Role="TBL_InfrastructureCategories_CNFG" Type="Self.TBL_InfrastructureCategories_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_InfrastructureCategories_CNFG">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TBL_Shops_fk2">
+    <End Role="TBL_InfrastructureCategories_CNFG" Type="Self.TBL_InfrastructureCategories_CNFG" Multiplicity="0..1" />
+    <End Role="TBL_Shops" Type="Self.TBL_Shops" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_InfrastructureCategories_CNFG">
+        <PropertyRef Name="InfrastructureCategoryID" />
+      </Principal>
+      <Dependent Role="TBL_Shops">
+        <PropertyRef Name="InfrastructureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_Offer__Creat__6C190EBB">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+    <End Role="TBL_OfferOnProducts" Type="Self.TBL_OfferOnProducts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_OfferOnProducts">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_Offer__Updat__6D0D32F4">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+    <End Role="TBL_OfferOnProducts" Type="Self.TBL_OfferOnProducts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_OfferOnProducts">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TBL_OfferOnProducts_fk0">
+    <End Role="TBL_ShopOffers" Type="Self.TBL_ShopOffers" Multiplicity="1" />
+    <End Role="TBL_OfferOnProducts" Type="Self.TBL_OfferOnProducts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopOffers">
+        <PropertyRef Name="OfferID" />
+      </Principal>
+      <Dependent Role="TBL_OfferOnProducts">
+        <PropertyRef Name="OfferID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_Posta__Creat__534D60F1">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+    <End Role="TBL_PostalCodes_CNFG" Type="Self.TBL_PostalCodes_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_PostalCodes_CNFG">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_Posta__Updat__5441852A">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+    <End Role="TBL_PostalCodes_CNFG" Type="Self.TBL_PostalCodes_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_PostalCodes_CNFG">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ShopesInPostalCodes_fk1">
+    <End Role="TBL_PostalCodes_CNFG" Type="Self.TBL_PostalCodes_CNFG" Multiplicity="1" />
+    <End Role="TBL_ShopsInPostalCodes" Type="Self.TBL_ShopsInPostalCodes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_PostalCodes_CNFG">
+        <PropertyRef Name="PostCodeID" />
+      </Principal>
+      <Dependent Role="TBL_ShopsInPostalCodes">
+        <PropertyRef Name="PostalCodeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_Produ__Creat__30F848ED">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+    <End Role="TBL_ProductCategories_CNFG" Type="Self.TBL_ProductCategories_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_ProductCategories_CNFG">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_Produ__Updat__31EC6D26">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+    <End Role="TBL_ProductCategories_CNFG" Type="Self.TBL_ProductCategories_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_ProductCategories_CNFG">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TBL_Products_fk2">
+    <End Role="TBL_ProductCategories_CNFG" Type="Self.TBL_ProductCategories_CNFG" Multiplicity="1" />
+    <End Role="TBL_Products" Type="Self.TBL_Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ProductCategories_CNFG">
+        <PropertyRef Name="ProductCategoryID" />
+      </Principal>
+      <Dependent Role="TBL_Products">
+        <PropertyRef Name="ProductCategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_Produ__Creat__70DDC3D8">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+    <End Role="TBL_ProductImages" Type="Self.TBL_ProductImages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_ProductImages">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_Produ__Updat__71D1E811">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+    <End Role="TBL_ProductImages" Type="Self.TBL_ProductImages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_ProductImages">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TBL_ProductImages_fk0">
+    <End Role="TBL_Products" Type="Self.TBL_Products" Multiplicity="1" />
+    <End Role="TBL_ProductImages" Type="Self.TBL_ProductImages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="TBL_ProductImages">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="bsProductType">
+    <End Role="TBL_ProductType_CNFG" Type="Self.TBL_ProductType_CNFG" Multiplicity="0..1" />
+    <End Role="TBL_Products" Type="Self.TBL_Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ProductType_CNFG">
+        <PropertyRef Name="ProductTypeID" />
+      </Principal>
+      <Dependent Role="TBL_Products">
+        <PropertyRef Name="ProductTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_Produ__Creat__4E88ABD4">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+    <End Role="TBL_Products" Type="Self.TBL_Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_Products">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_Produ__Updat__4F7CD00D">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+    <End Role="TBL_Products" Type="Self.TBL_Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_Products">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TBL_Products_fk1">
+    <End Role="TBL_Shops" Type="Self.TBL_Shops" Multiplicity="1" />
+    <End Role="TBL_Products" Type="Self.TBL_Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_Shops">
+        <PropertyRef Name="ShopID" />
+      </Principal>
+      <Dependent Role="TBL_Products">
+        <PropertyRef Name="ShopID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TBL_Products_fk3">
+    <End Role="TBL_ProductSubType_CNFG" Type="Self.TBL_ProductSubType_CNFG" Multiplicity="1" />
+    <End Role="TBL_Products" Type="Self.TBL_Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ProductSubType_CNFG">
+        <PropertyRef Name="ProductSubTypeID" />
+      </Principal>
+      <Dependent Role="TBL_Products">
+        <PropertyRef Name="ProductSubTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_Produ__Creat__164452B1">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+    <End Role="TBL_ProductSubType_CNFG" Type="Self.TBL_ProductSubType_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_ProductSubType_CNFG">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_Produ__Updat__173876EA">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+    <End Role="TBL_ProductSubType_CNFG" Type="Self.TBL_ProductSubType_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_ProductSubType_CNFG">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_Produ__Creat__117F9D94">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+    <End Role="TBL_ProductType_CNFG" Type="Self.TBL_ProductType_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_ProductType_CNFG">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_Produ__Updat__1273C1CD">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+    <End Role="TBL_ProductType_CNFG" Type="Self.TBL_ProductType_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_ProductType_CNFG">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_ShopC__Creat__0CBAE877">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+    <End Role="TBL_ShopCategory_CNFG" Type="Self.TBL_ShopCategory_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_ShopCategory_CNFG">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_ShopC__Updat__0DAF0CB0">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+    <End Role="TBL_ShopCategory_CNFG" Type="Self.TBL_ShopCategory_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_ShopCategory_CNFG">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TBL_Shops_fk3">
+    <End Role="TBL_ShopCategory_CNFG" Type="Self.TBL_ShopCategory_CNFG" Multiplicity="1" />
+    <End Role="TBL_Shops" Type="Self.TBL_Shops" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopCategory_CNFG">
+        <PropertyRef Name="ShopCategoryID" />
+      </Principal>
+      <Dependent Role="TBL_Shops">
+        <PropertyRef Name="ShopCategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_ShopD__Creat__0E6E26BF">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+    <End Role="TBL_ShopDirectory" Type="Self.TBL_ShopDirectory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_ShopDirectory">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_ShopD__Updat__0F624AF8">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+    <End Role="TBL_ShopDirectory" Type="Self.TBL_ShopDirectory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_ShopDirectory">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_ShopL__ShopD__060DEAE8">
+    <End Role="TBL_ShopDirectory" Type="Self.TBL_ShopDirectory" Multiplicity="0..1" />
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopDirectory">
+        <PropertyRef Name="ShopDirectoryID" />
+      </Principal>
+      <Dependent Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopDirectoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_Shops__ShopD__34C8D9D1">
+    <End Role="TBL_ShopDirectory" Type="Self.TBL_ShopDirectory" Multiplicity="0..1" />
+    <End Role="TBL_Shops" Type="Self.TBL_Shops" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopDirectory">
+        <PropertyRef Name="ShopDirectoryID" />
+      </Principal>
+      <Dependent Role="TBL_Shops">
+        <PropertyRef Name="ShopDirectoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Log__CreatedBy__239E4DCF">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+    <End Role="Log" Type="Self.Log" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="Log">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_ShopL__Creat__07F6335A">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+    <End Role="TBL_ShopLoginDetails1" Type="Self.TBL_ShopLoginDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_ShopLoginDetails1">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_ShopL__Updat__08EA5793">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+    <End Role="TBL_ShopLoginDetails1" Type="Self.TBL_ShopLoginDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_ShopLoginDetails1">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_ShopO__Creat__5CD6CB2B">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+    <End Role="TBL_ShopOffers" Type="Self.TBL_ShopOffers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_ShopOffers">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_ShopO__Updat__5DCAEF64">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+    <End Role="TBL_ShopOffers" Type="Self.TBL_ShopOffers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_ShopOffers">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_Shops__Creat__36B12243">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+    <End Role="TBL_Shops" Type="Self.TBL_Shops" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_Shops">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_Shops__Creat__5812160E">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+    <End Role="TBL_Shops5TopProducts" Type="Self.TBL_Shops5TopProducts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_Shops5TopProducts">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_Shops__Creat__6754599E">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+    <End Role="TBL_ShopsInPostalCodes" Type="Self.TBL_ShopsInPostalCodes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_ShopsInPostalCodes">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_Shops__Updat__37A5467C">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+    <End Role="TBL_Shops" Type="Self.TBL_Shops" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_Shops">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_Shops__Updat__59063A47">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+    <End Role="TBL_Shops5TopProducts" Type="Self.TBL_Shops5TopProducts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_Shops5TopProducts">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_Shops__Updat__68487DD7">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+    <End Role="TBL_ShopsInPostalCodes" Type="Self.TBL_ShopsInPostalCodes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_ShopsInPostalCodes">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_ShopT__Creat__2C3393D0">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+    <End Role="TBL_ShopTypes_CNFG" Type="Self.TBL_ShopTypes_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_ShopTypes_CNFG">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_ShopT__Updat__2D27B809">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+    <End Role="TBL_ShopTypes_CNFG" Type="Self.TBL_ShopTypes_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_ShopTypes_CNFG">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_State__Creat__276EDEB3">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+    <End Role="TBL_States_CNFG" Type="Self.TBL_States_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_States_CNFG">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TBL_State__Updat__286302EC">
+    <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+    <End Role="TBL_States_CNFG" Type="Self.TBL_States_CNFG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopLoginDetails">
+        <PropertyRef Name="ShopLoginDetailsID" />
+      </Principal>
+      <Dependent Role="TBL_States_CNFG">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TBL_ShopOffers_fk0">
+    <End Role="TBL_Shops" Type="Self.TBL_Shops" Multiplicity="1" />
+    <End Role="TBL_ShopOffers" Type="Self.TBL_ShopOffers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_Shops">
+        <PropertyRef Name="ShopID" />
+      </Principal>
+      <Dependent Role="TBL_ShopOffers">
+        <PropertyRef Name="ShopID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ShopesInPostalCodes_fk0">
+    <End Role="TBL_Shops" Type="Self.TBL_Shops" Multiplicity="1" />
+    <End Role="TBL_ShopsInPostalCodes" Type="Self.TBL_ShopsInPostalCodes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_Shops">
+        <PropertyRef Name="ShopID" />
+      </Principal>
+      <Dependent Role="TBL_ShopsInPostalCodes">
+        <PropertyRef Name="ShopID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TBL_Shops_fk1">
+    <End Role="TBL_ShopTypes_CNFG" Type="Self.TBL_ShopTypes_CNFG" Multiplicity="1" />
+    <End Role="TBL_Shops" Type="Self.TBL_Shops" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ShopTypes_CNFG">
+        <PropertyRef Name="ShopTypeID" />
+      </Principal>
+      <Dependent Role="TBL_Shops">
+        <PropertyRef Name="ShopTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TBL_Shops5TopProducts_fk0">
+    <End Role="TBL_Shops" Type="Self.TBL_Shops" Multiplicity="1" />
+    <End Role="TBL_Shops5TopProducts" Type="Self.TBL_Shops5TopProducts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_Shops">
+        <PropertyRef Name="ShopID" />
+      </Principal>
+      <Dependent Role="TBL_Shops5TopProducts">
+        <PropertyRef Name="ShopID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BSDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="TBL_AdminOffers" EntityType="Self.TBL_AdminOffers" />
+    <EntitySet Name="TBL_Cities_CNFG" EntityType="Self.TBL_Cities_CNFG" />
+    <EntitySet Name="TBL_InActiveShopList_CNFG" EntityType="Self.TBL_InActiveShopList_CNFG" />
+    <EntitySet Name="TBL_InActiveShopReasons_CNFG" EntityType="Self.TBL_InActiveShopReasons_CNFG" />
+    <EntitySet Name="TBL_Infrastructure_CNFG" EntityType="Self.TBL_Infrastructure_CNFG" />
+    <EntitySet Name="TBL_InfrastructureCategories_CNFG" EntityType="Self.TBL_InfrastructureCategories_CNFG" />
+    <EntitySet Name="TBL_OfferOnProducts" EntityType="Self.TBL_OfferOnProducts" />
+    <EntitySet Name="TBL_PostalCodes_CNFG" EntityType="Self.TBL_PostalCodes_CNFG" />
+    <EntitySet Name="TBL_ProductCategories_CNFG" EntityType="Self.TBL_ProductCategories_CNFG" />
+    <EntitySet Name="TBL_ProductImages" EntityType="Self.TBL_ProductImages" />
+    <EntitySet Name="TBL_Products" EntityType="Self.TBL_Products" />
+    <EntitySet Name="TBL_ProductSubType_CNFG" EntityType="Self.TBL_ProductSubType_CNFG" />
+    <EntitySet Name="TBL_ProductType_CNFG" EntityType="Self.TBL_ProductType_CNFG" />
+    <EntitySet Name="TBL_ShopCategory_CNFG" EntityType="Self.TBL_ShopCategory_CNFG" />
+    <EntitySet Name="TBL_ShopDirectory" EntityType="Self.TBL_ShopDirectory" />
+    <EntitySet Name="TBL_ShopLoginDetails" EntityType="Self.TBL_ShopLoginDetails" />
+    <EntitySet Name="TBL_ShopOffers" EntityType="Self.TBL_ShopOffers" />
+    <EntitySet Name="TBL_Shops" EntityType="Self.TBL_Shops" />
+    <EntitySet Name="TBL_Shops5TopProducts" EntityType="Self.TBL_Shops5TopProducts" />
+    <EntitySet Name="TBL_ShopsInPostalCodes" EntityType="Self.TBL_ShopsInPostalCodes" />
+    <EntitySet Name="TBL_ShopTypes_CNFG" EntityType="Self.TBL_ShopTypes_CNFG" />
+    <EntitySet Name="TBL_States_CNFG" EntityType="Self.TBL_States_CNFG" />
+    <EntitySet Name="Logs" EntityType="Self.Log" />
+    <AssociationSet Name="FK__TBL_Admin__Creat__49C3F6B7" Association="Self.FK__TBL_Admin__Creat__49C3F6B7">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_AdminOffers" EntitySet="TBL_AdminOffers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_Admin__Updat__4AB81AF0" Association="Self.FK__TBL_Admin__Updat__4AB81AF0">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_AdminOffers" EntitySet="TBL_AdminOffers" />
+    </AssociationSet>
+    <AssociationSet Name="TBL_AdminOffers_fk0" Association="Self.TBL_AdminOffers_fk0">
+      <End Role="TBL_Cities_CNFG" EntitySet="TBL_Cities_CNFG" />
+      <End Role="TBL_AdminOffers" EntitySet="TBL_AdminOffers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_Citie__Creat__3B75D760" Association="Self.FK__TBL_Citie__Creat__3B75D760">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_Cities_CNFG" EntitySet="TBL_Cities_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_Citie__Updat__3C69FB99" Association="Self.FK__TBL_Citie__Updat__3C69FB99">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_Cities_CNFG" EntitySet="TBL_Cities_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="TBL_Cities_CNFG_fk0" Association="Self.TBL_Cities_CNFG_fk0">
+      <End Role="TBL_States_CNFG" EntitySet="TBL_States_CNFG" />
+      <End Role="TBL_Cities_CNFG" EntitySet="TBL_Cities_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="TBL_Infrastructure_CNFG_fk0" Association="Self.TBL_Infrastructure_CNFG_fk0">
+      <End Role="TBL_Cities_CNFG" EntitySet="TBL_Cities_CNFG" />
+      <End Role="TBL_Infrastructure_CNFG" EntitySet="TBL_Infrastructure_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="TBL_PostalCodes_CNFG_fk0" Association="Self.TBL_PostalCodes_CNFG_fk0">
+      <End Role="TBL_Cities_CNFG" EntitySet="TBL_Cities_CNFG" />
+      <End Role="TBL_PostalCodes_CNFG" EntitySet="TBL_PostalCodes_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_InAct__Creat__44FF419A" Association="Self.FK__TBL_InAct__Creat__44FF419A">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_InActiveShopList_CNFG" EntitySet="TBL_InActiveShopList_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_InAct__Updat__45F365D3" Association="Self.FK__TBL_InAct__Updat__45F365D3">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_InActiveShopList_CNFG" EntitySet="TBL_InActiveShopList_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="TBL_InActiveShopList_CNFG_fk0" Association="Self.TBL_InActiveShopList_CNFG_fk0">
+      <End Role="TBL_Shops" EntitySet="TBL_Shops" />
+      <End Role="TBL_InActiveShopList_CNFG" EntitySet="TBL_InActiveShopList_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="TBL_InActiveShopList_CNFG_fk1" Association="Self.TBL_InActiveShopList_CNFG_fk1">
+      <End Role="TBL_InActiveShopReasons_CNFG" EntitySet="TBL_InActiveShopReasons_CNFG" />
+      <End Role="TBL_InActiveShopList_CNFG" EntitySet="TBL_InActiveShopList_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_InAct__Creat__1B0907CE" Association="Self.FK__TBL_InAct__Creat__1B0907CE">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_InActiveShopReasons_CNFG" EntitySet="TBL_InActiveShopReasons_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_InAct__Updat__1BFD2C07" Association="Self.FK__TBL_InAct__Updat__1BFD2C07">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_InActiveShopReasons_CNFG" EntitySet="TBL_InActiveShopReasons_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_Infra__Creat__403A8C7D" Association="Self.FK__TBL_Infra__Creat__403A8C7D">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_Infrastructure_CNFG" EntitySet="TBL_Infrastructure_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_Infra__Updat__412EB0B6" Association="Self.FK__TBL_Infra__Updat__412EB0B6">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_Infrastructure_CNFG" EntitySet="TBL_Infrastructure_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_Infra__Creat__1FCDBCEB" Association="Self.FK__TBL_Infra__Creat__1FCDBCEB">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_InfrastructureCategories_CNFG" EntitySet="TBL_InfrastructureCategories_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_Infra__Updat__20C1E124" Association="Self.FK__TBL_Infra__Updat__20C1E124">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_InfrastructureCategories_CNFG" EntitySet="TBL_InfrastructureCategories_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="TBL_Shops_fk2" Association="Self.TBL_Shops_fk2">
+      <End Role="TBL_InfrastructureCategories_CNFG" EntitySet="TBL_InfrastructureCategories_CNFG" />
+      <End Role="TBL_Shops" EntitySet="TBL_Shops" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_Offer__Creat__6C190EBB" Association="Self.FK__TBL_Offer__Creat__6C190EBB">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_OfferOnProducts" EntitySet="TBL_OfferOnProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_Offer__Updat__6D0D32F4" Association="Self.FK__TBL_Offer__Updat__6D0D32F4">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_OfferOnProducts" EntitySet="TBL_OfferOnProducts" />
+    </AssociationSet>
+    <AssociationSet Name="TBL_OfferOnProducts_fk0" Association="Self.TBL_OfferOnProducts_fk0">
+      <End Role="TBL_ShopOffers" EntitySet="TBL_ShopOffers" />
+      <End Role="TBL_OfferOnProducts" EntitySet="TBL_OfferOnProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_Posta__Creat__534D60F1" Association="Self.FK__TBL_Posta__Creat__534D60F1">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_PostalCodes_CNFG" EntitySet="TBL_PostalCodes_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_Posta__Updat__5441852A" Association="Self.FK__TBL_Posta__Updat__5441852A">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_PostalCodes_CNFG" EntitySet="TBL_PostalCodes_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="ShopesInPostalCodes_fk1" Association="Self.ShopesInPostalCodes_fk1">
+      <End Role="TBL_PostalCodes_CNFG" EntitySet="TBL_PostalCodes_CNFG" />
+      <End Role="TBL_ShopsInPostalCodes" EntitySet="TBL_ShopsInPostalCodes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_Produ__Creat__30F848ED" Association="Self.FK__TBL_Produ__Creat__30F848ED">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_ProductCategories_CNFG" EntitySet="TBL_ProductCategories_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_Produ__Updat__31EC6D26" Association="Self.FK__TBL_Produ__Updat__31EC6D26">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_ProductCategories_CNFG" EntitySet="TBL_ProductCategories_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="TBL_Products_fk2" Association="Self.TBL_Products_fk2">
+      <End Role="TBL_ProductCategories_CNFG" EntitySet="TBL_ProductCategories_CNFG" />
+      <End Role="TBL_Products" EntitySet="TBL_Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_Produ__Creat__70DDC3D8" Association="Self.FK__TBL_Produ__Creat__70DDC3D8">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_ProductImages" EntitySet="TBL_ProductImages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_Produ__Updat__71D1E811" Association="Self.FK__TBL_Produ__Updat__71D1E811">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_ProductImages" EntitySet="TBL_ProductImages" />
+    </AssociationSet>
+    <AssociationSet Name="TBL_ProductImages_fk0" Association="Self.TBL_ProductImages_fk0">
+      <End Role="TBL_Products" EntitySet="TBL_Products" />
+      <End Role="TBL_ProductImages" EntitySet="TBL_ProductImages" />
+    </AssociationSet>
+    <AssociationSet Name="bsProductType" Association="Self.bsProductType">
+      <End Role="TBL_ProductType_CNFG" EntitySet="TBL_ProductType_CNFG" />
+      <End Role="TBL_Products" EntitySet="TBL_Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_Produ__Creat__4E88ABD4" Association="Self.FK__TBL_Produ__Creat__4E88ABD4">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_Products" EntitySet="TBL_Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_Produ__Updat__4F7CD00D" Association="Self.FK__TBL_Produ__Updat__4F7CD00D">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_Products" EntitySet="TBL_Products" />
+    </AssociationSet>
+    <AssociationSet Name="TBL_Products_fk1" Association="Self.TBL_Products_fk1">
+      <End Role="TBL_Shops" EntitySet="TBL_Shops" />
+      <End Role="TBL_Products" EntitySet="TBL_Products" />
+    </AssociationSet>
+    <AssociationSet Name="TBL_Products_fk3" Association="Self.TBL_Products_fk3">
+      <End Role="TBL_ProductSubType_CNFG" EntitySet="TBL_ProductSubType_CNFG" />
+      <End Role="TBL_Products" EntitySet="TBL_Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_Produ__Creat__164452B1" Association="Self.FK__TBL_Produ__Creat__164452B1">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_ProductSubType_CNFG" EntitySet="TBL_ProductSubType_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_Produ__Updat__173876EA" Association="Self.FK__TBL_Produ__Updat__173876EA">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_ProductSubType_CNFG" EntitySet="TBL_ProductSubType_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_Produ__Creat__117F9D94" Association="Self.FK__TBL_Produ__Creat__117F9D94">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_ProductType_CNFG" EntitySet="TBL_ProductType_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_Produ__Updat__1273C1CD" Association="Self.FK__TBL_Produ__Updat__1273C1CD">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_ProductType_CNFG" EntitySet="TBL_ProductType_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_ShopC__Creat__0CBAE877" Association="Self.FK__TBL_ShopC__Creat__0CBAE877">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_ShopCategory_CNFG" EntitySet="TBL_ShopCategory_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_ShopC__Updat__0DAF0CB0" Association="Self.FK__TBL_ShopC__Updat__0DAF0CB0">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_ShopCategory_CNFG" EntitySet="TBL_ShopCategory_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="TBL_Shops_fk3" Association="Self.TBL_Shops_fk3">
+      <End Role="TBL_ShopCategory_CNFG" EntitySet="TBL_ShopCategory_CNFG" />
+      <End Role="TBL_Shops" EntitySet="TBL_Shops" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_ShopD__Creat__0E6E26BF" Association="Self.FK__TBL_ShopD__Creat__0E6E26BF">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_ShopDirectory" EntitySet="TBL_ShopDirectory" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_ShopD__Updat__0F624AF8" Association="Self.FK__TBL_ShopD__Updat__0F624AF8">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_ShopDirectory" EntitySet="TBL_ShopDirectory" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_ShopL__ShopD__060DEAE8" Association="Self.FK__TBL_ShopL__ShopD__060DEAE8">
+      <End Role="TBL_ShopDirectory" EntitySet="TBL_ShopDirectory" />
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_Shops__ShopD__34C8D9D1" Association="Self.FK__TBL_Shops__ShopD__34C8D9D1">
+      <End Role="TBL_ShopDirectory" EntitySet="TBL_ShopDirectory" />
+      <End Role="TBL_Shops" EntitySet="TBL_Shops" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Log__CreatedBy__239E4DCF" Association="Self.FK__Log__CreatedBy__239E4DCF">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="Log" EntitySet="Logs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_ShopL__Creat__07F6335A" Association="Self.FK__TBL_ShopL__Creat__07F6335A">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_ShopLoginDetails1" EntitySet="TBL_ShopLoginDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_ShopL__Updat__08EA5793" Association="Self.FK__TBL_ShopL__Updat__08EA5793">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_ShopLoginDetails1" EntitySet="TBL_ShopLoginDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_ShopO__Creat__5CD6CB2B" Association="Self.FK__TBL_ShopO__Creat__5CD6CB2B">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_ShopOffers" EntitySet="TBL_ShopOffers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_ShopO__Updat__5DCAEF64" Association="Self.FK__TBL_ShopO__Updat__5DCAEF64">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_ShopOffers" EntitySet="TBL_ShopOffers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_Shops__Creat__36B12243" Association="Self.FK__TBL_Shops__Creat__36B12243">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_Shops" EntitySet="TBL_Shops" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_Shops__Creat__5812160E" Association="Self.FK__TBL_Shops__Creat__5812160E">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_Shops5TopProducts" EntitySet="TBL_Shops5TopProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_Shops__Creat__6754599E" Association="Self.FK__TBL_Shops__Creat__6754599E">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_ShopsInPostalCodes" EntitySet="TBL_ShopsInPostalCodes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_Shops__Updat__37A5467C" Association="Self.FK__TBL_Shops__Updat__37A5467C">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_Shops" EntitySet="TBL_Shops" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_Shops__Updat__59063A47" Association="Self.FK__TBL_Shops__Updat__59063A47">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_Shops5TopProducts" EntitySet="TBL_Shops5TopProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_Shops__Updat__68487DD7" Association="Self.FK__TBL_Shops__Updat__68487DD7">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_ShopsInPostalCodes" EntitySet="TBL_ShopsInPostalCodes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_ShopT__Creat__2C3393D0" Association="Self.FK__TBL_ShopT__Creat__2C3393D0">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_ShopTypes_CNFG" EntitySet="TBL_ShopTypes_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_ShopT__Updat__2D27B809" Association="Self.FK__TBL_ShopT__Updat__2D27B809">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_ShopTypes_CNFG" EntitySet="TBL_ShopTypes_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_State__Creat__276EDEB3" Association="Self.FK__TBL_State__Creat__276EDEB3">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_States_CNFG" EntitySet="TBL_States_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TBL_State__Updat__286302EC" Association="Self.FK__TBL_State__Updat__286302EC">
+      <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+      <End Role="TBL_States_CNFG" EntitySet="TBL_States_CNFG" />
+    </AssociationSet>
+    <AssociationSet Name="TBL_ShopOffers_fk0" Association="Self.TBL_ShopOffers_fk0">
+      <End Role="TBL_Shops" EntitySet="TBL_Shops" />
+      <End Role="TBL_ShopOffers" EntitySet="TBL_ShopOffers" />
+    </AssociationSet>
+    <AssociationSet Name="ShopesInPostalCodes_fk0" Association="Self.ShopesInPostalCodes_fk0">
+      <End Role="TBL_Shops" EntitySet="TBL_Shops" />
+      <End Role="TBL_ShopsInPostalCodes" EntitySet="TBL_ShopsInPostalCodes" />
+    </AssociationSet>
+    <AssociationSet Name="TBL_Shops_fk1" Association="Self.TBL_Shops_fk1">
+      <End Role="TBL_ShopTypes_CNFG" EntitySet="TBL_ShopTypes_CNFG" />
+      <End Role="TBL_Shops" EntitySet="TBL_Shops" />
+    </AssociationSet>
+    <AssociationSet Name="TBL_Shops5TopProducts_fk0" Association="Self.TBL_Shops5TopProducts_fk0">
+      <End Role="TBL_Shops" EntitySet="TBL_Shops" />
+      <End Role="TBL_Shops5TopProducts" EntitySet="TBL_Shops5TopProducts" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

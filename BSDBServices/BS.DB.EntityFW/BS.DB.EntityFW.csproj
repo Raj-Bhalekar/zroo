@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{757A2D61-BFD5-43F6-B364-01906D85D276}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BS.DB.EntityFW</RootNamespace>
+    <AssemblyName>BS.DB.EntityFW</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BS.Activity\AdminOffersActivity.cs" />
+    <Compile Include="BS.Activity\CityCNFG_Activity.cs" />
+    <Compile Include="BS.Activity\InActiveShopListCNFG_Activity.cs" />
+    <Compile Include="BS.Activity\InActiveShopReasonsCNFG_Activity.cs" />
+    <Compile Include="BS.Activity\InfrastructureCategoriesCNFG_Activity.cs" />
+    <Compile Include="BS.Activity\InfrastructureCNFG_Activity.cs" />
+    <Compile Include="BS.Activity\Product_Activity.cs" />
+    <Compile Include="BS.Activity\Shopes_Activity.cs" />
+    <Compile Include="BS.Activity\ShopOffers_Activity.cs" />
+    <Compile Include="BS.Activity\PostalCodesCNFG_Activity.cs" />
+    <Compile Include="BS.Activity\ProductCategoriesCNFG_Activity.cs" />
+    <Compile Include="BS.Activity\ProductSubTypeCNFG_Activity.cs" />
+    <Compile Include="BS.Activity\ProductTypeCNFG_Activity.cs" />
+    <Compile Include="BS.Activity\ShopCategoryCNFG_Activity.cs" />
+    <Compile Include="BS.Activity\Shops5TopProducts_Activity.cs" />
+    <Compile Include="BS.Activity\ShopTypesCNFG_Activity.cs" />
+    <Compile Include="BSEF.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BSEF.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BSEF.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BSEF.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BSEF.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="BSEF_Integration.cs" />
+    <Compile Include="CommonTypes\BSEntityFramework_ResultType.cs" />
+    <Compile Include="CommonTypes\BSEntityInterface.cs" />
+    <Compile Include="Log.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LoggerActivity.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="BS.Activity\StatesCNFG_Activity.cs" />
+    <Compile Include="TBL_AdminOffers.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Cities_CNFG.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_InActiveShopList_CNFG.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_InActiveShopReasons_CNFG.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_InfrastructureCategories_CNFG.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Infrastructure_CNFG.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_OfferOnProducts.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_PostalCodes_CNFG.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_ProductCategories_CNFG.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_ProductImages.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Products.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_ProductSubType_CNFG.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_ProductType_CNFG.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_ShopCategory_CNFG.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_ShopDirectory.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_ShopLoginDetails.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_ShopOffers.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Shops.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Shops5TopProducts.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_ShopsInPostalCodes.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_ShopTypes_CNFG.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_States_CNFG.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Validations\BSCommonValidation.cs" />
+    <Compile Include="Validations\TBL_AdminOffers_Valid.cs" />
+    <Compile Include="Validations\TBL_Cities_CNFG_Valid.cs" />
+    <Compile Include="Validations\TBL_InActiveShopList_CNFG_Valid.cs" />
+    <Compile Include="Validations\TBL_InActiveShopReasons_CNFG_Valid.cs" />
+    <Compile Include="Validations\TBL_InfrastructureCategories_CNFG_Valid.cs" />
+    <Compile Include="Validations\TBL_Infrastructure_CNFG_Valid.cs" />
+    <Compile Include="Validations\TBL_OfferOnProducts_Valid.cs" />
+    <Compile Include="Validations\TBL_PostalCodes_CNFG_Valid.cs" />
+    <Compile Include="Validations\TBL_ProductCategories_CNFG_Valid.cs" />
+    <Compile Include="Validations\TBL_ProductImages_Valid.cs" />
+    <Compile Include="Validations\TBL_ProductSubType_CNFG_Valid.cs" />
+    <Compile Include="Validations\TBL_Products_Valid.cs" />
+    <Compile Include="Validations\TBL_ProductType_CNFG_Valid.cs" />
+    <Compile Include="Validations\TBL_ShopCategory_CNFG_Valid.cs" />
+    <Compile Include="Validations\TBL_ShopsInPostalCodes_Valid.cs" />
+    <Compile Include="Validations\TBL_Shops_Valid.cs" />
+    <Compile Include="Validations\TBL_ShopLoginDetails_Valid.cs" />
+    <Compile Include="Validations\TBL_ShopOffers_Valid.cs" />
+    <Compile Include="Validations\TBL_Shops5TopProducts_Valid.cs" />
+    <Compile Include="Validations\TBL_ShopTypes_CNFG_Valid.cs" />
+    <Compile Include="Validations\TBL_States_CNFG_Valid.cs" />
+    <Compile Include="Validations\ValidationMsg.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ValidationMsg.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\LoginModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <EntityDeploy Include="BSEF.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BSEF.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="BSEF.edmx.diagram">
+      <DependentUpon>BSEF.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Validations\ValidationMsg.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ValidationMsg.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BSEF.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BSEF.edmx</DependentUpon>
+      <LastGenOutput>BSEF.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="BSEF.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BSEF.edmx</DependentUpon>
+      <LastGenOutput>BSEF.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

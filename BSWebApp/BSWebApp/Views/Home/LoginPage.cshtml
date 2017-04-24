@@ -1,20 +1,12 @@
 ﻿@model BSWebApp.Models.ViewModels.LoginViewModel
-<style>
-    .top-buffer {
-        margin-top: 30px;
-    }
 
-    .half {
-        width: 50%;
-        height: 50%;
-    }
-</style>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Login", "Home"))
 {
     <h1> @Html.AntiForgeryToken()</h1>
 
     <div class="row">
+
         <div class="col-sm-5">
             <div>
                 <h2>Login</h2>
@@ -25,6 +17,7 @@
                     </div>
                     <div class="col-lg-3">
                         @Html.TextBoxFor(x => x.loginModel.UserId)
+                        @Html.ValidationMessageFor(x => x.loginModel.UserId, "", new { @class = "text-danger", style = "font-size:9px;" })
                     </div>
                 </div>
                 <div class="row top-buffer top-buffer">
@@ -33,14 +26,15 @@
                     </div>
                     <div class="col-lg-3">
 
-                        @Html.TextBoxFor(x => x.loginModel.Password)
-
+                        @Html.PasswordFor(x => x.loginModel.Password)
+                        @Html.ValidationMessageFor(x => x.loginModel.Password,"", new { @class = "text-danger", style = "font-size:9px;"})
                     </div>
                 </div>
 
                 <input type="submit" />
             </div>
         </div>
+
         <div class="col-sm-7">
             <div>
                 <h2>SignUp</h2>
@@ -102,6 +96,7 @@
 
             </div>
         </div>
+        }
     </div>
 
 

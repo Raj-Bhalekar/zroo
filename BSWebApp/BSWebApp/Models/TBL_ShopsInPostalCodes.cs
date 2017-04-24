@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace BS.DB.EntityFW
 {
     using System;
@@ -16,6 +18,9 @@ namespace BS.DB.EntityFW
     {
         public int ID { get; set; }
         public int ShopID { get; set; }
+        [Display(Name="Postal Code")]
+        [MaxLength(6),MinLength(6)]
+        [DataType(dataType:DataType.PostalCode)]
         public int PostalCodeID { get; set; }
         public bool IsActive { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
@@ -25,7 +30,7 @@ namespace BS.DB.EntityFW
     
         public virtual TBL_PostalCodes_CNFG TBL_PostalCodes_CNFG { get; set; }
         public virtual TBL_ShopLoginDetails TBL_ShopLoginDetails { get; set; }
-        public virtual TBL_ShopLoginDetails TBL_ShopLoginDetails1 { get; set; }
+
         public virtual TBL_Shops TBL_Shops { get; set; }
     }
 }

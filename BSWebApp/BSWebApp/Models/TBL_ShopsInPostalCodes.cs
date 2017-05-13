@@ -19,7 +19,7 @@ namespace BS.DB.EntityFW
         public int ID { get; set; }
         public int ShopID { get; set; }
         [Display(Name="Postal Code")]
-        [MaxLength(6),MinLength(6)]
+        //[MaxLength(6),MinLength(6)]
         [DataType(dataType:DataType.PostalCode)]
         public int PostalCodeID { get; set; }
         public bool IsActive { get; set; }

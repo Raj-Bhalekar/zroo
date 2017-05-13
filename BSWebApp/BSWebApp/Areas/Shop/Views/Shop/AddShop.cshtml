@@ -1,0 +1,443 @@
+﻿@model BSWebApp.Models.ViewModels.AddShopViewModel
+
+@{
+   //Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <meta name="viewport" content="width=device-width"/>
+    <title>AddShop</title>
+
+    <script type="text/javascript">
+
+        (function ($) {
+            $.getAntiForgeryToken = function (tokenWindow, appPath) {
+
+                tokenWindow = tokenWindow &&
+                typeof tokenWindow === typeof window ? tokenWindow : window;
+                appPath = appPath && typeof appPath === "string" ? "_" + appPath.toString() : "";
+                var tokenName = "__RequestVerificationToken" + appPath;
+                var inputElements = tokenWindow.document.getElementsByTagName("input");
+                for (var i = 0; i < inputElements.length; i++) {
+                    var inputElement = inputElements[i];
+                    if (inputElement.type === "hidden" && inputElement.name === tokenName) {
+                        return {
+                            name: tokenName,
+                            value: inputElement.value
+                        };
+                    }
+                }
+            };
+
+            $.appendAntiForgeryToken = function (data, token) {
+                if (data && typeof data !== "string") {
+                    data = $.param(data);
+                }
+
+                // Gets token from current window by default.
+                token = token ? token : $.getAntiForgeryToken();
+                // $.getAntiForgeryToken(window).
+
+                data = data ? data + "&" : "";
+                // If token exists, appends {token.name}={token.value} to data.
+                return token ? data + encodeURIComponent(token.name) + "=" + encodeURIComponent(token.value) : data;
+            };
+
+            // Wraps $.post(url, data, callback, type) for most common scenarios.
+            $.postAntiForgery = function (url, data, callback, type) {
+                return $.post(url, $.appendAntiForgeryToken(data), callback, type);
+            };
+
+            // Wraps $.ajax(settings).
+            $.ajaxAntiForgery = function (settings) {
+                var token = settings.token ? settings.token : $.getAntiForgeryToken(settings.tokenWindow, settings.appPath);
+                settings.data = $.appendAntiForgeryToken(settings.data, token);
+                return $.ajax(settings);
+            };
+        })(jQuery);
+
+
+
+        $(document).ready(function () {
+            $('#txtShopOpeningTime').timepicker({
+                timeFormat: 'HH:mm',
+                startTime: '08:00',
+                dynamic: true,
+                dropdown: true,
+                scrollbar: true
+            });
+            $('#txtShopClosingTime').timepicker({
+                timeFormat: 'HH:mm',
+                startTime: '08:00',
+                dynamic: true,
+                dropdown: true,
+                scrollbar: true
+            });
+            $("#txtPostalCodeCntrl").autocomplete({
+
+                source: function (request, response) {
+                    $.ajaxAntiForgery({
+                          url: "/Shop/Shop/GetPostalsAutoComplete",
+                       // url: "http://localhost:8080/api/common/",
+                        type: 'GET',
+                        dataType: "JSON",
+                       data: { 'hint': request.term },
+                        success: function (data) {
+                        response($.map(data,
+                                function(item) {
+                                    return { label: item.PostalCodeId + " | "+ item.CityName + " | " + item.StateName, value: item.PostalCodeId };
+                                }));
+
+                        },
+                        error: function (jqXHR, exception) {
+                            var msg = '';
+                            if (jqXHR.status === 0) {
+                                msg = 'Not connect.\n Verify Network.';
+                            } else if (jqXHR.status == 404) {
+                                msg = 'Requested page not found. [404]';
+                            } else if (jqXHR.status == 500) {
+                                msg = 'Internal Server Error [500].';
+                            } else if (exception === 'parsererror') {
+                                msg = 'Requested JSON parse failed.';
+                            } else if (exception === 'timeout') {
+                                msg = 'Time out error.';
+                            } else if (exception === 'abort') {
+                                msg = 'Ajax request aborted.';
+                            } else {
+                                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                            }
+                        //    alert(msg);
+                        },
+
+                        tokenWindow: window.parent
+                    });
+                },
+                messages: {
+                    noResults: "",
+                    results: ""
+                }
+            });
+        });
+
+        $(document).ready(function (){
+            $('#txtPostalCodeCntrl').blur(function () {
+
+             //   alert('on blur postal' + $("#txtPostalCodeCntrl").val());
+                    $.ajaxAntiForgery({
+                        url: "/Shop/Shop/GetInfrastureDetails",
+                        type: 'GET',
+                        dataType: "JSON",
+                        data: {
+                            'postalCode': $("#txtPostalCodeCntrl").val()
+                },
+                        success: function (data) {
+                            $("#ddlInfrastructure").empty();
+                         //   $("#ddlInfrastructure").append($("<option     />").val(-1).text('Select Infrastructure'));
+                        $.each(data, function () {
+                            $("#ddlInfrastructure").append($("<option     />").val(this.InfrastructureID).text(this.InfrastructureName));
+                        });
+
+                    },
+                    error: function (jqXHR, exception) {
+                        var msg = '';
+                        if (jqXHR.status === 0) {
+                            msg = 'Not connect.\n Verify Network.';
+                        } else if (jqXHR.status == 404) {
+                            msg = 'Requested page not found. [404]';
+                        } else if (jqXHR.status == 500) {
+                            msg = 'Internal Server Error [500].';
+                        } else if (exception === 'parsererror') {
+                            msg = 'Requested JSON parse failed.';
+                        } else if (exception === 'timeout') {
+                            msg = 'Time out error.';
+                        } else if (exception === 'abort') {
+                            msg = 'Ajax request aborted.';
+                        } else {
+                            msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                        }
+                        //    alert(msg);
+                    },
+
+                    tokenWindow: window.parent
+                });
+            });
+        });
+
+
+    </script>
+
+</head>
+<body>
+
+    <div class="row">
+        <div class="col-sm-12">
+            @using (Html.BeginForm("AddShop", "Shop", new { area = "Shop" }))
+            {
+                @Html.AntiForgeryToken()
+                var selectListData = ViewData["SelectListData"] as Dictionary<string, List<SelectListItem>>;
+                <div class="panel panel-primary panel-transparent">
+                <div class="form-horizontal" style="margin-top: 5%">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Add Shop</h3>
+                </div>
+
+               
+                <div class="panel-body">
+                    <hr />
+                <div class="row">
+                    <div class="form-horizontal">
+
+                        @if (ViewContext.ViewData.ModelState.Where(x => x.Key == "").Any())
+                        {
+                            @Html.ValidationSummary(true, "", new {@class = "alert alert-danger"})
+                        }
+                    </div>
+                
+                </div>
+
+                @*<div class="form-group">
+                @Html.LabelFor(model => model.ShopID, htmlAttributes: new { @class = "bsLabel" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ShopID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ShopID, "", new { @class = "text-danger", style = "font-size:9px;" })
+                </div>
+            </div>*@
+
+                <div class="col-sm-6">
+                    <div class="row top-buffer top-buffer">
+                        <div class="col-lg-4">
+                            @Html.LabelFor(model => model.ShopDetails.ShopName, htmlAttributes: new {@class = "bsLabel"})
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.EditorFor(model => model.ShopDetails.ShopName, new {htmlAttributes = new {@class = "form-control"}})
+                            @Html.ValidationMessageFor(model => model.ShopDetails.ShopName, "", new {@class = "text-danger", style = "font-size:9px;"})
+                        </div>
+                    </div>
+
+                    <div class="row top-buffer top-buffer">
+                        <div class="col-lg-4">
+                            @Html.LabelFor(model => model.ShopDetails.OwnerName, htmlAttributes: new {@class = "bsLabel"})
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.EditorFor(model => model.ShopDetails.OwnerName, new {htmlAttributes = new {@class = "form-control"}})
+                            @Html.ValidationMessageFor(model => model.ShopDetails.OwnerName, "", new {@class = "text-danger", style = "font-size:9px;"})
+                        </div>
+                    </div>
+
+                    <div class="row top-buffer top-buffer">
+                        <div class="col-lg-4">
+                            @Html.LabelFor(model => model.ShopDetails.ContactNumber, htmlAttributes: new {@class = "bsLabel"})
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.EditorFor(model => model.ShopDetails.ContactNumber, new {htmlAttributes = new {@class = "form-control"}})
+                            @Html.ValidationMessageFor(model => model.ShopDetails.ContactNumber, "", new {@class = "text-danger", style = "font-size:9px;"})
+                        </div>
+                    </div>
+
+                    <div class="row top-buffer top-buffer">
+                        <div class="col-lg-4">
+                            @Html.LabelFor(model => model.ShopDetails.WhatsAppHikeNumber, htmlAttributes: new {@class = "bsLabel"})
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.EditorFor(model => model.ShopDetails.WhatsAppHikeNumber, new {htmlAttributes = new {@class = "form-control"}})
+                            @Html.ValidationMessageFor(model => model.ShopDetails.WhatsAppHikeNumber, "", new {@class = "text-danger", style = "font-size:9px;"})
+                        </div>
+                    </div>
+
+                    <div class="row top-buffer top-buffer">
+                        <div class="col-lg-4">
+                            @Html.LabelFor(model => model.ShopDetails.ShopTypeID, htmlAttributes: new {@class = "bsLabel"})
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.DropDownListFor(model => model.ShopDetails.ShopTypeID, selectListData["TBL_ShopTypes_CNFG"], new {htmlAttributes = new {@class = "form-control"}})
+                            @Html.ValidationMessageFor(model => model.ShopDetails.ShopTypeID, "", new {@class = "text-danger", style = "font-size:9px;"})
+                        </div>
+                    </div>
+
+                    @*<div class="form-group">
+                    @Html.LabelFor(model => model.ShopTypeName, htmlAttributes: new { @class = "bsLabel" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ShopTypeName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ShopTypeName, "", new { @class = "text-danger", style = "font-size:9px;" })
+                    </div>
+                </div>*@
+
+                    <div class="row top-buffer top-buffer">
+                        <div class="col-lg-4">
+                            @Html.LabelFor(model => model.ShopDetails.ShopOpningTime, htmlAttributes: new {@class = "bsLabel"})
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.EditorFor(model => model.ShopDetails.ShopOpningTime, new {htmlAttributes = new {@class = "form-control",@Id = "txtShopOpeningTime" } })
+                            @Html.ValidationMessageFor(model => model.ShopDetails.ShopOpningTime, "", new {@class = "text-danger",  style = "font-size:9px;"})
+                        </div>
+                    </div>
+
+                    <div class="row top-buffer top-buffer">
+                        <div class="col-lg-4">
+                            @Html.LabelFor(model => model.ShopDetails.ShopClosingTime, htmlAttributes: new {@class = "bsLabel"})
+                        </div>
+
+                        <div class="col-lg-6">
+                            @Html.EditorFor(model => model.ShopDetails.ShopClosingTime, new {htmlAttributes = new {@class = "form-control", @Id = "txtShopClosingTime" } })
+                            @Html.ValidationMessageFor(model => model.ShopDetails.ShopClosingTime, "", new {@class = "text-danger",  style = "font-size:9px;"})
+                        </div>
+                    </div>
+                    
+                    <div class="row top-buffer top-buffer">
+                        <div class="col-lg-4">
+                            @Html.LabelFor(model => model.ShopDetails.IsActive, htmlAttributes: new { @class = "bsLabel" })
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.ShopDetails.IsActive)
+                                @Html.ValidationMessageFor(model => model.ShopDetails.IsActive, "", new { @class = "text-danger", style = "font-size:9px;" })
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row top-buffer top-buffer">
+                        <div class="col-lg-4">
+                            @Html.LabelFor(model => model.ShopDetails.ShopCategoryName, htmlAttributes: new { @class = "bsLabel" })
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.DropDownListFor(model => model.ShopDetails.ShopCategoryName, selectListData["TBL_ShopCategory_CNFG"], new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ShopDetails.ShopCategoryName, "", new { @class = "text-danger", style = "font-size:9px;" })
+                        </div>
+                    </div>
+                    
+                    <div class="row top-buffer top-buffer">
+                        <div class="col-lg-4">
+                            @Html.LabelFor(model => model.ShopDetails.ShopDirectoryName, htmlAttributes: new { @class = "bsLabel" })
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.EditorFor(model => model.ShopDetails.ShopDirectoryName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ShopDetails.ShopDirectoryName, "", new { @class = "text-danger", style = "font-size:9px;" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    @*<div class="form-group">
+                    @Html.LabelFor(model => model.InfrastructureID, htmlAttributes: new { @class = "bsLabel" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.InfrastructureID, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.InfrastructureID, "", new { @class = "text-danger", style = "font-size:9px;" })
+                    </div>
+                </div>*@
+                    
+                    <div class="row top-buffer top-buffer">
+                        <div class="col-lg-4">
+                            @Html.LabelFor(model => model.ShopPostalDetails.PostalCodeID, htmlAttributes: new { @class = "bsLabel" })
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.EditorFor(model => model.ShopPostalDetails.PostalCodeID, new { htmlAttributes = new { Id= "txtPostalCodeCntrl"}})
+                            @Html.ValidationMessageFor(model => model.ShopPostalDetails.PostalCodeID, "", new { @class = "text-danger", style = "font-size:9px;" })
+                        </div>
+                    </div>
+
+                    <div class="row top-buffer top-buffer">
+                        <div class="col-lg-4">
+                            @Html.LabelFor(model => model.ShopDetails.InfrastructureName, htmlAttributes: new {@class = "bsLabel"})
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.DropDownListFor(model => model.ShopDetails.InfrastructureName,
+                       new SelectList(Enumerable.Empty<SelectListItem>(), "InfrastructureId", "InfrastructureName"),
+                         "Select Infrastructure"
+                       , new {@class = "form-control", @Id= "ddlInfrastructure" })
+                            @Html.ValidationMessageFor(model => model.ShopDetails.InfrastructureName, "", new {@class = "text-danger", style = "font-size:9px;"})
+                        </div>
+                    </div>
+
+                    <div class="row top-buffer top-buffer">
+                        <div class="col-lg-4">
+                            @Html.LabelFor(model => model.ShopDetails.ShopAddress, htmlAttributes: new {@class = "bsLabel"})
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.TextAreaFor(model => model.ShopDetails.ShopAddress, new {htmlAttributes = new {@class = "form-control"}})
+                            @Html.ValidationMessageFor(model => model.ShopDetails.ShopAddress, "", new {@class = "text-danger", style = "font-size:9px;"})
+                        </div>
+                    </div>
+
+                    <div class="row top-buffer top-buffer">
+                        <div class="col-lg-4">
+                            @Html.LabelFor(model => model.ShopDetails.Email, htmlAttributes: new {@class = "bsLabel"})
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.EditorFor(model => model.ShopDetails.Email, new {htmlAttributes = new {@class = "form-control"}})
+                            @Html.ValidationMessageFor(model => model.ShopDetails.Email, "", new {@class = "text-danger", style = "font-size:9px;"})
+                        </div>
+                    </div>
+
+                  
+
+                    @*<div class="form-group">
+                    @Html.LabelFor(model => model.ShopCategoryID, htmlAttributes: new { @class = "bsLabel" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ShopCategoryID, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ShopCategoryID, "", new { @class = "text-danger", style = "font-size:9px;" })
+                    </div>
+                </div>*@
+                    
+                    @*<div class="form-group">
+                    @Html.LabelFor(model => model.ShopDirectoryID, htmlAttributes: new { @class = "bsLabel" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ShopDirectoryID, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ShopDirectoryID, "", new { @class = "text-danger", style = "font-size:9px;" })
+                    </div>
+                </div>*@
+                    
+    @*<div class="form-group">
+                    @Html.LabelFor(model => model.CreateDate, htmlAttributes: new { @class = "bsLabel" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.CreateDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CreateDate, "", new { @class = "text-danger", style = "font-size:9px;" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CreatedBy, htmlAttributes: new { @class = "bsLabel" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.CreatedBy, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CreatedBy, "", new { @class = "text-danger", style = "font-size:9px;" })
+                    </div>
+                </div>*@
+
+                    @*<div class="form-group">
+                    @Html.LabelFor(model => model.UpdateDate, htmlAttributes: new { @class = "bsLabel" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.UpdateDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UpdateDate, "", new { @class = "text-danger", style = "font-size:9px;" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UpdatedBy, htmlAttributes: new { @class = "bsLabel" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.UpdatedBy, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UpdatedBy, "", new { @class = "text-danger", style = "font-size:9px;" })
+                    </div>
+                </div>*@
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create" class="btn btn-default"/>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div>
+                   
+                </div>
+                </div>
+                    </div>
+                </div>
+            }
+                </div>
+    </div>
+</body>
+</html>

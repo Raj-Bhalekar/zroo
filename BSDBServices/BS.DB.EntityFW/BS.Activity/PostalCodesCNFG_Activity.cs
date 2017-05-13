@@ -39,13 +39,27 @@ namespace BS.DB.EntityFW
 
         }
 
-        public BSEntityFramework_ResultType GetPostalCodesCNFG(int id)
+        public BSEntityFramework_ResultType GetPostalCodesCNFG(string hint)
         {
             try
             {
                 using (BSDBEntities EF = new BSDBEntities())
                 {
-                    var PostalCodesCNFG = EF.TBL_PostalCodes_CNFG.Find(id);
+                    var PostalCodesCNFG =
+                        EF.TBL_PostalCodes_CNFG.Where(p => p.PostCodeID.ToString().StartsWith(hint))
+                            .Join(EF.TBL_Cities_CNFG, p => p.CityID, c => c.CityID, (p, c) => new
+                                {
+                                    PostalCodeId = p.PostCodeID,
+                                    CityName = c.CityName,
+                                    StateID = c.StateID
+                                }
+                            ).Join(EF.TBL_States_CNFG, R => R.StateID, s => s.StateID, (R, s) => new
+                            {
+                                PostalCodeId = R.PostalCodeId
+                                ,CityName = R.CityName,
+                                StateName = s.StateName
+
+                            }).ToList();
                     var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, PostalCodesCNFG, null, "Success");
                     return result;
                 }

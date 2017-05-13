@@ -10,3 +10,15 @@ C:\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\obj\Debug\BS.DB.EntityFW.Test.c
 C:\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\obj\Debug\BS.DB.EntityFW.Test.dll
 C:\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\obj\Debug\BS.DB.EntityFW.Test.pdb
 C:\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\BS.DB.EntityFW.Test.dll.config
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\BS.DB.EntityFW.Test.dll.config
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\BS.DB.EntityFW.Test.dll
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\BS.DB.EntityFW.Test.pdb
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\BS.DB.EntityFW.dll
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\EntityFramework.dll
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\BS.DB.EntityFW.pdb
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\EntityFramework.xml
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\obj\Debug\BS.DB.EntityFW.Test.csprojResolveAssemblyReference.cache
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\obj\Debug\BS.DB.EntityFW.Test.dll
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\obj\Debug\BS.DB.EntityFW.Test.pdb

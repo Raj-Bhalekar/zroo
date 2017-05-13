@@ -8,33 +8,71 @@ using System.Threading.Tasks;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
 using BS.DB.EntityFW.CommonTypes;
+using BS.DB.EntityFW.ViewModels;
 
 namespace BS.DB.EntityFW
 {
     public class Shopes_Activity
     {
-        public BSEntityFramework_ResultType InsertShope(TBL_ShopLoginDetails newShope)
+
+        public BSEntityFramework_ResultType InsertShopInPostal(TBL_ShopsInPostalCodes shopsInPostal, int shopID)
         {
             try
             {
                 using (BSDBEntities EF = new BSDBEntities())
                 {
-                    EF.TBL_ShopLoginDetails.Add(newShope);
+                    shopsInPostal.ShopID = shopID;
+                    EF.TBL_ShopsInPostalCodes.Add(shopsInPostal);
                     EF.SaveChanges();
+
                 }
 
-                var result = new BSEntityFramework_ResultType(BSResult.Success, newShope, null, "Created Sucessfully");
+                var result = new BSEntityFramework_ResultType(BSResult.Success, shopsInPostal, null, "Created Sucessfully");
                 return result;
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, newShope, dbValidationEx, "Validation Failed");
+                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, shopsInPostal, dbValidationEx, "Validation Failed");
                 return result;
             }
             catch (Exception ex)
             {
                 var logact = new LoggerActivity();
-                var result = new BSEntityFramework_ResultType(BSResult.Fail, newShope, null, "Technical issue");
+                var result = new BSEntityFramework_ResultType(BSResult.Fail, shopsInPostal, null, "Technical issue");
+                logact.ErrorSetup("WebApp", "InsertShope Failed", "", "", "", ex.Message);
+                return result;
+            }
+
+        }
+
+        public BSEntityFramework_ResultType InsertShope(AddShopViewModel newShop)
+        {
+            try
+            {
+                using (BSDBEntities EF = new BSDBEntities())
+                {
+                    newShop.ShopDetails.ShopID = -1;
+                    EF.TBL_Shops.Add(newShop.ShopDetails);
+                    EF.SaveChanges();
+                   var resultChild= InsertShopInPostal(newShop.ShopPostalDetails, newShop.ShopDetails.ShopID);
+                    if (resultChild.Result != BSResult.Success)
+                    {
+                        return resultChild;
+                    }
+                }
+
+                var result = new BSEntityFramework_ResultType(BSResult.Success, newShop, null, "Created Sucessfully");
+                return result;
+            }
+            catch (DbEntityValidationException dbValidationEx)
+            {
+                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, newShop, dbValidationEx, "Validation Failed");
+                return result;
+            }
+            catch (Exception ex)
+            {
+                var logact = new LoggerActivity();
+                var result = new BSEntityFramework_ResultType(BSResult.Fail, newShop, null, "Technical issue");
                 logact.ErrorSetup("WebApp", "InsertShope Failed", "", "", "", ex.Message);
                 return result;
             }

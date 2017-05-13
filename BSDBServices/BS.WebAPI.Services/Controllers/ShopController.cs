@@ -7,6 +7,8 @@ using System.Web.Http;
 using BS.DB.EntityFW;
 using BS.DB.EntityFW.CommonTypes;
 using System.Web.Http.Results;
+using BS.DB.EntityFW.ViewModels;
+
 
 namespace BS.WebAPI.Services.Controllers
 {
@@ -28,9 +30,12 @@ namespace BS.WebAPI.Services.Controllers
         }
 
         [HttpPost]
-        public JsonResult<BSEntityFramework_ResultType> PostNewShopes(TBL_ShopLoginDetails newShope)
+        public JsonResult<BSEntityFramework_ResultType> PostNewShopes(AddShopViewModel newShop)
         {
-            var BSResult = ShopesActivity.InsertShope(newShope);
+            var BSResult = ShopesActivity.InsertShope(newShop);
+           // var newShopId = ((TBL_Shops) BSResult.Entity).ShopID;
+
+            
             return Json<BSEntityFramework_ResultType>(BSResult);
         }
 

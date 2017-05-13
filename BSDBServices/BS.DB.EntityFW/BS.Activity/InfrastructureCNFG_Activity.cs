@@ -90,5 +90,42 @@ namespace BS.DB.EntityFW
                 return result;
             }
         }
+
+
+        public BSEntityFramework_ResultType GetInfrastructureByPostal(string postalCode)
+        {
+            try
+            {
+                var pinCode = Convert.ToInt32(postalCode);
+                using (BSDBEntities EF = new BSDBEntities())
+                {
+                    var Infrastructure =
+                        EF.TBL_Infrastructure_CNFG.Where(inf => inf.PostalCodeID == pinCode)
+                            .Select(inf => new {inf.InfrastructureID, inf.InfrastructureName}).ToList();
+                    var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, Infrastructure, null, "Success");
+                    return result;
+                }
+            }
+            catch (InvalidCastException dbValidationEx)
+            {
+                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, null, null, "Invalid Postal Code");
+                return result;
+            }
+            catch (DbEntityValidationException dbValidationEx)
+            {
+                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, null, dbValidationEx, "Validation Failed");
+                return result;
+            }
+            catch (Exception ex)
+            {
+                var logact = new LoggerActivity();
+                var result = new BSEntityFramework_ResultType(BSResult.Fail, null, null, "Technical issue");
+                logact.ErrorSetup("WebApp", "GetInfrastructure Failed", "", "", "", ex.Message);
+                return result;
+            }
+
+        }
     }
+
+
 }

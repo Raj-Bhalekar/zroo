@@ -17,6 +17,7 @@ namespace BS.DB.EntityFW
             {
                 errList.Add(new System.Data.Entity.Validation.DbValidationError("ShopID", ValidationMsg.InvalidEntry + "Shop"));
             }
+          
 
             if (string.IsNullOrWhiteSpace(ShopName))
             {
@@ -54,7 +55,7 @@ namespace BS.DB.EntityFW
             {
                 errList.Add(new System.Data.Entity.Validation.DbValidationError("Email", "Email " + ValidationMsg.IsRequired));
             }
-            else if (BSCommonValidation.IsValidEmail(Email))
+            else if (!BSCommonValidation.IsValidEmail(Email))
             {
                 errList.Add(new System.Data.Entity.Validation.DbValidationError("EmailID",ValidationMsg.InvalidEntry + " Email ID"));
             }

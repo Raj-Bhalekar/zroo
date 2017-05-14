@@ -1,0 +1,227 @@
+﻿@model BSWebApp.Models.ViewModels.AddProductViewModel
+
+@{
+    ViewBag.Title = "AddProduct";
+}
+
+<h2>AddProduct</h2>
+
+
+@using (Html.BeginForm())
+{
+    var selectListData = ViewData["SelectListData"] as Dictionary<string, List<SelectListItem>>;
+    @Html.AntiForgeryToken()
+    <div class="panel panel-primary panel-transparent">
+        <div class="form-horizontal" style="margin-top: 5%">
+            <div class="panel-heading">
+                <h3 class="panel-title">Add Product</h3>
+            </div>
+            <div class="form-horizontal">
+                <h4>TBL_Products</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+              
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProductDetails.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ProductDetails.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ProductDetails.ProductName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProductDetails.ProductBrand, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ProductDetails.ProductBrand, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ProductDetails.ProductBrand, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProductDetails.BarCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ProductDetails.BarCode, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ProductDetails.BarCode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProductDetails.ProductTypeID, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.ProductDetails.ProductTypeID, selectListData["TBL_ProductTypes_CNFG"], new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ProductDetails.ProductTypeID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProductDetails.IsAvailable, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.ProductDetails.IsAvailable)
+                            @Html.ValidationMessageFor(model => model.ProductDetails.IsAvailable, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProductDetails.AvailableQuantity, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ProductDetails.AvailableQuantity, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ProductDetails.AvailableQuantity, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProductDetails.OtherJsonDetails, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ProductDetails.OtherJsonDetails, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ProductDetails.OtherJsonDetails, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProductDetails.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.ProductDetails.IsActive)
+                            @Html.ValidationMessageFor(model => model.ProductDetails.IsActive, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProductDetails.ProductCategoryID, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.ProductDetails.ProductCategoryID, selectListData["TBL_ProductCategory_CNFG"], new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ProductDetails.ProductCategoryID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProductDetails.ProductSubTypeID, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                       @Html.DropDownListFor(model => model.ProductDetails.ProductSubTypeID, selectListData["TBL_ProductSubType_CNFG"], new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ProductDetails.ProductSubTypeID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProductDetails.MRP, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ProductDetails.MRP, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ProductDetails.MRP, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProductDetails.ShopPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ProductDetails.ShopPrice, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ProductDetails.ShopPrice, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    gand gand
+                    <table id="grid"></table>
+                    <script type="text/javascript">
+                        $('#grid').jqGrid({
+                            data: null,
+                            colModel: [
+                                { name: "name", label: "Client", width: 100, editable: true },
+                                {
+                                    name: "invdate",
+                                    label: "Date",
+                                    width: 80,
+                                    align: "center",
+                                    sorttype: "date",
+                                    formatter: "date",
+                                    formatoptions: { newformat: "d-M-Y" },
+                                    editable: editableInAddForm,
+                                    searchoptions: {
+                                        sopt: ["eq", "ne", "lt", "le", "gt", "ge"],
+                                        dataInit: initDateSearch
+                                    }
+                                },
+                                { name: "amount", label: "Amount", width: 75, template: "number" },
+                                {
+                                    name: "tax",
+                                    label: "Tax",
+                                    width: 100,
+                                    template: "number",
+                                    searchoptions: { sopt: ["nIn", "eq", "ne", "lt", "le", "gt", "ge", "in", "ni"] }
+                                },
+                                { name: "total", label: "Total", width: 60, template: "number" },
+                                {
+                                    name: "closed",
+                                    label: "Closed",
+                                    width: 70,
+                                    template: "booleanCheckboxFa",
+                                    editable: editableInAddForm
+                                },
+                                {
+                                    name: "ship_via",
+                                    label: "Shipped via",
+                                    width: 105,
+                                    align: "center",
+                                    formatter: "select",
+                                    editable: editableInAddForm,
+                                    edittype: "select",
+                                    editoptions: { value: "FE:FedEx;TN:TNT;IN:Intim", defaultValue: "IN" },
+                                    stype: "select",
+                                    searchoptions: { sopt: ["eq", "ne"], value: ":Any;FE:FedEx;TN:TNT;IN:IN" }
+                                },
+                                {
+                                    name: "note",
+                                    label: "Notes",
+                                    width: 60,
+                                    edittype: "textarea",
+                                    sortable: false,
+                                    editable: true
+                                }
+                            ],
+                            pager: true,
+                            iconSet: "fontAwesome",
+                            autoencode: true,
+                            viewrecords: true,
+                            rowNum: 10,
+                            altRows: true,
+                            altclass: "myAltRowClass",
+                            rowList: [5, 10, 20, "10000:All"],
+                            caption: "Demonstration of the usage editable property of colModel as function",
+                            navOptions: {
+                                del: false
+                            },
+                            searching: {
+                                closeAfterSearch: true,
+                                closeAfterReset: true,
+                                closeOnEscape: true,
+                                searchOnEnter: true,
+                                multipleSearch: true,
+                                multipleGroup: true,
+                                showQuery: true
+                            }
+                        }).jqGrid("navGrid");
+
+                    </script>
+
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            }
+
+            <div>
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+
+            @section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
+            }

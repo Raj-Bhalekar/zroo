@@ -39,26 +39,10 @@ namespace BSWebApp.Areas.Shop.Controllers
         {
             Dictionary<string, List<SelectListItem>> SelectListData = new Dictionary<string, List<SelectListItem>>();
 
-
-            var shopTypes = new List<SelectListItem>();
-            shopTypes.Add(new SelectListItem() { Value = "1", Text = "Stationary" });
-            shopTypes.Add(new SelectListItem() { Value = "2", Text = "Grossry" });
-            shopTypes.Add(new SelectListItem() { Value = "3", Text = "Garment" });
-            shopTypes.Add(new SelectListItem() { Value = "4", Text = "HardWare" });
-            shopTypes.Add(new SelectListItem() { Value = "5", Text = "Mobile Electronic" });
-            shopTypes.Add(new SelectListItem() { Value = "6", Text = "General" });
-            shopTypes.Add(new SelectListItem() { Value = "7", Text = "Other" });
+            var shopTypes = GetShopTypes();
+            var shopCategory = GetShopCategories();
 
             SelectListData.Add("TBL_ShopTypes_CNFG", shopTypes);
-
-            var shopCategory = new List<SelectListItem>();
-            shopCategory.Add(new SelectListItem() { Value = "1", Text = "FOOD" });
-            shopCategory.Add(new SelectListItem() { Value = "2", Text = "Appearls" });
-            shopCategory.Add(new SelectListItem() { Value = "3", Text = "Electronic" });
-            shopCategory.Add(new SelectListItem() { Value = "4", Text = "Custruction" });
-            shopCategory.Add(new SelectListItem() { Value = "5", Text = "Other" });
-            shopCategory.Add(new SelectListItem() { Value = "6", Text = "FOOD" });
-
 
             SelectListData.Add("TBL_ShopCategory_CNFG", shopCategory);
             ViewData["SelectListData"] = SelectListData;
@@ -179,26 +163,50 @@ namespace BSWebApp.Areas.Shop.Controllers
 
         public JsonResult GetInfrastureDetails(string postalCode)
         {
-            //HttpClient client = new HttpClient();
-            //client.BaseAddress = new Uri("http://localhost:8080/");
+            try
+            {
+                var paramlist = new List<KeyValuePair<string, string>>();
+                var param = new KeyValuePair<string, string>("postalCode", postalCode);
+                paramlist.Add(param);
 
-            //// Add an Accept header for JSON format.
-            //client.DefaultRequestHeaders.Accept.Add(
-            //    new MediaTypeWithQualityHeaderValue("application/json"));
-
-            //HttpResponseMessage response = client.GetAsync("/api/common/GetInfrastructureDetails?postalcode=" + postalCode).Result;
-
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    var rslt = response.Content.ReadAsStringAsync().Result;
-            //    return Json(new JavaScriptSerializer().Deserialize<object>(rslt), JsonRequestBehavior.AllowGet);
-            //}
-            var paramlist = new List<KeyValuePair<string,string>>();
-            var param = new KeyValuePair<string, string>("postalCode", postalCode);
-            paramlist.Add(param);
-
-          var reslt=  new CommonAjaxCallToWebAPI().AjaxGet(@"/api/common/GetInfrastructureDetails", paramlist);
-          return  Json(new JavaScriptSerializer().Deserialize<object>(reslt), JsonRequestBehavior.AllowGet);
+                var reslt = new CommonAjaxCallToWebAPI().AjaxGet(@"/api/common/GetInfrastructureDetails", paramlist);
+                return Json(new JavaScriptSerializer().Deserialize<object>(reslt), JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return null;
+            }
+           
         }
+
+
+        private List<SelectListItem> GetShopCategories()
+        {   
+            try
+            {
+                var reslt = new CommonAjaxCallToWebAPI().AjaxGet(@"/api/common/GetShopCategoryDetails", null);
+                return new JavaScriptSerializer().Deserialize<List<SelectListItem>>(reslt);
+            }
+            catch
+            {
+                return null;
+            }
+
+        }
+
+        private List<SelectListItem> GetShopTypes()
+        {
+            try
+            {
+                var reslt = new CommonAjaxCallToWebAPI().AjaxGet(@"/api/common/GetShopTypesDetails", null);
+                return new JavaScriptSerializer().Deserialize<List<SelectListItem>>(reslt);
+            }
+            catch
+            {
+                return null;
+            }
+
+        }
+
     }
 }

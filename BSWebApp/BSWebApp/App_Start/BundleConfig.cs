@@ -20,6 +20,9 @@ namespace BSWebApp
             bundles.Add(new ScriptBundle("~/bundles/jquerybs").Include(
                       "~/Scripts/jquery.timepicker.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jquerygrd").Include(
+                     "~/Scripts/jquery.jqgrid.min.js"));
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
@@ -34,6 +37,7 @@ namespace BSWebApp
                       "~/Content/site.css"
                       , "~/Content/themes/base/minified/jquery-ui.min.css"
                       , "~/Content/themes/base/minified/jquery.timepicker.css"
+                      , "~/Content/ui.jqgrid.min.css"
                       ));
 
 

@@ -88,12 +88,24 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -156,6 +168,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Product\Controllers\ProductController.cs" />
+    <Compile Include="Areas\Product\ProductAreaRegistration.cs" />
     <Compile Include="Areas\Shop\Controllers\ShopController.cs" />
     <Compile Include="Areas\Shop\ShopAreaRegistration.cs" />
     <Compile Include="Common\AntiForgeryTokenWrapper.cs" />
@@ -188,6 +203,7 @@
     <Compile Include="Models\TBL_ShopsInPostalCodes.cs" />
     <Compile Include="Models\TBL_ShopTypes_CNFG.cs" />
     <Compile Include="Models\TBL_States_CNFG.cs" />
+    <Compile Include="Models\ViewModels\AddProductViewModel.cs" />
     <Compile Include="Models\ViewModels\AddShopViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
@@ -277,6 +293,7 @@
     <Content Include="Content\themes\smoothness\jquery.ui.slider.css" />
     <Content Include="Content\themes\smoothness\jquery.ui.tabs.css" />
     <Content Include="Content\themes\smoothness\jquery.ui.theme.css" />
+    <Content Include="Content\ui.jqgrid.min.css" />
     <Content Include="Images\backgroundBS.jpg" />
     <Content Include="Images\banner.jpg" />
     <Content Include="Images\bg.jpg" />
@@ -309,12 +326,17 @@
     <Content Include="Areas\Shop\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Shop\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Shop\Views\Shop\AddShop.cshtml" />
+    <Content Include="Areas\Product\Views\web.config" />
+    <Content Include="Areas\Product\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Product\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Product\Views\Product\AddProduct.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.23.js" />
     <Content Include="Scripts\jquery-ui-1.8.23.min.js" />
+    <Content Include="Scripts\jquery.jqgrid.min.js" />
     <Content Include="Scripts\jquery.timepicker.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -342,6 +364,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Product\Models\" />
     <Folder Include="Areas\Shop\Models\" />
   </ItemGroup>
   <ItemGroup>

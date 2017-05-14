@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
+using System.Web.Mvc;
 using BS.DB.EntityFW.CommonTypes;
 
 namespace BS.DB.EntityFW
@@ -48,6 +49,34 @@ namespace BS.DB.EntityFW
                 using (BSDBEntities EF = new BSDBEntities())
                 {
                     var ShopCategory = EF.TBL_ShopCategory_CNFG.Find(id);
+                    var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, ShopCategory, null, "Success");
+                    return result;
+                }
+            }
+            catch (DbEntityValidationException dbValidationEx)
+            {
+                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, null, dbValidationEx, "Validation Failed");
+                return result;
+            }
+            catch (Exception ex)
+            {
+                var logact = new LoggerActivity();
+                var result = new BSEntityFramework_ResultType(BSResult.Fail, null, null, "Technical issue");
+                logact.ErrorSetup("WebApp", "GetShopCategory Failed", "", "", "", ex.Message);
+                return result;
+            }
+
+        }
+
+        public BSEntityFramework_ResultType GetShopCategory()
+        {
+            try
+            {
+                using (BSDBEntities EF = new BSDBEntities())
+                {
+                    var ShopCategory =
+                        EF.TBL_ShopCategory_CNFG.Select(category => new 
+                        { Text = category.CategoryName, Value = category.ShopCategoryID}).ToList().Select(ct => new SelectListItem() {Text = ct.Text, Value = Convert.ToString(ct.Value)}).ToList();
                     var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, ShopCategory, null, "Success");
                     return result;
                 }

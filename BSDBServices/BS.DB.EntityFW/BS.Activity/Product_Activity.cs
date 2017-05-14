@@ -8,34 +8,73 @@ using System.Threading.Tasks;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
 using BS.DB.EntityFW.CommonTypes;
+using BS.DB.EntityFW.ViewModels;
 
 namespace BS.DB.EntityFW
 {
     public class Product_Activity
     {
-        public BSEntityFramework_ResultType InsertProducts(TBL_Products newProducts)
+        public BSEntityFramework_ResultType InsertProducts(AddProductViewModel newProduct)
         {
             try
             {
                 using (BSDBEntities EF = new BSDBEntities())
                 {
-                    EF.TBL_Products.Add(newProducts);
+                    newProduct.ProductDetails.ProductID = -1;
+                    EF.TBL_Products.Add(newProduct.ProductDetails);
                     EF.SaveChanges();
+                    var resultChild = InsertProductImages(newProduct.ProductImages, newProduct.ProductDetails.ProductID);
+                    if (resultChild.Result != BSResult.Success)
+                    {
+                        return resultChild;
+                    }
                 }
 
-                var result = new BSEntityFramework_ResultType(BSResult.Success, newProducts, null, "Created Sucessfully");
+                var result = new BSEntityFramework_ResultType(BSResult.Success, newProduct.ProductDetails, null, "Created Sucessfully");
                 return result;
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, newProducts, dbValidationEx, "Validation Failed");
+                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, newProduct.ProductDetails, dbValidationEx, "Validation Failed");
                 return result;
             }
             catch (Exception ex)
             {
                 var logact = new LoggerActivity();
-                var result = new BSEntityFramework_ResultType(BSResult.Fail, newProducts, null, "Technical issue");
-                logact.ErrorSetup("WebApp", "InsertProducts Failed", "", "", "", ex.Message);
+                var result = new BSEntityFramework_ResultType(BSResult.Fail, newProduct.ProductDetails, null, "Technical issue");
+                logact.ErrorSetup("WebApp", "Insert Products Failed", "", "", "", ex.Message);
+                return result;
+            }
+
+        }
+        public BSEntityFramework_ResultType InsertProductImages(List<TBL_ProductImages> productImages, int productid)
+        {
+            try
+            {
+                using (BSDBEntities EF = new BSDBEntities())
+                {
+                    foreach (var prodimage in productImages)
+                    {
+                        prodimage.ProductID = productid;
+                        EF.TBL_ProductImages.Add(prodimage);
+                    }
+                    EF.SaveChanges();
+
+                }
+
+                var result = new BSEntityFramework_ResultType(BSResult.Success, productImages, null, "Created Sucessfully");
+                return result;
+            }
+            catch (DbEntityValidationException dbValidationEx)
+            {
+                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, productImages, dbValidationEx, "Validation Failed");
+                return result;
+            }
+            catch (Exception ex)
+            {
+                var logact = new LoggerActivity();
+                var result = new BSEntityFramework_ResultType(BSResult.Fail, productImages, null, "Technical issue");
+                logact.ErrorSetup("WebApp", "Insert ProductImages Failed", "", "", "", ex.Message);
                 return result;
             }
 

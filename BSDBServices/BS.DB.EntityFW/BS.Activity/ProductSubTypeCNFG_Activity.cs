@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
+using System.Web.Mvc;
 using BS.DB.EntityFW.CommonTypes;
 
 namespace BS.DB.EntityFW
@@ -41,14 +42,20 @@ namespace BS.DB.EntityFW
 
         }
 
-        public BSEntityFramework_ResultType GetProductSubType(int id)
+        public BSEntityFramework_ResultType GetProductSubType()
         {
             try
             {
                 using (BSDBEntities EF = new BSDBEntities())
                 {
-                    var ProductSubType = EF.TBL_ProductSubType_CNFG.Find(id);
-                    var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, ProductSubType, null, "Success");
+                    var productSubType  = EF.TBL_ProductSubType_CNFG.Select(
+                         type => new { Text = type.ProductSubTypeName, Value = type.ProductSubTypeID })
+                      .ToList()
+                      .Select(
+                          ptype =>
+                              new SelectListItem() { Text = ptype.Text, Value = Convert.ToString(ptype.Value) })
+                      .ToList();
+                    var result = new BSEntityFramework_ResultType(BSResult.Success, productSubType, null, "Success");
                     return result;
                 }
             }

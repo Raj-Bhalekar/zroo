@@ -21,3 +21,16 @@ E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW\obj\Debug\BS.DB.Enti
 E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW\obj\Debug\BS.DB.EntityFW.csproj.GenerateResource.Cache
 E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW\obj\Debug\BS.DB.EntityFW.dll
 E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW\obj\Debug\BS.DB.EntityFW.pdb
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW\bin\Debug\Microsoft.Web.Infrastructure.dll
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW\bin\Debug\System.Web.Helpers.dll
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW\bin\Debug\System.Web.Mvc.dll
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW\bin\Debug\System.Web.Razor.dll
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW\bin\Debug\System.Web.WebPages.Deployment.dll
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW\bin\Debug\System.Web.WebPages.dll
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW\bin\Debug\System.Web.WebPages.Razor.dll
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW\bin\Debug\System.Web.Helpers.xml
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW\bin\Debug\System.Web.Mvc.xml
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW\bin\Debug\System.Web.Razor.xml
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW\bin\Debug\System.Web.WebPages.xml
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW\bin\Debug\System.Web.WebPages.Deployment.xml
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW\bin\Debug\System.Web.WebPages.Razor.xml

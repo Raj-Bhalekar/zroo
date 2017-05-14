@@ -22,3 +22,14 @@ E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\Entit
 E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\obj\Debug\BS.DB.EntityFW.Test.csprojResolveAssemblyReference.cache
 E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\obj\Debug\BS.DB.EntityFW.Test.dll
 E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\obj\Debug\BS.DB.EntityFW.Test.pdb
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\System.Web.Mvc.dll
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\System.Web.Razor.dll
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\System.Web.WebPages.Razor.dll
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\System.Web.WebPages.dll
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\Microsoft.Web.Infrastructure.dll
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\System.Web.WebPages.Deployment.dll
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\System.Web.Mvc.xml
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\System.Web.Razor.xml
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\System.Web.WebPages.Razor.xml
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\System.Web.WebPages.xml
+E:\VM\SharedFolder\BSDBServices\BSDBServices\BS.DB.EntityFW.Test\bin\Debug\System.Web.WebPages.Deployment.xml

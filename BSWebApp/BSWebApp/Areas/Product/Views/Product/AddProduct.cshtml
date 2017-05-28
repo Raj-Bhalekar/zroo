@@ -2,10 +2,13 @@
 
 @{
     ViewBag.Title = "AddProduct";
+   // Layout = null;
 }
 
 <h2>AddProduct</h2>
 
+
+@*<script src="~/Scripts/jquery.jqGrid.min.js" type="text/javascript"></script>*@
 
 @using (Html.BeginForm())
 {
@@ -125,73 +128,68 @@
                 <div class="form-group">
                     gand gand
                     <table id="grid"></table>
+                    <div id="ServiceGridicons1">
+                    </div>
                     <script type="text/javascript">
+
+                        var data = [
+                            [1, "Color", "Red"]
+                        ];
+
+                        var names = ["id", "Key", "Value"];
+                        var mydata = [];
+
+                        for (var i = 0; i < data.length; i++) {
+                            mydata[i] = {};
+                            for (var j = 0; j < data[i].length; j++) {
+                                mydata[i][names[j]] = data[i][j];
+                            }
+                        }
+
                         $('#grid').jqGrid({
-                            data: null,
+                            data: mydata,
+                            datatype: "local",
+                            colNames: ['id', 'Key', 'Value'],
                             colModel: [
-                                { name: "name", label: "Client", width: 100, editable: true },
-                                {
-                                    name: "invdate",
-                                    label: "Date",
-                                    width: 80,
-                                    align: "center",
-                                    sorttype: "date",
-                                    formatter: "date",
-                                    formatoptions: { newformat: "d-M-Y" },
-                                    editable: editableInAddForm,
-                                    searchoptions: {
-                                        sopt: ["eq", "ne", "lt", "le", "gt", "ge"],
-                                        dataInit: initDateSearch
-                                    }
-                                },
-                                { name: "amount", label: "Amount", width: 75, template: "number" },
-                                {
-                                    name: "tax",
-                                    label: "Tax",
-                                    width: 100,
-                                    template: "number",
-                                    searchoptions: { sopt: ["nIn", "eq", "ne", "lt", "le", "gt", "ge", "in", "ni"] }
-                                },
-                                { name: "total", label: "Total", width: 60, template: "number" },
-                                {
-                                    name: "closed",
-                                    label: "Closed",
-                                    width: 70,
-                                    template: "booleanCheckboxFa",
-                                    editable: editableInAddForm
+                            {
+                                name: 'id',
+                                index: 'id',
+                                editable: false,
+                                hidden: true,
+                                    width: 20,
+                                    sorttype: "int"
                                 },
                                 {
-                                    name: "ship_via",
-                                    label: "Shipped via",
-                                    width: 105,
-                                    align: "center",
-                                    formatter: "select",
-                                    editable: editableInAddForm,
-                                    edittype: "select",
-                                    editoptions: { value: "FE:FedEx;TN:TNT;IN:Intim", defaultValue: "IN" },
-                                    stype: "select",
-                                    searchoptions: { sopt: ["eq", "ne"], value: ":Any;FE:FedEx;TN:TNT;IN:IN" }
+                                    name: 'Key',
+                                    index: 'Key',
+                                    editable: true,
+
+                                    width: 200,
+                                    sorttype: "date"
                                 },
                                 {
-                                    name: "note",
-                                    label: "Notes",
-                                    width: 60,
-                                    edittype: "textarea",
-                                    sortable: false,
-                                    editable: true
+                                    name: 'Value',
+                                    editable: true,
+                                    index: 'Value',
+                                    width: 200
                                 }
                             ],
                             pager: true,
-                            iconSet: "fontAwesome",
+                            // iconSet: "fontAwesome",
                             autoencode: true,
-                            viewrecords: true,
+                            viewrecords: false,
                             rowNum: 10,
+                            idPrefix :"1",
                             altRows: true,
                             altclass: "myAltRowClass",
                             rowList: [5, 10, 20, "10000:All"],
-                            caption: "Demonstration of the usage editable property of colModel as function",
+                            caption: "Product Other Details",
                             navOptions: {
-                                del: false
+                                add: true,
+                                del: true,
+                                search: false,
+                                refresh: false,
+                                edit: true
                             },
                             searching: {
                                 closeAfterSearch: true,
@@ -204,13 +202,20 @@
                             }
                         }).jqGrid("navGrid");
 
+                        function lwda() {
+                            debugger;
+                            alert(mydata);
+                            alert('abe lwda le lwda');
+                        }
+
+
                     </script>
 
                 </div>
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-default" />
+                        <input type="submit" value="Create" onclick="lwda();" class="btn btn-default" />
                     </div>
                 </div>
             </div>

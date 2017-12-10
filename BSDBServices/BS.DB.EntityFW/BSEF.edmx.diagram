@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fc0d4e7a661443db816342044c15080f" Name="Diagram1" ZoomLevel="85">
+      <Diagram DiagramId="fc0d4e7a661443db816342044c15080f" Name="Diagram1" ZoomLevel="86">
         <EntityTypeShape EntityType="BSDBModel.TBL_AdminOffers" Width="1.5" PointX="8.25" PointY="29.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BSDBModel.TBL_Cities_CNFG" Width="1.5" PointX="7.5" PointY="38.25" IsExpanded="true" />
         <EntityTypeShape EntityType="BSDBModel.TBL_InActiveShopList_CNFG" Width="1.5" PointX="10.5" PointY="30" IsExpanded="true" />
@@ -94,7 +94,55 @@
         <AssociationConnector Association="BSDBModel.ShopesInPostalCodes_fk0" ManuallyRouted="false" />
         <AssociationConnector Association="BSDBModel.TBL_Shops_fk1" ManuallyRouted="false" />
         <AssociationConnector Association="BSDBModel.TBL_Shops5TopProducts_fk0" ManuallyRouted="false" />
-      </Diagram>
+        <EntityTypeShape EntityType="BSDBModel.TBL_ControlModule" Width="1.5" PointX="6.375" PointY="14.875" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_ControlModule_Pages" Width="1.5" PointX="8.625" PointY="25.875" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_Menues" Width="1.5" PointX="5.625" PointY="18.875" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_Page_Menues" Width="1.5" PointX="7.875" PointY="17.75" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_Page_Plugins" Width="1.5" PointX="5.625" PointY="23.25" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_Pages" Width="1.5" PointX="3.375" PointY="21" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_PlugIn_Details" Width="1.5" PointX="3" PointY="10.125" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_PlugInCities" Width="1.5" PointX="11.125" PointY="23.625" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_PlugInImages" Width="1.5" PointX="8.625" PointY="21.25" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_PlugIns" Width="1.5" PointX="0.75" PointY="8.5" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_Shop_PlugIn" Width="1.5" PointX="14.125" PointY="22.375" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_PlugI__CityI__531856C7" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Contr__Contr__0F2D40CE" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Contr__PageI__10216507" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Menue__Creat__6166761E" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Menue__Paren__7B264821" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Menue__Updat__625A9A57" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Page___MenuI__7FEAFD3E" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Page___PageI__00DF2177" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Page___Creat__793DFFAF" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Page___PageI__7849DB76" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Page___PlugI__7755B73D" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Page___Updat__7A3223E8" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Pages__Creat__719CDDE7" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Pages__Updat__72910220" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_PlugI__PlugI__14E61A24" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_PlugI__Creat__540C7B00" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_PlugI__PlugI__5224328E" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_PlugI__Updat__55009F39" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_PlugI__Creat__4C6B5938" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_PlugI__PlugI__4B7734FF" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_PlugI__Updat__4D5F7D71" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_PlugI__Creat__45BE5BA9" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_PlugI__Updat__46B27FE2" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Shop___PlugI__5AB9788F" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Shop___Creat__5BAD9CC8" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Shop___ShopI__59C55456" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_Shop___Updat__5CA1C101" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_UserAssignedShops" Width="1.5" PointX="18.75" PointY="38.625" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_UserA__Creat__27F8EE98" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_UserA__ShopL__2610A626" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_UserA__Updat__28ED12D1" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_UserA__ShopI__2704CA5F" />
+        <EntityTypeShape EntityType="BSDBModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="BSDBModel.TBL_ShopMapDetails" Width="1.5" PointX="17.75" PointY="25.875" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_ShopM__Creat__4F12BBB9" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_ShopM__Updat__5006DFF2" />
+        <AssociationConnector Association="BSDBModel.FK__TBL_ShopM__ShopI__4E1E9780" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

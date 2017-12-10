@@ -15,7 +15,7 @@ namespace BS.DB.EntityFW
     public partial class TBL_ProductImages
     {
         public int ImageID { get; set; }
-        public int ProductID { get; set; }
+        public long ProductID { get; set; }
         public byte[] ProductImage { get; set; }
         public bool IsActive { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }

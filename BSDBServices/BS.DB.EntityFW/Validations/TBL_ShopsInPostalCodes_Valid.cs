@@ -20,10 +20,10 @@ namespace BS.DB.EntityFW
                 errList.Add(new System.Data.Entity.Validation.DbValidationError("PostalCodeID", ValidationMsg.PlsSelect + " Postal Code"));
             }
 
-            if (ShopID == 0)
-            {
-                errList.Add(new System.Data.Entity.Validation.DbValidationError("ShopID", ValidationMsg.InvalidEntry + " Shop ID"));
-            }
+            //if (ShopID == 0)
+            //{
+            //    errList.Add(new System.Data.Entity.Validation.DbValidationError("ShopID", ValidationMsg.InvalidEntry + " Shop ID"));
+            //}
             return errList;
         }
     }

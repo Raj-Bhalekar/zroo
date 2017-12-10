@@ -7,12 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
+using System.Threading;
 using System.Web.Mvc;
+using BS.DB.EntityFW.BS.Activity;
 using BS.DB.EntityFW.CommonTypes;
 
 namespace BS.DB.EntityFW
 {
-    public class ProductTypeCNFG_Activity
+    public class ProductTypeCNFG_Activity:BSActivity
     {
         public BSEntityFramework_ResultType InsertProductType(TBL_ProductType_CNFG newProductType)
         {
@@ -29,8 +31,8 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, newProductType, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, newProductType);
+
             }
             catch (Exception ex)
             {
@@ -46,6 +48,7 @@ namespace BS.DB.EntityFW
         {
             try
             {
+            //    Thread.Sleep(5000);
                 using (BSDBEntities EF = new BSDBEntities())
                 {
                  var productTypes =  EF.TBL_ProductType_CNFG.Select(
@@ -54,15 +57,15 @@ namespace BS.DB.EntityFW
                       .Select(
                           ptype =>
                               new SelectListItem() { Text = ptype.Text, Value = Convert.ToString(ptype.Value) })
-                      .ToList();
+                      .ToArray();
                     var result = new BSEntityFramework_ResultType(BSResult.Success, productTypes, null, "Success");
                     return result;
                 }
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, null, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, null);
+
             }
             catch (Exception ex)
             {
@@ -88,8 +91,8 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, ProductType, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, ProductType);
+
             }
             catch (Exception ex)
             {

@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
+using BS.DB.EntityFW.BS.Activity;
 using BS.DB.EntityFW.CommonTypes;
 
 namespace BS.DB.EntityFW
 {
-    public class AdminOffersActivity
+    public class AdminOffersActivity:BSActivity
     {
         public BSEntityFramework_ResultType InsertAdminOffers(TBL_AdminOffers newAdminOffers)
         {
@@ -26,8 +27,7 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, newAdminOffers, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, newAdminOffers);
             }
             catch (Exception ex)
             {
@@ -46,14 +46,13 @@ namespace BS.DB.EntityFW
                 using (BSDBEntities EF = new BSDBEntities())
                 {
                     var AdminOffers = EF.TBL_AdminOffers.Find(id);
-                    var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, AdminOffers, null, "Success");
+                    var result = new BSEntityFramework_ResultType(BSResult.Success, AdminOffers, null, "Success");
                     return result;
                 }
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, null, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, null);
             }
             catch (Exception ex)
             {
@@ -79,8 +78,7 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, AdminOffers, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, AdminOffers);
             }
             catch (Exception ex)
             {

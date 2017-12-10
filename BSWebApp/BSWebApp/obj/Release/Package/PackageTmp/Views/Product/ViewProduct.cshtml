@@ -1,0 +1,174 @@
+﻿
+<script type="text/javascript">
+    $(document).ready(function() {
+        
+        $('#Product_grid').jqGrid({
+            url: '/shopoffers/getproductlist/',
+            datatype: "json",
+            colNames: [
+                'Select',
+                'Product ID',
+                'Product Name',
+                'Product Brand',
+                'BarCode',
+                'Product type',
+                'Availablity',
+                'Available Stock',
+                'Is Active',
+                'Product Category',
+                'Product Sub Type',
+                'MRP',
+                'Shop Price'
+                
+            ],
+            postData: { brand: "lawda" },
+            colModel: [
+                {
+                    name: 'IsSelected',
+                    index: 'IsSelected',
+                    formatter: cboxFormatter,
+                    //formatoptions: {disabled : false},
+                    //edittype:"checkbox",
+                    editable: true,
+                    hidden: false,
+                    width: 20
+                },
+                {
+                    name: 'ProductID',
+                    index: 'ProductID',
+                    editable: false,
+                    hidden: false,
+                    width: 50
+                },
+                {
+                    name: 'ProductName',
+                    editable: false,
+                    index: 'ProductName',
+                    width: 100
+                },
+                {
+                    name: 'ProductBrand',
+                    editable: false,
+                    index: 'ProductBrand',
+                    width: 100
+                },
+                {
+                    name: 'BarCode',
+                    editable: false,
+                    index: 'BarCode',
+                    width: 100
+                },
+                {
+                    name: 'ProductTypeName',
+                    editable: false,
+                    index: 'ProductTypeName',
+                    width: 100
+                },
+                {
+                    name: 'IsAvaiable',
+                    editable: false,
+                    index: 'IsAvaiable',
+                    formatter: cboxFormatter,
+                    width: 80
+                },
+
+                {
+                    name: 'AvailableQuantity',
+                    editable: false,
+                    index: 'AvailableQuantity',
+                    width: 100
+                },
+
+                {
+                    name: 'IsActive',
+                    editable: false,
+                    index: 'IsActive',
+                    formatter: cboxFormatter,
+                    width: 80
+                },
+                {
+                    name: 'ProductCategoryName',
+                    editable: false,
+                    index: 'ProductCategoryName',
+                    width: 100
+                },
+                {
+                    name: 'ProductSubTypeName',
+                    editable: false,
+                    index: 'ProductSubTypeName',
+                    width: 100
+                },
+                {
+                    name: 'ShopPrice',
+                    editable: false,
+                    index: 'ShopPrice',
+                    width: 80
+                },
+                {
+                    name: 'MRP',
+                    editable: false,
+                    index: 'MRP',
+                    width: 80
+                }
+            ],
+            jsonReader: {
+                root: function (data) {
+
+                    return JSON.parse(data.Data);
+                },
+                page: 'Page',
+                total: 'PageSize'
+            },
+            pager: $('#gridPager'),
+            // iconSet: "fontAwesome",
+            autoencode: true,
+            viewrecords: false,
+            rowNum: 5,
+            idPrefix: "1",
+            altRows: true,
+            altclass: "myAltRowClass",
+            rowList: [5, 10, 20, "10000:All"],
+            caption: "Product List",
+            navOptions: {
+                add: false,
+                del: false,
+                search: true,
+                refresh: true,
+                edit: false
+            },
+            searching: {
+                closeAfterSearch: true,
+                closeAfterReset: true,
+                closeOnEscape: true,
+                searchOnEnter: true,
+                multipleSearch: true,
+                multipleGroup: true,
+                showQuery: true
+            }
+        }).jqGrid("navGrid");
+        
+    });
+
+    function cboxFormatter(cellvalue, options, rowObject) {
+        return "<input type='checkbox' onclick='AddSelected(this,\""
+                + rowObject.ProductID + "\",\"" + rowObject.ProductName + "\""
+               + ")'/>";
+    }
+</script>
+
+<div class="form-group">
+    <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-offset-1">
+
+        <div class="form-group" id="divProductGrid">
+            <div class="col-sm-6">
+                
+                <table id="Product_grid"></table>
+                <div id="gridPager"></div>
+            </div>
+        </div>
+       
+
+        </div>
+</div>
+
+

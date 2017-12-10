@@ -1,0 +1,27 @@
+﻿@using BSWebApp.Common
+@model BSWebApp.Models.ViewModels.MapAddressViewModel
+
+@{
+    ViewBag.Title = "ShopMapAddress";
+}
+<div class="row" style="height: 500px">
+    <div class="col-sm-12" style="height: 500px">
+        @* @using (Html.BeginForm("AddShop", "Shop", new { area = "Shop" }))*@
+        @using (Html.BeginForm("ShopMapAddress", "Shop"))
+        {
+            @Html.AntiForgeryToken()
+            <h3>Shop on Map</h3>
+            @*<hr />*@
+            <div class="form-horizontal">
+                <div class="alert alert-danger">
+
+                    <strong> @Html.ValidationSummary(false, null)</strong>
+
+                    <strong> @Html.CustomValidationSummary(true)</strong>
+                </div>
+             
+                @Html.Partial("~/Views/Shared/LatLongMap.cshtml",Model);
+            </div>
+        }
+    </div>
+</div>

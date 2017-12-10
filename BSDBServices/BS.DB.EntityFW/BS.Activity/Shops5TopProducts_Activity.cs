@@ -7,11 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
+using BS.DB.EntityFW.BS.Activity;
 using BS.DB.EntityFW.CommonTypes;
 
 namespace BS.DB.EntityFW
 {
-    public class Shops5TopProducts_Activity
+    public class Shops5TopProducts_Activity:BSActivity
     {
         public BSEntityFramework_ResultType InsertTop5ProductForShop(List<TBL_Shops5TopProducts> top5List)
         {
@@ -31,8 +32,8 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, top5List, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, null);
+
             }
             catch (Exception ex)
             {
@@ -50,15 +51,15 @@ namespace BS.DB.EntityFW
             {
                 using (BSDBEntities EF = new BSDBEntities())
                 {
-                    var Top5Productlist = EF.TBL_Shops5TopProducts.Where(sht => sht.ShopID == id).ToList();
-                    var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, Top5Productlist, null, "Success");
+                    var Top5Productlist = EF.TBL_Shops5TopProducts.Where(sht => sht.ShopID == id).ToArray();
+                    var result = new BSEntityFramework_ResultType(BSResult.Success, Top5Productlist, null, "Success");
                     return result;
                 }
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, null, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, null);
+
             }
             catch (Exception ex)
             {

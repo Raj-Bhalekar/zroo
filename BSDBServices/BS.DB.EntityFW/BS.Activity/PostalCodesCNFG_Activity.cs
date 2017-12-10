@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
+using BS.DB.EntityFW.BS.Activity;
 using BS.DB.EntityFW.CommonTypes;
 
 namespace BS.DB.EntityFW
 {
-    public class PostalCodesCNFG_Activity
+    public class PostalCodesCNFG_Activity:BSActivity
     {
         public BSEntityFramework_ResultType InsertPostalCodesCNFG(TBL_PostalCodes_CNFG newPostalCodesCNFG)
         {
@@ -26,8 +27,8 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, newPostalCodesCNFG, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, newPostalCodesCNFG);
+
             }
             catch (Exception ex)
             {
@@ -59,15 +60,15 @@ namespace BS.DB.EntityFW
                                 ,CityName = R.CityName,
                                 StateName = s.StateName
 
-                            }).ToList();
+                            }).ToArray();
                     var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, PostalCodesCNFG, null, "Success");
                     return result;
                 }
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, null, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, null);
+
             }
             catch (Exception ex)
             {
@@ -93,8 +94,8 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, PostalCodesCNFG, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, PostalCodesCNFG);
+
             }
             catch (Exception ex)
             {

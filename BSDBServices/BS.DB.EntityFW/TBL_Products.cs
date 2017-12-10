@@ -20,7 +20,7 @@ namespace BS.DB.EntityFW
             this.TBL_ProductImages = new HashSet<TBL_ProductImages>();
         }
     
-        public int ProductID { get; set; }
+        public long ProductID { get; set; }
         public string ProductName { get; set; }
         public string ProductBrand { get; set; }
         public string BarCode { get; set; }

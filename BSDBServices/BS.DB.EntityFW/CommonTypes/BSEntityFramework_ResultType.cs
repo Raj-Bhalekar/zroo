@@ -12,11 +12,11 @@ namespace BS.DB.EntityFW.CommonTypes
         public BSResult Result { get; private set; }
         public object Entity { get; private set; }
 
-        public DbEntityValidationException EntityValidationException { get; private set; }
+        public IEnumerable<string> EntityValidationException { get; private set; }
 
         public string ResultMsg { get; private set; }
 
-        protected internal BSEntityFramework_ResultType(BSResult bsresult, object entity, DbEntityValidationException entityvalidationexception, string resultMsg)
+        protected internal BSEntityFramework_ResultType(BSResult bsresult, object entity, IEnumerable<string> entityvalidationexception, string resultMsg)
         {
             Result = bsresult;
             Entity = entity;

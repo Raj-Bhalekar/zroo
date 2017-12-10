@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
+using BS.DB.EntityFW.BS.Activity;
 using BS.DB.EntityFW.CommonTypes;
 
 namespace BS.DB.EntityFW
 {
-    public class InfrastructureCNFG_Activity
+    public class InfrastructureCNFG_Activity: BSActivity
     {
         public BSEntityFramework_ResultType InsertInfrastructure(TBL_Infrastructure_CNFG newInfrastructure)
         {
@@ -26,8 +27,8 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, newInfrastructure, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, newInfrastructure);
+
             }
             catch (Exception ex)
             {
@@ -52,8 +53,8 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, null, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, null);
+
             }
             catch (Exception ex)
             {
@@ -79,8 +80,8 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, Infrastructure, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, Infrastructure);
+
             }
             catch (Exception ex)
             {
@@ -101,7 +102,7 @@ namespace BS.DB.EntityFW
                 {
                     var Infrastructure =
                         EF.TBL_Infrastructure_CNFG.Where(inf => inf.PostalCodeID == pinCode)
-                            .Select(inf => new {inf.InfrastructureID, inf.InfrastructureName}).ToList();
+                            .Select(inf => new {inf.InfrastructureID, inf.InfrastructureName}).ToArray();
                     var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, Infrastructure, null, "Success");
                     return result;
                 }
@@ -113,8 +114,8 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, null, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, null);
+                
             }
             catch (Exception ex)
             {

@@ -62,6 +62,25 @@ namespace BS.DB.EntityFW
             this.TBL_ShopTypes_CNFG1 = new HashSet<TBL_ShopTypes_CNFG>();
             this.TBL_States_CNFG = new HashSet<TBL_States_CNFG>();
             this.TBL_States_CNFG1 = new HashSet<TBL_States_CNFG>();
+            this.TBL_Menues = new HashSet<TBL_Menues>();
+            this.TBL_Menues1 = new HashSet<TBL_Menues>();
+            this.TBL_Page_Plugins = new HashSet<TBL_Page_Plugins>();
+            this.TBL_Page_Plugins1 = new HashSet<TBL_Page_Plugins>();
+            this.TBL_Pages = new HashSet<TBL_Pages>();
+            this.TBL_Pages1 = new HashSet<TBL_Pages>();
+            this.TBL_PlugInCities = new HashSet<TBL_PlugInCities>();
+            this.TBL_PlugInCities1 = new HashSet<TBL_PlugInCities>();
+            this.TBL_PlugInImages = new HashSet<TBL_PlugInImages>();
+            this.TBL_PlugInImages1 = new HashSet<TBL_PlugInImages>();
+            this.TBL_PlugIns = new HashSet<TBL_PlugIns>();
+            this.TBL_PlugIns1 = new HashSet<TBL_PlugIns>();
+            this.TBL_Shop_PlugIn = new HashSet<TBL_Shop_PlugIn>();
+            this.TBL_Shop_PlugIn1 = new HashSet<TBL_Shop_PlugIn>();
+            this.TBL_UserAssignedShops = new HashSet<TBL_UserAssignedShops>();
+            this.TBL_UserAssignedShops1 = new HashSet<TBL_UserAssignedShops>();
+            this.TBL_UserAssignedShops2 = new HashSet<TBL_UserAssignedShops>();
+            this.TBL_ShopMapDetails = new HashSet<TBL_ShopMapDetails>();
+            this.TBL_ShopMapDetails1 = new HashSet<TBL_ShopMapDetails>();
         }
     
         public int ShopLoginDetailsID { get; set; }
@@ -169,5 +188,43 @@ namespace BS.DB.EntityFW
         public virtual ICollection<TBL_States_CNFG> TBL_States_CNFG { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_States_CNFG> TBL_States_CNFG1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_Menues> TBL_Menues { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_Menues> TBL_Menues1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_Page_Plugins> TBL_Page_Plugins { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_Page_Plugins> TBL_Page_Plugins1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_Pages> TBL_Pages { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_Pages> TBL_Pages1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_PlugInCities> TBL_PlugInCities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_PlugInCities> TBL_PlugInCities1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_PlugInImages> TBL_PlugInImages { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_PlugInImages> TBL_PlugInImages1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_PlugIns> TBL_PlugIns { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_PlugIns> TBL_PlugIns1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_Shop_PlugIn> TBL_Shop_PlugIn { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_Shop_PlugIn> TBL_Shop_PlugIn1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_UserAssignedShops> TBL_UserAssignedShops { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_UserAssignedShops> TBL_UserAssignedShops1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_UserAssignedShops> TBL_UserAssignedShops2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_ShopMapDetails> TBL_ShopMapDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_ShopMapDetails> TBL_ShopMapDetails1 { get; set; }
     }
 }

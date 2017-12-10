@@ -1,0 +1,296 @@
+﻿@using BSWebApp.Common
+@model BSWebApp.Models.ViewModels.LoginViewModel
+
+<link href="~/Content/Dhapu.css" rel="stylesheet" />
+<style>
+    .form-horizontal .control-label {
+        text-align: left;
+    }
+
+    .ui-widget-header {
+        border: 1px solid ;
+        background: #5c9ccc url(images/ui-bg_gloss-wave_55_5c9ccc_500x100_Red.png) 50% 50% repeat-x;
+        color: #ffffff;
+        font-weight: bold;
+    }
+
+.middle {
+    horiz-align: center;    
+    vertical-align:middle
+}
+
+input[type="text"],input[type="password"]{ 
+  width:250px;
+}
+label{ 
+ text-align: left;
+float: left;
+}
+#BSTabs {
+     margin: auto;
+	padding: 4em;
+}
+
+
+</style>
+   <script>
+       $(function () {
+           $("#tabs").tabs();
+       });
+
+       $(document).ready(function () {
+           $('#btnSignUpubmit').click(function () {
+               onSignUp("Home/SignUp", '#signupform');
+           });
+
+           $('#btnLoginSubmit').click(function () {
+               onSignUp("Home/Login", '#loginform');
+           });
+        });
+
+       function onSignUp(target, bsForm) {
+           
+           var targetProgress = bsForm + ' .BSAjaxProcess';
+           $('#btnSignUpubmit').removeClass('btn-primary').addClass('btn-disable');
+           $('#btnLoginSubmit').removeClass('btn-primary').addClass('btn-disable');
+           $('#btnSignUpubmit').prop('disabled', true);
+           $('#btnLoginSubmit').prop('disabled', true);
+           $(targetProgress).show();
+            $.ajax({
+                type: "POST",
+                url:target, //"Home/SignUp",
+                data: $(bsForm).serialize(),
+                dataType: "json",
+                // contentType: "application/json;", //charset=utf-8
+                success: function (result) {
+                    debugger;
+                    $(targetProgress).hide();
+                    $('#btnSignUpubmit').removeClass('btn-disable').addClass('btn-primary');
+                    $('#btnLoginSubmit').prop('disabled', false);
+                    $('#btnSignUpubmit').prop('disabled', false);
+                    $('#btnLoginSubmit').removeClass('btn-disable').addClass('btn-primary');
+
+                    if (result.Status === "FailedFromServer") {
+                        var container = $('span[data-valmsg-for]');
+                        container.html('');
+                        container.addClass("field-validation-valid").removeClass("field-validation-error");
+
+                        alert(result.Errors.ServerError);
+                        
+                    }
+                    if (result.Status === "ServerSuccess") {
+                        LoginSignUpPopupBoxHide();
+                         $('#MainMenuSideBarSec').html(result.NewId);
+                         $('#ShopListMenu').html(result.ShopList);
+                        //$('#MainMenuSideBarSec').show();
+                         $('#bsSignUpLogin').html(result.UserID);
+                         var el = document.getElementById("UserProfileMenu");
+                         var ulNode = document.createElement("ul");
+                         ulNode.setAttribute('class', 'sub-menu');
+                         var node = document.createElement("li");
+                         var link = document.createElement("a");
+                         link.innerText = "Logout";
+                         link.setAttribute('href', '/home/LogOff');
+                         link.setAttribute('class', 'LoggOffLinkClass');
+                   
+                         node.appendChild(link);
+                        ulNode.appendChild(node);
+                         el.appendChild(ulNode);
+                    }
+                    else
+                        {
+                    if (!result.Valid) {
+                        
+                        if (result.Errors != null) {
+                            $.each(result.Errors, function (key, data) {
+                                var container = $('span[data-valmsg-for="' + key + '"]');
+                                if (data != null) {
+                                    container.removeClass("field-validation-valid").addClass("field-validation-error");
+                                    container.html(data);
+                                }
+                                else {
+                                    container.html(data);
+                                    container.addClass("field-validation-valid").removeClass("field-validation-error");
+                                }
+                            });
+                        }
+                    }
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    $(targetProgress).hide();
+                    $('#btnSignUpubmit').removeClass('btn-disable').addClass('btn-primary');
+                    $('#btnLoginSubmit').prop('disabled', false);
+                    $('#btnSignUpubmit').prop('disabled', false);
+                    $('#btnLoginSubmit').removeClass('btn-disable').addClass('btn-primary');
+
+                    alert("Sorry your details failed to save!");
+                }
+            });
+            RemanageDialog();
+            preventDefault();
+        }
+    </script>
+    
+    <div class="row" >
+        <div class="col-sm-4">
+            <img style="width: 200px; height: 300px;" src="~/Images/appLogo.jpeg" />
+        </div>
+        <div class="col-sm-8">
+                    <div id="tabs" class="BSTabs">
+                        <ul>
+                            <li><a href="#tabs-1">Sign In</a></li>
+                            <li><a href="#tabs-2">Sign Up</a></li>
+                        </ul>
+@using (Html.BeginForm("Login", "Home", FormMethod.Post, new { id = "loginform" }))
+{
+    <h1> @Html.AntiForgeryToken()</h1>
+    <div id="tabs-1">
+        @*<div class="alert alert-danger">
+
+            <strong> @Html.ValidationSummary(false, null)</strong>
+
+            <strong> @Html.CustomValidationSummary(true)</strong>
+        </div>*@
+        <div style="margin-top: 50px" class="row">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-lg-3 col-lg-offset-1 col-md-2 col-md-offset-1">
+                        @Html.LabelFor(x => x.loginModel.UserId
+                            , htmlAttributes: new {@class = "label PL10 LH30 control-label"})
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        @Html.EditorFor(x => x.loginModel.UserId, new {htmlAttributes = new {@class = "form-control", Placeholder = @Html.DisplayNameFor(name => name.loginModel.UserId)}})
+                        @Html.ValidationMessageFor(model => model.loginModel.UserId, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-3 col-lg-offset-1 col-md-2 col-md-offset-1">
+                        @Html.LabelFor(x => x.loginModel.Password
+                            , htmlAttributes: new {@class = "label PL10 LH30 control-label"})
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        @Html.EditorFor(x => x.loginModel.Password, new {htmlAttributes = new {@class = "form-control", Placeholder = @Html.DisplayNameFor(name => name.loginModel.Password)}})
+                        @Html.ValidationMessageFor(model => model.loginModel.Password, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+                <div class="row top-buffer">
+                    <div class="col-lg-3">
+
+                    </div>
+                    <div class="col-lg-3">
+                        <input type="button" align="right" id="btnLoginSubmit" value="Login" class="btn btn-sm btn-primary"/>
+                        <img  hidden src="~/images/ajax_loader_red_512.gif" class="BSAjaxProcess" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+@using (Html.BeginForm("SignUp", "Home", FormMethod.Post, new { id = "signupform" }))
+{   
+    <h1> @Html.AntiForgeryToken()</h1>  
+    <div id="tabs-2">
+        <div>
+            <div class="row">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-lg-4">
+                            @Html.LabelFor(x => x.signUpModel.FirstName
+                                , htmlAttributes: new { @class = "label PL10 LH30 control-label" })
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            @Html.EditorFor(x => x.signUpModel.FirstName, new {htmlAttributes = new {@class = "form-control", Placeholder = @Html.DisplayNameFor(name => name.signUpModel.FirstName)}})
+                            @Html.ValidationMessageFor(model => model.signUpModel.FirstName, "", new {@class = "text-danger"})
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-4">
+                            @Html.LabelFor(x => x.signUpModel.LastName
+                                , htmlAttributes: new { @class = "label PL10 LH30 control-label" })
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            @Html.EditorFor(x => x.signUpModel.LastName, new {htmlAttributes = new {@class = "form-control", Placeholder = @Html.DisplayNameFor(name => name.signUpModel.LastName)}})
+                            @Html.ValidationMessageFor(model => model.signUpModel.LastName, "", new {@class = "text-danger"})
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-lg-4">
+                            @Html.LabelFor(x => x.signUpModel.LoginName
+                                , htmlAttributes: new { @class = "label PL10 LH30 control-label" })
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            @Html.EditorFor(x => x.signUpModel.LoginName, new {htmlAttributes = new {@class = "form-control", Placeholder = @Html.DisplayNameFor(name => name.signUpModel.LoginName)}})
+                            @Html.ValidationMessageFor(model => model.signUpModel.LoginName, "", new {@class = "text-danger"})
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-4">
+                            @Html.LabelFor(x => x.signUpModel.Password
+                                , htmlAttributes: new { @class = "label PL10 LH30 control-label" })
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            @Html.EditorFor(x => x.signUpModel.Password, new {htmlAttributes = new {@class = "form-control", Placeholder = @Html.DisplayNameFor(name => name.signUpModel.Password)}})
+                            @Html.ValidationMessageFor(model => model.signUpModel.Password, "", new {@class = "text-danger"})
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-4">
+                            @Html.LabelFor(x => x.signUpModel.ConfirmPassword
+                                , htmlAttributes: new { @class = "label PL10 LH30 control-label" })
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            @Html.EditorFor(x => x.signUpModel.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", Placeholder = @Html.DisplayNameFor(name => name.signUpModel.Password) } })
+                            @Html.ValidationMessageFor(model => model.signUpModel.ConfirmPassword, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-4">
+                            @Html.LabelFor(x => x.signUpModel.EmailID, htmlAttributes: new { required = "required", @class = "label PL10 LH30 control-label" })
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            @Html.EditorFor(x => x.signUpModel.EmailID, new {htmlAttributes = new {@class = "form-control", Placeholder = @Html.DisplayNameFor(name => name.signUpModel.EmailID)}})
+                            @Html.ValidationMessageFor(model => model.signUpModel.EmailID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="row top-buffer">
+                        
+                        <div class="col-lg-3" align="right">
+                          
+                        </div>
+                        <div class="col-lg-3" align="left">
+                            <input type="button" id="btnSignUpubmit" value="Sign Up" class="btn btn-sm btn-primary" />
+                            <img  hidden src="~/images/ajax_loader_red_512.gif" class="BSAjaxProcess"/>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+}
+                    </div>
+              </div>
+    </div>
+   
+
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

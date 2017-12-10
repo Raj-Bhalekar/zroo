@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BSDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BSDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
 warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Log">
@@ -30,6 +30,16 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
           <Property Name="Exception" Type="nvarchar(max)" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="TBL_AdminOffers">
           <Key>
@@ -59,6 +69,23 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="UpdateDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_ControlModule">
+          <Key>
+            <PropertyRef Name="ControlModuleID" />
+          </Key>
+          <Property Name="ControlModuleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ControlModuleName" Type="nvarchar" MaxLength="150" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="TBL_ControlModule_Pages">
+          <Key>
+            <PropertyRef Name="ControlModule_PagesID" />
+          </Key>
+          <Property Name="ControlModule_PagesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ControlModuleId" Type="int" />
+          <Property Name="PageId" Type="int" />
         </EntityType>
         <EntityType Name="TBL_InActiveShopList_CNFG">
           <Key>
@@ -113,6 +140,20 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
           <Property Name="UpdateDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="int" />
         </EntityType>
+        <EntityType Name="TBL_Menues">
+          <Key>
+            <PropertyRef Name="MenuID" />
+          </Key>
+          <Property Name="MenuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuName" Type="nvarchar" MaxLength="40" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="ParentMenuId" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="MenuIconPath" Type="nvarchar" MaxLength="80" />
+        </EntityType>
         <EntityType Name="TBL_OfferOnProducts">
           <Key>
             <PropertyRef Name="ID" />
@@ -125,6 +166,92 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="UpdateDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_Page_Menues">
+          <Key>
+            <PropertyRef Name="Page_MenuesID" />
+          </Key>
+          <Property Name="Page_MenuesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuID" Type="int" />
+          <Property Name="PageID" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="TBL_Page_Plugins">
+          <Key>
+            <PropertyRef Name="Page_PluginsID" />
+          </Key>
+          <Property Name="Page_PluginsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlugInID" Type="int" />
+          <Property Name="PageID" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_Pages">
+          <Key>
+            <PropertyRef Name="PageID" />
+          </Key>
+          <Property Name="PageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PageName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ModuleInfo" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="PageURL" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="TBL_PlugIn_Details">
+          <Key>
+            <PropertyRef Name="PlugInID" />
+          </Key>
+          <Property Name="PlugInID" Type="int" Nullable="false" />
+          <Property Name="NoOfCondition" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_PlugInCities">
+          <Key>
+            <PropertyRef Name="PlugInCityID" />
+          </Key>
+          <Property Name="PlugInCityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlugInID" Type="int" />
+          <Property Name="CityID" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_PlugInImages">
+          <Key>
+            <PropertyRef Name="PlugInImageID" />
+          </Key>
+          <Property Name="PlugInImageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlugInID" Type="int" />
+          <Property Name="Image" Type="varbinary" MaxLength="1" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_PlugIns">
+          <Key>
+            <PropertyRef Name="PlugInID" />
+          </Key>
+          <Property Name="PlugInID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlugInName" Type="nvarchar" MaxLength="30" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1000" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="VideoDescriptionUrl" Type="nvarchar" MaxLength="200" />
+          <Property Name="IsPlugInPerShop" Type="bit" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="IsFreeToAll" Type="bit" />
+          <Property Name="IsPageType" Type="bit" />
         </EntityType>
         <EntityType Name="TBL_PostalCodes_CNFG">
           <Key>
@@ -154,9 +281,9 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
           <Key>
             <PropertyRef Name="ImageID" />
           </Key>
-          <Property Name="ImageID" Type="int" Nullable="false" />
-          <Property Name="ProductID" Type="int" Nullable="false" />
-          <Property Name="ProductImage" Type="binary" MaxLength="1" Nullable="false" />
+          <Property Name="ImageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductID" Type="bigint" Nullable="false" />
+          <Property Name="ProductImage" Type="varbinary(max)" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
@@ -167,10 +294,10 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
           <Key>
             <PropertyRef Name="ProductID" />
           </Key>
-          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="bigint" Nullable="false" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="ProductBrand" Type="nvarchar" MaxLength="75" Nullable="false" />
-          <Property Name="BarCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BarCode" Type="nvarchar" MaxLength="50" />
           <Property Name="ProductTypeID" Type="int" />
           <Property Name="ShopID" Type="int" Nullable="false" />
           <Property Name="IsAvailable" Type="bit" Nullable="false" />
@@ -210,6 +337,22 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
           <Property Name="UpdateDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="int" />
         </EntityType>
+        <EntityType Name="TBL_Shop_PlugIn">
+          <Key>
+            <PropertyRef Name="ShopPlugInID" />
+          </Key>
+          <Property Name="ShopPlugInID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShopID" Type="int" />
+          <Property Name="PlugInID" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="ActivationDate" Type="datetime" />
+          <Property Name="ExpiryDate" Type="datetime" />
+          <Property Name="PlugInRating" Type="tinyint" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+        </EntityType>
         <EntityType Name="TBL_ShopCategory_CNFG">
           <Key>
             <PropertyRef Name="ShopCategoryID" />
@@ -245,6 +388,18 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
           <Property Name="ShopDirectoryID" Type="int" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="CreatedBy" Type="int" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_ShopMapDetails">
+          <Key>
+            <PropertyRef Name="ShopId" />
+          </Key>
+          <Property Name="ShopId" Type="int" Nullable="false" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateBy" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="UpdateDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="int" />
         </EntityType>
@@ -306,7 +461,7 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ShopID" Type="int" Nullable="false" />
           <Property Name="PostalCodeID" Type="int" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
@@ -338,6 +493,19 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
           <Property Name="CreatedBy" Type="int" StoreGeneratedPattern="Computed" />
           <Property Name="UpdateDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_UserAssignedShops">
+          <Key>
+            <PropertyRef Name="UserAssignedShopsID" />
+          </Key>
+          <Property Name="UserAssignedShopsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShopLoginDetailsID" Type="int" />
+          <Property Name="ShopID" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="UpdateBy" Type="int" />
+          <Property Name="UpdateDate" Type="datetime" />
         </EntityType>
         <Association Name="bsProductType">
           <End Role="TBL_ProductType_CNFG" Type="Self.TBL_ProductType_CNFG" Multiplicity="0..1" />
@@ -408,6 +576,30 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
             </Principal>
             <Dependent Role="TBL_Cities_CNFG">
               <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Contr__Contr__0F2D40CE">
+          <End Role="TBL_ControlModule" Type="Self.TBL_ControlModule" Multiplicity="0..1" />
+          <End Role="TBL_ControlModule_Pages" Type="Self.TBL_ControlModule_Pages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ControlModule">
+              <PropertyRef Name="ControlModuleID" />
+            </Principal>
+            <Dependent Role="TBL_ControlModule_Pages">
+              <PropertyRef Name="ControlModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Contr__PageI__10216507">
+          <End Role="TBL_Pages" Type="Self.TBL_Pages" Multiplicity="0..1" />
+          <End Role="TBL_ControlModule_Pages" Type="Self.TBL_ControlModule_Pages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Pages">
+              <PropertyRef Name="PageID" />
+            </Principal>
+            <Dependent Role="TBL_ControlModule_Pages">
+              <PropertyRef Name="PageId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -507,6 +699,42 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__TBL_Menue__Creat__6166761E">
+          <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Role="TBL_Menues" Type="Self.TBL_Menues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_Menues">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Menue__Paren__7B264821">
+          <End Role="TBL_Menues" Type="Self.TBL_Menues" Multiplicity="0..1" />
+          <End Role="TBL_Menues1" Type="Self.TBL_Menues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Menues">
+              <PropertyRef Name="MenuID" />
+            </Principal>
+            <Dependent Role="TBL_Menues1">
+              <PropertyRef Name="ParentMenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Menue__Updat__625A9A57">
+          <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Role="TBL_Menues" Type="Self.TBL_Menues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_Menues">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__TBL_Offer__Creat__6C190EBB">
           <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
           <End Role="TBL_OfferOnProducts" Type="Self.TBL_OfferOnProducts" Multiplicity="*" />
@@ -528,6 +756,222 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
             </Principal>
             <Dependent Role="TBL_OfferOnProducts">
               <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Page___Creat__793DFFAF">
+          <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Role="TBL_Page_Plugins" Type="Self.TBL_Page_Plugins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_Page_Plugins">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Page___MenuI__7FEAFD3E">
+          <End Role="TBL_Menues" Type="Self.TBL_Menues" Multiplicity="0..1" />
+          <End Role="TBL_Page_Menues" Type="Self.TBL_Page_Menues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Menues">
+              <PropertyRef Name="MenuID" />
+            </Principal>
+            <Dependent Role="TBL_Page_Menues">
+              <PropertyRef Name="MenuID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Page___PageI__00DF2177">
+          <End Role="TBL_Pages" Type="Self.TBL_Pages" Multiplicity="0..1" />
+          <End Role="TBL_Page_Menues" Type="Self.TBL_Page_Menues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Pages">
+              <PropertyRef Name="PageID" />
+            </Principal>
+            <Dependent Role="TBL_Page_Menues">
+              <PropertyRef Name="PageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Page___PageI__7849DB76">
+          <End Role="TBL_Pages" Type="Self.TBL_Pages" Multiplicity="0..1" />
+          <End Role="TBL_Page_Plugins" Type="Self.TBL_Page_Plugins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Pages">
+              <PropertyRef Name="PageID" />
+            </Principal>
+            <Dependent Role="TBL_Page_Plugins">
+              <PropertyRef Name="PageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Page___PlugI__7755B73D">
+          <End Role="TBL_PlugIns" Type="Self.TBL_PlugIns" Multiplicity="0..1" />
+          <End Role="TBL_Page_Plugins" Type="Self.TBL_Page_Plugins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_PlugIns">
+              <PropertyRef Name="PlugInID" />
+            </Principal>
+            <Dependent Role="TBL_Page_Plugins">
+              <PropertyRef Name="PlugInID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Page___Updat__7A3223E8">
+          <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Role="TBL_Page_Plugins" Type="Self.TBL_Page_Plugins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_Page_Plugins">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Pages__Creat__719CDDE7">
+          <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Role="TBL_Pages" Type="Self.TBL_Pages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_Pages">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Pages__Updat__72910220">
+          <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Role="TBL_Pages" Type="Self.TBL_Pages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_Pages">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_PlugI__CityI__531856C7">
+          <End Role="TBL_Cities_CNFG" Type="Self.TBL_Cities_CNFG" Multiplicity="0..1" />
+          <End Role="TBL_PlugInCities" Type="Self.TBL_PlugInCities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Cities_CNFG">
+              <PropertyRef Name="CityID" />
+            </Principal>
+            <Dependent Role="TBL_PlugInCities">
+              <PropertyRef Name="CityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_PlugI__Creat__45BE5BA9">
+          <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Role="TBL_PlugIns" Type="Self.TBL_PlugIns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_PlugIns">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_PlugI__Creat__4C6B5938">
+          <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Role="TBL_PlugInImages" Type="Self.TBL_PlugInImages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_PlugInImages">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_PlugI__Creat__540C7B00">
+          <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Role="TBL_PlugInCities" Type="Self.TBL_PlugInCities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_PlugInCities">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_PlugI__PlugI__14E61A24">
+          <End Role="TBL_PlugIns" Type="Self.TBL_PlugIns" Multiplicity="1" />
+          <End Role="TBL_PlugIn_Details" Type="Self.TBL_PlugIn_Details" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_PlugIns">
+              <PropertyRef Name="PlugInID" />
+            </Principal>
+            <Dependent Role="TBL_PlugIn_Details">
+              <PropertyRef Name="PlugInID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_PlugI__PlugI__4B7734FF">
+          <End Role="TBL_PlugIns" Type="Self.TBL_PlugIns" Multiplicity="0..1" />
+          <End Role="TBL_PlugInImages" Type="Self.TBL_PlugInImages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_PlugIns">
+              <PropertyRef Name="PlugInID" />
+            </Principal>
+            <Dependent Role="TBL_PlugInImages">
+              <PropertyRef Name="PlugInID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_PlugI__PlugI__5224328E">
+          <End Role="TBL_PlugIns" Type="Self.TBL_PlugIns" Multiplicity="0..1" />
+          <End Role="TBL_PlugInCities" Type="Self.TBL_PlugInCities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_PlugIns">
+              <PropertyRef Name="PlugInID" />
+            </Principal>
+            <Dependent Role="TBL_PlugInCities">
+              <PropertyRef Name="PlugInID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_PlugI__Updat__46B27FE2">
+          <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Role="TBL_PlugIns" Type="Self.TBL_PlugIns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_PlugIns">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_PlugI__Updat__4D5F7D71">
+          <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Role="TBL_PlugInImages" Type="Self.TBL_PlugInImages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_PlugInImages">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_PlugI__Updat__55009F39">
+          <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Role="TBL_PlugInCities" Type="Self.TBL_PlugInCities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_PlugInCities">
+              <PropertyRef Name="CreatedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -591,6 +1035,18 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__TBL_Produ__Creat__3BFFE745">
+          <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Role="TBL_ProductImages" Type="Self.TBL_ProductImages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_ProductImages">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__TBL_Produ__Creat__4E88ABD4">
           <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
           <End Role="TBL_Products" Type="Self.TBL_Products" Multiplicity="*" />
@@ -599,18 +1055,6 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
               <PropertyRef Name="ShopLoginDetailsID" />
             </Principal>
             <Dependent Role="TBL_Products">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__TBL_Produ__Creat__70DDC3D8">
-          <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
-          <End Role="TBL_ProductImages" Type="Self.TBL_ProductImages" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_ShopLoginDetails">
-              <PropertyRef Name="ShopLoginDetailsID" />
-            </Principal>
-            <Dependent Role="TBL_ProductImages">
               <PropertyRef Name="CreatedBy" />
             </Dependent>
           </ReferentialConstraint>
@@ -651,6 +1095,18 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__TBL_Produ__Updat__3CF40B7E">
+          <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+          <End Role="TBL_ProductImages" Type="Self.TBL_ProductImages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_ProductImages">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__TBL_Produ__Updat__4F7CD00D">
           <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
           <End Role="TBL_Products" Type="Self.TBL_Products" Multiplicity="*" />
@@ -663,15 +1119,51 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TBL_Produ__Updat__71D1E811">
-          <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
-          <End Role="TBL_ProductImages" Type="Self.TBL_ProductImages" Multiplicity="*" />
+        <Association Name="FK__TBL_Shop___Creat__5BAD9CC8">
+          <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Role="TBL_Shop_PlugIn" Type="Self.TBL_Shop_PlugIn" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TBL_ShopLoginDetails">
               <PropertyRef Name="ShopLoginDetailsID" />
             </Principal>
-            <Dependent Role="TBL_ProductImages">
-              <PropertyRef Name="UpdatedBy" />
+            <Dependent Role="TBL_Shop_PlugIn">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Shop___PlugI__5AB9788F">
+          <End Role="TBL_PlugIns" Type="Self.TBL_PlugIns" Multiplicity="0..1" />
+          <End Role="TBL_Shop_PlugIn" Type="Self.TBL_Shop_PlugIn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_PlugIns">
+              <PropertyRef Name="PlugInID" />
+            </Principal>
+            <Dependent Role="TBL_Shop_PlugIn">
+              <PropertyRef Name="PlugInID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Shop___ShopI__59C55456">
+          <End Role="TBL_Shops" Type="Self.TBL_Shops" Multiplicity="0..1" />
+          <End Role="TBL_Shop_PlugIn" Type="Self.TBL_Shop_PlugIn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Shops">
+              <PropertyRef Name="ShopID" />
+            </Principal>
+            <Dependent Role="TBL_Shop_PlugIn">
+              <PropertyRef Name="ShopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Shop___Updat__5CA1C101">
+          <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Role="TBL_Shop_PlugIn" Type="Self.TBL_Shop_PlugIn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_Shop_PlugIn">
+              <PropertyRef Name="CreatedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -759,6 +1251,42 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__TBL_ShopM__Creat__4F12BBB9">
+          <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Role="TBL_ShopMapDetails" Type="Self.TBL_ShopMapDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_ShopMapDetails">
+              <PropertyRef Name="CreateBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_ShopM__ShopI__4E1E9780">
+          <End Role="TBL_Shops" Type="Self.TBL_Shops" Multiplicity="1" />
+          <End Role="TBL_ShopMapDetails" Type="Self.TBL_ShopMapDetails" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Shops">
+              <PropertyRef Name="ShopID" />
+            </Principal>
+            <Dependent Role="TBL_ShopMapDetails">
+              <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_ShopM__Updat__5006DFF2">
+          <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+          <End Role="TBL_ShopMapDetails" Type="Self.TBL_ShopMapDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_ShopMapDetails">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__TBL_ShopO__Creat__5CD6CB2B">
           <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
           <End Role="TBL_ShopOffers" Type="Self.TBL_ShopOffers" Multiplicity="*" />
@@ -780,6 +1308,18 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
             </Principal>
             <Dependent Role="TBL_ShopOffers">
               <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Shops__Creat__318258D2">
+          <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Role="TBL_ShopsInPostalCodes" Type="Self.TBL_ShopsInPostalCodes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_ShopsInPostalCodes">
+              <PropertyRef Name="CreatedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -807,18 +1347,6 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TBL_Shops__Creat__6754599E">
-          <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
-          <End Role="TBL_ShopsInPostalCodes" Type="Self.TBL_ShopsInPostalCodes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_ShopLoginDetails">
-              <PropertyRef Name="ShopLoginDetailsID" />
-            </Principal>
-            <Dependent Role="TBL_ShopsInPostalCodes">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__TBL_Shops__ShopD__34C8D9D1">
           <End Role="TBL_ShopDirectory" Type="Self.TBL_ShopDirectory" Multiplicity="0..1" />
           <End Role="TBL_Shops" Type="Self.TBL_Shops" Multiplicity="*" />
@@ -828,6 +1356,18 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
             </Principal>
             <Dependent Role="TBL_Shops">
               <PropertyRef Name="ShopDirectoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Shops__Updat__32767D0B">
+          <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+          <End Role="TBL_ShopsInPostalCodes" Type="Self.TBL_ShopsInPostalCodes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_ShopsInPostalCodes">
+              <PropertyRef Name="UpdatedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -851,18 +1391,6 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
               <PropertyRef Name="ShopLoginDetailsID" />
             </Principal>
             <Dependent Role="TBL_Shops5TopProducts">
-              <PropertyRef Name="UpdatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__TBL_Shops__Updat__68487DD7">
-          <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
-          <End Role="TBL_ShopsInPostalCodes" Type="Self.TBL_ShopsInPostalCodes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_ShopLoginDetails">
-              <PropertyRef Name="ShopLoginDetailsID" />
-            </Principal>
-            <Dependent Role="TBL_ShopsInPostalCodes">
               <PropertyRef Name="UpdatedBy" />
             </Dependent>
           </ReferentialConstraint>
@@ -912,6 +1440,54 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
             </Principal>
             <Dependent Role="TBL_States_CNFG">
               <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_UserA__Creat__27F8EE98">
+          <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+          <End Role="TBL_UserAssignedShops" Type="Self.TBL_UserAssignedShops" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_UserAssignedShops">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_UserA__ShopI__2704CA5F">
+          <End Role="TBL_Shops" Type="Self.TBL_Shops" Multiplicity="0..1" />
+          <End Role="TBL_UserAssignedShops" Type="Self.TBL_UserAssignedShops" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Shops">
+              <PropertyRef Name="ShopID" />
+            </Principal>
+            <Dependent Role="TBL_UserAssignedShops">
+              <PropertyRef Name="ShopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_UserA__ShopL__2610A626">
+          <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+          <End Role="TBL_UserAssignedShops" Type="Self.TBL_UserAssignedShops" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_UserAssignedShops">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_UserA__Updat__28ED12D1">
+          <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
+          <End Role="TBL_UserAssignedShops" Type="Self.TBL_UserAssignedShops" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_UserAssignedShops">
+              <PropertyRef Name="UpdateBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1132,28 +1708,42 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="BSDBModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_AdminOffers" EntityType="Self.TBL_AdminOffers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_Cities_CNFG" EntityType="Self.TBL_Cities_CNFG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_ControlModule" EntityType="Self.TBL_ControlModule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_ControlModule_Pages" EntityType="Self.TBL_ControlModule_Pages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_InActiveShopList_CNFG" EntityType="Self.TBL_InActiveShopList_CNFG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_InActiveShopReasons_CNFG" EntityType="Self.TBL_InActiveShopReasons_CNFG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_Infrastructure_CNFG" EntityType="Self.TBL_Infrastructure_CNFG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_InfrastructureCategories_CNFG" EntityType="Self.TBL_InfrastructureCategories_CNFG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Menues" EntityType="Self.TBL_Menues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_OfferOnProducts" EntityType="Self.TBL_OfferOnProducts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Page_Menues" EntityType="Self.TBL_Page_Menues" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Page_Plugins" EntityType="Self.TBL_Page_Plugins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Pages" EntityType="Self.TBL_Pages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_PlugIn_Details" EntityType="Self.TBL_PlugIn_Details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_PlugInCities" EntityType="Self.TBL_PlugInCities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_PlugInImages" EntityType="Self.TBL_PlugInImages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_PlugIns" EntityType="Self.TBL_PlugIns" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_PostalCodes_CNFG" EntityType="Self.TBL_PostalCodes_CNFG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ProductCategories_CNFG" EntityType="Self.TBL_ProductCategories_CNFG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ProductImages" EntityType="Self.TBL_ProductImages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_Products" EntityType="Self.TBL_Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ProductSubType_CNFG" EntityType="Self.TBL_ProductSubType_CNFG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ProductType_CNFG" EntityType="Self.TBL_ProductType_CNFG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Shop_PlugIn" EntityType="Self.TBL_Shop_PlugIn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ShopCategory_CNFG" EntityType="Self.TBL_ShopCategory_CNFG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ShopDirectory" EntityType="Self.TBL_ShopDirectory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ShopLoginDetails" EntityType="Self.TBL_ShopLoginDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_ShopMapDetails" EntityType="Self.TBL_ShopMapDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ShopOffers" EntityType="Self.TBL_ShopOffers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_Shops" EntityType="Self.TBL_Shops" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_Shops5TopProducts" EntityType="Self.TBL_Shops5TopProducts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ShopsInPostalCodes" EntityType="Self.TBL_ShopsInPostalCodes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ShopTypes_CNFG" EntityType="Self.TBL_ShopTypes_CNFG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_States_CNFG" EntityType="Self.TBL_States_CNFG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_UserAssignedShops" EntityType="Self.TBL_UserAssignedShops" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Log" EntityType="Self.Log" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Log].[Id] AS [Id], 
@@ -1196,6 +1786,14 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
             <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
             <End Role="TBL_Cities_CNFG" EntitySet="TBL_Cities_CNFG" />
           </AssociationSet>
+          <AssociationSet Name="FK__TBL_Contr__Contr__0F2D40CE" Association="Self.FK__TBL_Contr__Contr__0F2D40CE">
+            <End Role="TBL_ControlModule" EntitySet="TBL_ControlModule" />
+            <End Role="TBL_ControlModule_Pages" EntitySet="TBL_ControlModule_Pages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Contr__PageI__10216507" Association="Self.FK__TBL_Contr__PageI__10216507">
+            <End Role="TBL_Pages" EntitySet="TBL_Pages" />
+            <End Role="TBL_ControlModule_Pages" EntitySet="TBL_ControlModule_Pages" />
+          </AssociationSet>
           <AssociationSet Name="FK__TBL_InAct__Creat__1B0907CE" Association="Self.FK__TBL_InAct__Creat__1B0907CE">
             <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
             <End Role="TBL_InActiveShopReasons_CNFG" EntitySet="TBL_InActiveShopReasons_CNFG" />
@@ -1228,6 +1826,18 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
             <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
             <End Role="TBL_Infrastructure_CNFG" EntitySet="TBL_Infrastructure_CNFG" />
           </AssociationSet>
+          <AssociationSet Name="FK__TBL_Menue__Creat__6166761E" Association="Self.FK__TBL_Menue__Creat__6166761E">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_Menues" EntitySet="TBL_Menues" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Menue__Paren__7B264821" Association="Self.FK__TBL_Menue__Paren__7B264821">
+            <End Role="TBL_Menues" EntitySet="TBL_Menues" />
+            <End Role="TBL_Menues1" EntitySet="TBL_Menues" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Menue__Updat__625A9A57" Association="Self.FK__TBL_Menue__Updat__625A9A57">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_Menues" EntitySet="TBL_Menues" />
+          </AssociationSet>
           <AssociationSet Name="FK__TBL_Offer__Creat__6C190EBB" Association="Self.FK__TBL_Offer__Creat__6C190EBB">
             <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
             <End Role="TBL_OfferOnProducts" EntitySet="TBL_OfferOnProducts" />
@@ -1235,6 +1845,78 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
           <AssociationSet Name="FK__TBL_Offer__Updat__6D0D32F4" Association="Self.FK__TBL_Offer__Updat__6D0D32F4">
             <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
             <End Role="TBL_OfferOnProducts" EntitySet="TBL_OfferOnProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Page___Creat__793DFFAF" Association="Self.FK__TBL_Page___Creat__793DFFAF">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_Page_Plugins" EntitySet="TBL_Page_Plugins" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Page___MenuI__7FEAFD3E" Association="Self.FK__TBL_Page___MenuI__7FEAFD3E">
+            <End Role="TBL_Menues" EntitySet="TBL_Menues" />
+            <End Role="TBL_Page_Menues" EntitySet="TBL_Page_Menues" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Page___PageI__00DF2177" Association="Self.FK__TBL_Page___PageI__00DF2177">
+            <End Role="TBL_Pages" EntitySet="TBL_Pages" />
+            <End Role="TBL_Page_Menues" EntitySet="TBL_Page_Menues" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Page___PageI__7849DB76" Association="Self.FK__TBL_Page___PageI__7849DB76">
+            <End Role="TBL_Pages" EntitySet="TBL_Pages" />
+            <End Role="TBL_Page_Plugins" EntitySet="TBL_Page_Plugins" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Page___PlugI__7755B73D" Association="Self.FK__TBL_Page___PlugI__7755B73D">
+            <End Role="TBL_PlugIns" EntitySet="TBL_PlugIns" />
+            <End Role="TBL_Page_Plugins" EntitySet="TBL_Page_Plugins" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Page___Updat__7A3223E8" Association="Self.FK__TBL_Page___Updat__7A3223E8">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_Page_Plugins" EntitySet="TBL_Page_Plugins" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Pages__Creat__719CDDE7" Association="Self.FK__TBL_Pages__Creat__719CDDE7">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_Pages" EntitySet="TBL_Pages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Pages__Updat__72910220" Association="Self.FK__TBL_Pages__Updat__72910220">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_Pages" EntitySet="TBL_Pages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_PlugI__CityI__531856C7" Association="Self.FK__TBL_PlugI__CityI__531856C7">
+            <End Role="TBL_Cities_CNFG" EntitySet="TBL_Cities_CNFG" />
+            <End Role="TBL_PlugInCities" EntitySet="TBL_PlugInCities" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_PlugI__Creat__45BE5BA9" Association="Self.FK__TBL_PlugI__Creat__45BE5BA9">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_PlugIns" EntitySet="TBL_PlugIns" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_PlugI__Creat__4C6B5938" Association="Self.FK__TBL_PlugI__Creat__4C6B5938">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_PlugInImages" EntitySet="TBL_PlugInImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_PlugI__Creat__540C7B00" Association="Self.FK__TBL_PlugI__Creat__540C7B00">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_PlugInCities" EntitySet="TBL_PlugInCities" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_PlugI__PlugI__14E61A24" Association="Self.FK__TBL_PlugI__PlugI__14E61A24">
+            <End Role="TBL_PlugIns" EntitySet="TBL_PlugIns" />
+            <End Role="TBL_PlugIn_Details" EntitySet="TBL_PlugIn_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_PlugI__PlugI__4B7734FF" Association="Self.FK__TBL_PlugI__PlugI__4B7734FF">
+            <End Role="TBL_PlugIns" EntitySet="TBL_PlugIns" />
+            <End Role="TBL_PlugInImages" EntitySet="TBL_PlugInImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_PlugI__PlugI__5224328E" Association="Self.FK__TBL_PlugI__PlugI__5224328E">
+            <End Role="TBL_PlugIns" EntitySet="TBL_PlugIns" />
+            <End Role="TBL_PlugInCities" EntitySet="TBL_PlugInCities" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_PlugI__Updat__46B27FE2" Association="Self.FK__TBL_PlugI__Updat__46B27FE2">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_PlugIns" EntitySet="TBL_PlugIns" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_PlugI__Updat__4D5F7D71" Association="Self.FK__TBL_PlugI__Updat__4D5F7D71">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_PlugInImages" EntitySet="TBL_PlugInImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_PlugI__Updat__55009F39" Association="Self.FK__TBL_PlugI__Updat__55009F39">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_PlugInCities" EntitySet="TBL_PlugInCities" />
           </AssociationSet>
           <AssociationSet Name="FK__TBL_Posta__Creat__534D60F1" Association="Self.FK__TBL_Posta__Creat__534D60F1">
             <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
@@ -1256,13 +1938,13 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
             <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
             <End Role="TBL_ProductCategories_CNFG" EntitySet="TBL_ProductCategories_CNFG" />
           </AssociationSet>
+          <AssociationSet Name="FK__TBL_Produ__Creat__3BFFE745" Association="Self.FK__TBL_Produ__Creat__3BFFE745">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_ProductImages" EntitySet="TBL_ProductImages" />
+          </AssociationSet>
           <AssociationSet Name="FK__TBL_Produ__Creat__4E88ABD4" Association="Self.FK__TBL_Produ__Creat__4E88ABD4">
             <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
             <End Role="TBL_Products" EntitySet="TBL_Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK__TBL_Produ__Creat__70DDC3D8" Association="Self.FK__TBL_Produ__Creat__70DDC3D8">
-            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
-            <End Role="TBL_ProductImages" EntitySet="TBL_ProductImages" />
           </AssociationSet>
           <AssociationSet Name="FK__TBL_Produ__Updat__1273C1CD" Association="Self.FK__TBL_Produ__Updat__1273C1CD">
             <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
@@ -1276,13 +1958,29 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
             <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
             <End Role="TBL_ProductCategories_CNFG" EntitySet="TBL_ProductCategories_CNFG" />
           </AssociationSet>
+          <AssociationSet Name="FK__TBL_Produ__Updat__3CF40B7E" Association="Self.FK__TBL_Produ__Updat__3CF40B7E">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_ProductImages" EntitySet="TBL_ProductImages" />
+          </AssociationSet>
           <AssociationSet Name="FK__TBL_Produ__Updat__4F7CD00D" Association="Self.FK__TBL_Produ__Updat__4F7CD00D">
             <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
             <End Role="TBL_Products" EntitySet="TBL_Products" />
           </AssociationSet>
-          <AssociationSet Name="FK__TBL_Produ__Updat__71D1E811" Association="Self.FK__TBL_Produ__Updat__71D1E811">
+          <AssociationSet Name="FK__TBL_Shop___Creat__5BAD9CC8" Association="Self.FK__TBL_Shop___Creat__5BAD9CC8">
             <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
-            <End Role="TBL_ProductImages" EntitySet="TBL_ProductImages" />
+            <End Role="TBL_Shop_PlugIn" EntitySet="TBL_Shop_PlugIn" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Shop___PlugI__5AB9788F" Association="Self.FK__TBL_Shop___PlugI__5AB9788F">
+            <End Role="TBL_PlugIns" EntitySet="TBL_PlugIns" />
+            <End Role="TBL_Shop_PlugIn" EntitySet="TBL_Shop_PlugIn" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Shop___ShopI__59C55456" Association="Self.FK__TBL_Shop___ShopI__59C55456">
+            <End Role="TBL_Shops" EntitySet="TBL_Shops" />
+            <End Role="TBL_Shop_PlugIn" EntitySet="TBL_Shop_PlugIn" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Shop___Updat__5CA1C101" Association="Self.FK__TBL_Shop___Updat__5CA1C101">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_Shop_PlugIn" EntitySet="TBL_Shop_PlugIn" />
           </AssociationSet>
           <AssociationSet Name="FK__TBL_ShopC__Creat__0CBAE877" Association="Self.FK__TBL_ShopC__Creat__0CBAE877">
             <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
@@ -1312,6 +2010,18 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
             <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
             <End Role="TBL_ShopLoginDetails1" EntitySet="TBL_ShopLoginDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK__TBL_ShopM__Creat__4F12BBB9" Association="Self.FK__TBL_ShopM__Creat__4F12BBB9">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_ShopMapDetails" EntitySet="TBL_ShopMapDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_ShopM__ShopI__4E1E9780" Association="Self.FK__TBL_ShopM__ShopI__4E1E9780">
+            <End Role="TBL_Shops" EntitySet="TBL_Shops" />
+            <End Role="TBL_ShopMapDetails" EntitySet="TBL_ShopMapDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_ShopM__Updat__5006DFF2" Association="Self.FK__TBL_ShopM__Updat__5006DFF2">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_ShopMapDetails" EntitySet="TBL_ShopMapDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK__TBL_ShopO__Creat__5CD6CB2B" Association="Self.FK__TBL_ShopO__Creat__5CD6CB2B">
             <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
             <End Role="TBL_ShopOffers" EntitySet="TBL_ShopOffers" />
@@ -1319,6 +2029,10 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
           <AssociationSet Name="FK__TBL_ShopO__Updat__5DCAEF64" Association="Self.FK__TBL_ShopO__Updat__5DCAEF64">
             <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
             <End Role="TBL_ShopOffers" EntitySet="TBL_ShopOffers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Shops__Creat__318258D2" Association="Self.FK__TBL_Shops__Creat__318258D2">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_ShopsInPostalCodes" EntitySet="TBL_ShopsInPostalCodes" />
           </AssociationSet>
           <AssociationSet Name="FK__TBL_Shops__Creat__36B12243" Association="Self.FK__TBL_Shops__Creat__36B12243">
             <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
@@ -1328,13 +2042,13 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
             <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
             <End Role="TBL_Shops5TopProducts" EntitySet="TBL_Shops5TopProducts" />
           </AssociationSet>
-          <AssociationSet Name="FK__TBL_Shops__Creat__6754599E" Association="Self.FK__TBL_Shops__Creat__6754599E">
-            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
-            <End Role="TBL_ShopsInPostalCodes" EntitySet="TBL_ShopsInPostalCodes" />
-          </AssociationSet>
           <AssociationSet Name="FK__TBL_Shops__ShopD__34C8D9D1" Association="Self.FK__TBL_Shops__ShopD__34C8D9D1">
             <End Role="TBL_ShopDirectory" EntitySet="TBL_ShopDirectory" />
             <End Role="TBL_Shops" EntitySet="TBL_Shops" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Shops__Updat__32767D0B" Association="Self.FK__TBL_Shops__Updat__32767D0B">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_ShopsInPostalCodes" EntitySet="TBL_ShopsInPostalCodes" />
           </AssociationSet>
           <AssociationSet Name="FK__TBL_Shops__Updat__37A5467C" Association="Self.FK__TBL_Shops__Updat__37A5467C">
             <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
@@ -1343,10 +2057,6 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
           <AssociationSet Name="FK__TBL_Shops__Updat__59063A47" Association="Self.FK__TBL_Shops__Updat__59063A47">
             <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
             <End Role="TBL_Shops5TopProducts" EntitySet="TBL_Shops5TopProducts" />
-          </AssociationSet>
-          <AssociationSet Name="FK__TBL_Shops__Updat__68487DD7" Association="Self.FK__TBL_Shops__Updat__68487DD7">
-            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
-            <End Role="TBL_ShopsInPostalCodes" EntitySet="TBL_ShopsInPostalCodes" />
           </AssociationSet>
           <AssociationSet Name="FK__TBL_ShopT__Creat__2C3393D0" Association="Self.FK__TBL_ShopT__Creat__2C3393D0">
             <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
@@ -1363,6 +2073,22 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
           <AssociationSet Name="FK__TBL_State__Updat__286302EC" Association="Self.FK__TBL_State__Updat__286302EC">
             <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
             <End Role="TBL_States_CNFG" EntitySet="TBL_States_CNFG" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_UserA__Creat__27F8EE98" Association="Self.FK__TBL_UserA__Creat__27F8EE98">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_UserAssignedShops" EntitySet="TBL_UserAssignedShops" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_UserA__ShopI__2704CA5F" Association="Self.FK__TBL_UserA__ShopI__2704CA5F">
+            <End Role="TBL_Shops" EntitySet="TBL_Shops" />
+            <End Role="TBL_UserAssignedShops" EntitySet="TBL_UserAssignedShops" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_UserA__ShopL__2610A626" Association="Self.FK__TBL_UserA__ShopL__2610A626">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_UserAssignedShops" EntitySet="TBL_UserAssignedShops" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_UserA__Updat__28ED12D1" Association="Self.FK__TBL_UserA__Updat__28ED12D1">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_UserAssignedShops" EntitySet="TBL_UserAssignedShops" />
           </AssociationSet>
           <AssociationSet Name="ShopesInPostalCodes_fk0" Association="Self.ShopesInPostalCodes_fk0">
             <End Role="TBL_Shops" EntitySet="TBL_Shops" />
@@ -1437,8 +2163,7 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
             <End Role="TBL_Shops5TopProducts" EntitySet="TBL_Shops5TopProducts" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BSDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1479,6 +2204,7 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
           <NavigationProperty Name="TBL_States_CNFG" Relationship="Self.TBL_Cities_CNFG_fk0" FromRole="TBL_Cities_CNFG" ToRole="TBL_States_CNFG" />
           <NavigationProperty Name="TBL_Infrastructure_CNFG" Relationship="Self.TBL_Infrastructure_CNFG_fk0" FromRole="TBL_Cities_CNFG" ToRole="TBL_Infrastructure_CNFG" />
           <NavigationProperty Name="TBL_PostalCodes_CNFG" Relationship="Self.TBL_PostalCodes_CNFG_fk0" FromRole="TBL_Cities_CNFG" ToRole="TBL_PostalCodes_CNFG" />
+          <NavigationProperty Name="TBL_PlugInCities" Relationship="BSDBModel.FK__TBL_PlugI__CityI__531856C7" FromRole="TBL_Cities_CNFG" ToRole="TBL_PlugInCities" />
         </EntityType>
         <EntityType Name="TBL_InActiveShopList_CNFG">
           <Key>
@@ -1598,8 +2324,8 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
             <PropertyRef Name="ImageID" />
           </Key>
           <Property Name="ImageID" Type="Int32" Nullable="false" />
-          <Property Name="ProductID" Type="Int32" Nullable="false" />
-          <Property Name="ProductImage" Type="Binary" MaxLength="1" FixedLength="true" Nullable="false" />
+          <Property Name="ProductID" Type="Int64" Nullable="false" />
+          <Property Name="ProductImage" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
@@ -1613,10 +2339,10 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
           <Key>
             <PropertyRef Name="ProductID" />
           </Key>
-          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int64" Nullable="false" />
           <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ProductBrand" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="BarCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BarCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ProductTypeID" Type="Int32" />
           <Property Name="ShopID" Type="Int32" Nullable="false" />
           <Property Name="IsAvailable" Type="Boolean" Nullable="false" />
@@ -1761,7 +2487,26 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
           <NavigationProperty Name="TBL_ShopTypes_CNFG1" Relationship="Self.FK__TBL_ShopT__Updat__2D27B809" FromRole="TBL_ShopLoginDetails" ToRole="TBL_ShopTypes_CNFG" />
           <NavigationProperty Name="TBL_States_CNFG" Relationship="Self.FK__TBL_State__Creat__276EDEB3" FromRole="TBL_ShopLoginDetails" ToRole="TBL_States_CNFG" />
           <NavigationProperty Name="TBL_States_CNFG1" Relationship="Self.FK__TBL_State__Updat__286302EC" FromRole="TBL_ShopLoginDetails" ToRole="TBL_States_CNFG" />
-        </EntityType>
+          <NavigationProperty Name="TBL_Menues" Relationship="BSDBModel.FK__TBL_Menue__Creat__6166761E" FromRole="TBL_ShopLoginDetails" ToRole="TBL_Menues" />
+          <NavigationProperty Name="TBL_Menues1" Relationship="BSDBModel.FK__TBL_Menue__Updat__625A9A57" FromRole="TBL_ShopLoginDetails" ToRole="TBL_Menues" />
+          <NavigationProperty Name="TBL_Page_Plugins" Relationship="BSDBModel.FK__TBL_Page___Creat__793DFFAF" FromRole="TBL_ShopLoginDetails" ToRole="TBL_Page_Plugins" />
+          <NavigationProperty Name="TBL_Page_Plugins1" Relationship="BSDBModel.FK__TBL_Page___Updat__7A3223E8" FromRole="TBL_ShopLoginDetails" ToRole="TBL_Page_Plugins" />
+          <NavigationProperty Name="TBL_Pages" Relationship="BSDBModel.FK__TBL_Pages__Creat__719CDDE7" FromRole="TBL_ShopLoginDetails" ToRole="TBL_Pages" />
+          <NavigationProperty Name="TBL_Pages1" Relationship="BSDBModel.FK__TBL_Pages__Updat__72910220" FromRole="TBL_ShopLoginDetails" ToRole="TBL_Pages" />
+          <NavigationProperty Name="TBL_PlugInCities" Relationship="BSDBModel.FK__TBL_PlugI__Creat__540C7B00" FromRole="TBL_ShopLoginDetails" ToRole="TBL_PlugInCities" />
+          <NavigationProperty Name="TBL_PlugInCities1" Relationship="BSDBModel.FK__TBL_PlugI__Updat__55009F39" FromRole="TBL_ShopLoginDetails" ToRole="TBL_PlugInCities" />
+          <NavigationProperty Name="TBL_PlugInImages" Relationship="BSDBModel.FK__TBL_PlugI__Creat__4C6B5938" FromRole="TBL_ShopLoginDetails" ToRole="TBL_PlugInImages" />
+          <NavigationProperty Name="TBL_PlugInImages1" Relationship="BSDBModel.FK__TBL_PlugI__Updat__4D5F7D71" FromRole="TBL_ShopLoginDetails" ToRole="TBL_PlugInImages" />
+          <NavigationProperty Name="TBL_PlugIns" Relationship="BSDBModel.FK__TBL_PlugI__Creat__45BE5BA9" FromRole="TBL_ShopLoginDetails" ToRole="TBL_PlugIns" />
+          <NavigationProperty Name="TBL_PlugIns1" Relationship="BSDBModel.FK__TBL_PlugI__Updat__46B27FE2" FromRole="TBL_ShopLoginDetails" ToRole="TBL_PlugIns" />
+          <NavigationProperty Name="TBL_Shop_PlugIn" Relationship="BSDBModel.FK__TBL_Shop___Creat__5BAD9CC8" FromRole="TBL_ShopLoginDetails" ToRole="TBL_Shop_PlugIn" />
+          <NavigationProperty Name="TBL_Shop_PlugIn1" Relationship="BSDBModel.FK__TBL_Shop___Updat__5CA1C101" FromRole="TBL_ShopLoginDetails" ToRole="TBL_Shop_PlugIn" />
+          <NavigationProperty Name="TBL_UserAssignedShops" Relationship="BSDBModel.FK__TBL_UserA__Creat__27F8EE98" FromRole="TBL_ShopLoginDetails" ToRole="TBL_UserAssignedShops" />
+          <NavigationProperty Name="TBL_UserAssignedShops1" Relationship="BSDBModel.FK__TBL_UserA__ShopL__2610A626" FromRole="TBL_ShopLoginDetails" ToRole="TBL_UserAssignedShops" />
+          <NavigationProperty Name="TBL_UserAssignedShops2" Relationship="BSDBModel.FK__TBL_UserA__Updat__28ED12D1" FromRole="TBL_ShopLoginDetails" ToRole="TBL_UserAssignedShops" />
+          <NavigationProperty Name="TBL_ShopMapDetails" Relationship="BSDBModel.FK__TBL_ShopM__Creat__4F12BBB9" FromRole="TBL_ShopLoginDetails" ToRole="TBL_ShopMapDetails" />
+          <NavigationProperty Name="TBL_ShopMapDetails1" Relationship="BSDBModel.FK__TBL_ShopM__Updat__5006DFF2" FromRole="TBL_ShopLoginDetails" ToRole="TBL_ShopMapDetails" />
+          </EntityType>
         <EntityType Name="TBL_ShopOffers">
           <Key>
             <PropertyRef Name="OfferID" />
@@ -1818,6 +2563,9 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
           <NavigationProperty Name="TBL_ShopsInPostalCodes" Relationship="Self.ShopesInPostalCodes_fk0" FromRole="TBL_Shops" ToRole="TBL_ShopsInPostalCodes" />
           <NavigationProperty Name="TBL_ShopTypes_CNFG" Relationship="Self.TBL_Shops_fk1" FromRole="TBL_Shops" ToRole="TBL_ShopTypes_CNFG" />
           <NavigationProperty Name="TBL_Shops5TopProducts" Relationship="Self.TBL_Shops5TopProducts_fk0" FromRole="TBL_Shops" ToRole="TBL_Shops5TopProducts" />
+          <NavigationProperty Name="TBL_Shop_PlugIn" Relationship="BSDBModel.FK__TBL_Shop___ShopI__59C55456" FromRole="TBL_Shops" ToRole="TBL_Shop_PlugIn" />
+          <NavigationProperty Name="TBL_UserAssignedShops" Relationship="BSDBModel.FK__TBL_UserA__ShopI__2704CA5F" FromRole="TBL_Shops" ToRole="TBL_UserAssignedShops" />
+          <NavigationProperty Name="TBL_ShopMapDetails" Relationship="BSDBModel.FK__TBL_ShopM__ShopI__4E1E9780" FromRole="TBL_Shops" ToRole="TBL_ShopMapDetails" />
         </EntityType>
         <EntityType Name="TBL_Shops5TopProducts">
           <Key>
@@ -2986,8 +3734,779 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
             <End Role="TBL_Shops" EntitySet="TBL_Shops" />
             <End Role="TBL_Shops5TopProducts" EntitySet="TBL_Shops5TopProducts" />
           </AssociationSet>
-        </EntityContainer>
-      </Schema>
+          <EntitySet Name="TBL_ControlModule" EntityType="BSDBModel.TBL_ControlModule" />
+          <EntitySet Name="TBL_ControlModule_Pages" EntityType="BSDBModel.TBL_ControlModule_Pages" />
+          <EntitySet Name="TBL_Menues" EntityType="BSDBModel.TBL_Menues" />
+          <EntitySet Name="TBL_Page_Menues" EntityType="BSDBModel.TBL_Page_Menues" />
+          <EntitySet Name="TBL_Page_Plugins" EntityType="BSDBModel.TBL_Page_Plugins" />
+          <EntitySet Name="TBL_Pages" EntityType="BSDBModel.TBL_Pages" />
+          <EntitySet Name="TBL_PlugIn_Details" EntityType="BSDBModel.TBL_PlugIn_Details" />
+          <EntitySet Name="TBL_PlugInCities" EntityType="BSDBModel.TBL_PlugInCities" />
+          <EntitySet Name="TBL_PlugInImages" EntityType="BSDBModel.TBL_PlugInImages" />
+          <EntitySet Name="TBL_PlugIns" EntityType="BSDBModel.TBL_PlugIns" />
+          <EntitySet Name="TBL_Shop_PlugIn" EntityType="BSDBModel.TBL_Shop_PlugIn" />
+          <AssociationSet Name="FK__TBL_PlugI__CityI__531856C7" Association="BSDBModel.FK__TBL_PlugI__CityI__531856C7">
+            <End Role="TBL_Cities_CNFG" EntitySet="TBL_Cities_CNFG" />
+            <End Role="TBL_PlugInCities" EntitySet="TBL_PlugInCities" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Contr__Contr__0F2D40CE" Association="BSDBModel.FK__TBL_Contr__Contr__0F2D40CE">
+            <End Role="TBL_ControlModule" EntitySet="TBL_ControlModule" />
+            <End Role="TBL_ControlModule_Pages" EntitySet="TBL_ControlModule_Pages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Contr__PageI__10216507" Association="BSDBModel.FK__TBL_Contr__PageI__10216507">
+            <End Role="TBL_Pages" EntitySet="TBL_Pages" />
+            <End Role="TBL_ControlModule_Pages" EntitySet="TBL_ControlModule_Pages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Menue__Creat__6166761E" Association="BSDBModel.FK__TBL_Menue__Creat__6166761E">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_Menues" EntitySet="TBL_Menues" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Menue__Paren__7B264821" Association="BSDBModel.FK__TBL_Menue__Paren__7B264821">
+            <End Role="TBL_Menues" EntitySet="TBL_Menues" />
+            <End Role="TBL_Menues1" EntitySet="TBL_Menues" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Menue__Updat__625A9A57" Association="BSDBModel.FK__TBL_Menue__Updat__625A9A57">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_Menues" EntitySet="TBL_Menues" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Page___MenuI__7FEAFD3E" Association="BSDBModel.FK__TBL_Page___MenuI__7FEAFD3E">
+            <End Role="TBL_Menues" EntitySet="TBL_Menues" />
+            <End Role="TBL_Page_Menues" EntitySet="TBL_Page_Menues" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Page___PageI__00DF2177" Association="BSDBModel.FK__TBL_Page___PageI__00DF2177">
+            <End Role="TBL_Pages" EntitySet="TBL_Pages" />
+            <End Role="TBL_Page_Menues" EntitySet="TBL_Page_Menues" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Page___Creat__793DFFAF" Association="BSDBModel.FK__TBL_Page___Creat__793DFFAF">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_Page_Plugins" EntitySet="TBL_Page_Plugins" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Page___PageI__7849DB76" Association="BSDBModel.FK__TBL_Page___PageI__7849DB76">
+            <End Role="TBL_Pages" EntitySet="TBL_Pages" />
+            <End Role="TBL_Page_Plugins" EntitySet="TBL_Page_Plugins" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Page___PlugI__7755B73D" Association="BSDBModel.FK__TBL_Page___PlugI__7755B73D">
+            <End Role="TBL_PlugIns" EntitySet="TBL_PlugIns" />
+            <End Role="TBL_Page_Plugins" EntitySet="TBL_Page_Plugins" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Page___Updat__7A3223E8" Association="BSDBModel.FK__TBL_Page___Updat__7A3223E8">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_Page_Plugins" EntitySet="TBL_Page_Plugins" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Pages__Creat__719CDDE7" Association="BSDBModel.FK__TBL_Pages__Creat__719CDDE7">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_Pages" EntitySet="TBL_Pages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Pages__Updat__72910220" Association="BSDBModel.FK__TBL_Pages__Updat__72910220">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_Pages" EntitySet="TBL_Pages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_PlugI__PlugI__14E61A24" Association="BSDBModel.FK__TBL_PlugI__PlugI__14E61A24">
+            <End Role="TBL_PlugIns" EntitySet="TBL_PlugIns" />
+            <End Role="TBL_PlugIn_Details" EntitySet="TBL_PlugIn_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_PlugI__Creat__540C7B00" Association="BSDBModel.FK__TBL_PlugI__Creat__540C7B00">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_PlugInCities" EntitySet="TBL_PlugInCities" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_PlugI__PlugI__5224328E" Association="BSDBModel.FK__TBL_PlugI__PlugI__5224328E">
+            <End Role="TBL_PlugIns" EntitySet="TBL_PlugIns" />
+            <End Role="TBL_PlugInCities" EntitySet="TBL_PlugInCities" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_PlugI__Updat__55009F39" Association="BSDBModel.FK__TBL_PlugI__Updat__55009F39">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_PlugInCities" EntitySet="TBL_PlugInCities" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_PlugI__Creat__4C6B5938" Association="BSDBModel.FK__TBL_PlugI__Creat__4C6B5938">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_PlugInImages" EntitySet="TBL_PlugInImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_PlugI__PlugI__4B7734FF" Association="BSDBModel.FK__TBL_PlugI__PlugI__4B7734FF">
+            <End Role="TBL_PlugIns" EntitySet="TBL_PlugIns" />
+            <End Role="TBL_PlugInImages" EntitySet="TBL_PlugInImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_PlugI__Updat__4D5F7D71" Association="BSDBModel.FK__TBL_PlugI__Updat__4D5F7D71">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_PlugInImages" EntitySet="TBL_PlugInImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_PlugI__Creat__45BE5BA9" Association="BSDBModel.FK__TBL_PlugI__Creat__45BE5BA9">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_PlugIns" EntitySet="TBL_PlugIns" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_PlugI__Updat__46B27FE2" Association="BSDBModel.FK__TBL_PlugI__Updat__46B27FE2">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_PlugIns" EntitySet="TBL_PlugIns" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Shop___PlugI__5AB9788F" Association="BSDBModel.FK__TBL_Shop___PlugI__5AB9788F">
+            <End Role="TBL_PlugIns" EntitySet="TBL_PlugIns" />
+            <End Role="TBL_Shop_PlugIn" EntitySet="TBL_Shop_PlugIn" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Shop___Creat__5BAD9CC8" Association="BSDBModel.FK__TBL_Shop___Creat__5BAD9CC8">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_Shop_PlugIn" EntitySet="TBL_Shop_PlugIn" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Shop___ShopI__59C55456" Association="BSDBModel.FK__TBL_Shop___ShopI__59C55456">
+            <End Role="TBL_Shops" EntitySet="TBL_Shops" />
+            <End Role="TBL_Shop_PlugIn" EntitySet="TBL_Shop_PlugIn" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_Shop___Updat__5CA1C101" Association="BSDBModel.FK__TBL_Shop___Updat__5CA1C101">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_Shop_PlugIn" EntitySet="TBL_Shop_PlugIn" />
+          </AssociationSet>
+          <EntitySet Name="TBL_UserAssignedShops" EntityType="BSDBModel.TBL_UserAssignedShops" />
+          <AssociationSet Name="FK__TBL_UserA__Creat__27F8EE98" Association="BSDBModel.FK__TBL_UserA__Creat__27F8EE98">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_UserAssignedShops" EntitySet="TBL_UserAssignedShops" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_UserA__ShopL__2610A626" Association="BSDBModel.FK__TBL_UserA__ShopL__2610A626">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_UserAssignedShops" EntitySet="TBL_UserAssignedShops" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_UserA__Updat__28ED12D1" Association="BSDBModel.FK__TBL_UserA__Updat__28ED12D1">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_UserAssignedShops" EntitySet="TBL_UserAssignedShops" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_UserA__ShopI__2704CA5F" Association="BSDBModel.FK__TBL_UserA__ShopI__2704CA5F">
+            <End Role="TBL_Shops" EntitySet="TBL_Shops" />
+            <End Role="TBL_UserAssignedShops" EntitySet="TBL_UserAssignedShops" />
+          </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="BSDBModel.sysdiagram" />
+          <EntitySet Name="TBL_ShopMapDetails" EntityType="BSDBModel.TBL_ShopMapDetails" />
+          <AssociationSet Name="FK__TBL_ShopM__Creat__4F12BBB9" Association="BSDBModel.FK__TBL_ShopM__Creat__4F12BBB9">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_ShopMapDetails" EntitySet="TBL_ShopMapDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_ShopM__Updat__5006DFF2" Association="BSDBModel.FK__TBL_ShopM__Updat__5006DFF2">
+            <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
+            <End Role="TBL_ShopMapDetails" EntitySet="TBL_ShopMapDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_ShopM__ShopI__4E1E9780" Association="BSDBModel.FK__TBL_ShopM__ShopI__4E1E9780">
+            <End Role="TBL_Shops" EntitySet="TBL_Shops" />
+            <End Role="TBL_ShopMapDetails" EntitySet="TBL_ShopMapDetails" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="TBL_ControlModule">
+          <Key>
+            <PropertyRef Name="ControlModuleID" />
+          </Key>
+          <Property Name="ControlModuleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ControlModuleName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="TBL_ControlModule_Pages" Relationship="BSDBModel.FK__TBL_Contr__Contr__0F2D40CE" FromRole="TBL_ControlModule" ToRole="TBL_ControlModule_Pages" />
+        </EntityType>
+        <EntityType Name="TBL_ControlModule_Pages">
+          <Key>
+            <PropertyRef Name="ControlModule_PagesID" />
+          </Key>
+          <Property Name="ControlModule_PagesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ControlModuleId" Type="Int32" />
+          <Property Name="PageId" Type="Int32" />
+          <NavigationProperty Name="TBL_ControlModule" Relationship="BSDBModel.FK__TBL_Contr__Contr__0F2D40CE" FromRole="TBL_ControlModule_Pages" ToRole="TBL_ControlModule" />
+          <NavigationProperty Name="TBL_Pages" Relationship="BSDBModel.FK__TBL_Contr__PageI__10216507" FromRole="TBL_ControlModule_Pages" ToRole="TBL_Pages" />
+        </EntityType>
+        <EntityType Name="TBL_Menues">
+          <Key>
+            <PropertyRef Name="MenuID" />
+          </Key>
+          <Property Name="MenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="ParentMenuId" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="BSDBModel.FK__TBL_Menue__Creat__6166761E" FromRole="TBL_Menues" ToRole="TBL_ShopLoginDetails" />
+          <NavigationProperty Name="TBL_Menues1" Relationship="BSDBModel.FK__TBL_Menue__Paren__7B264821" FromRole="TBL_Menues" ToRole="TBL_Menues1" />
+          <NavigationProperty Name="TBL_Menues2" Relationship="BSDBModel.FK__TBL_Menue__Paren__7B264821" FromRole="TBL_Menues1" ToRole="TBL_Menues" />
+          <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="BSDBModel.FK__TBL_Menue__Updat__625A9A57" FromRole="TBL_Menues" ToRole="TBL_ShopLoginDetails" />
+          <NavigationProperty Name="TBL_Page_Menues" Relationship="BSDBModel.FK__TBL_Page___MenuI__7FEAFD3E" FromRole="TBL_Menues" ToRole="TBL_Page_Menues" />
+          <Property Name="MenuIconPath" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TBL_Page_Menues">
+          <Key>
+            <PropertyRef Name="Page_MenuesID" />
+          </Key>
+          <Property Name="Page_MenuesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuID" Type="Int32" />
+          <Property Name="PageID" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="TBL_Menues" Relationship="BSDBModel.FK__TBL_Page___MenuI__7FEAFD3E" FromRole="TBL_Page_Menues" ToRole="TBL_Menues" />
+          <NavigationProperty Name="TBL_Pages" Relationship="BSDBModel.FK__TBL_Page___PageI__00DF2177" FromRole="TBL_Page_Menues" ToRole="TBL_Pages" />
+        </EntityType>
+        <EntityType Name="TBL_Page_Plugins">
+          <Key>
+            <PropertyRef Name="Page_PluginsID" />
+          </Key>
+          <Property Name="Page_PluginsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlugInID" Type="Int32" />
+          <Property Name="PageID" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="BSDBModel.FK__TBL_Page___Creat__793DFFAF" FromRole="TBL_Page_Plugins" ToRole="TBL_ShopLoginDetails" />
+          <NavigationProperty Name="TBL_Pages" Relationship="BSDBModel.FK__TBL_Page___PageI__7849DB76" FromRole="TBL_Page_Plugins" ToRole="TBL_Pages" />
+          <NavigationProperty Name="TBL_PlugIns" Relationship="BSDBModel.FK__TBL_Page___PlugI__7755B73D" FromRole="TBL_Page_Plugins" ToRole="TBL_PlugIns" />
+          <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="BSDBModel.FK__TBL_Page___Updat__7A3223E8" FromRole="TBL_Page_Plugins" ToRole="TBL_ShopLoginDetails" />
+        </EntityType>
+        <EntityType Name="TBL_Pages">
+          <Key>
+            <PropertyRef Name="PageID" />
+          </Key>
+          <Property Name="PageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PageName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ModuleInfo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="PageURL" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TBL_ControlModule_Pages" Relationship="BSDBModel.FK__TBL_Contr__PageI__10216507" FromRole="TBL_Pages" ToRole="TBL_ControlModule_Pages" />
+          <NavigationProperty Name="TBL_Page_Menues" Relationship="BSDBModel.FK__TBL_Page___PageI__00DF2177" FromRole="TBL_Pages" ToRole="TBL_Page_Menues" />
+          <NavigationProperty Name="TBL_Page_Plugins" Relationship="BSDBModel.FK__TBL_Page___PageI__7849DB76" FromRole="TBL_Pages" ToRole="TBL_Page_Plugins" />
+          <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="BSDBModel.FK__TBL_Pages__Creat__719CDDE7" FromRole="TBL_Pages" ToRole="TBL_ShopLoginDetails" />
+          <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="BSDBModel.FK__TBL_Pages__Updat__72910220" FromRole="TBL_Pages" ToRole="TBL_ShopLoginDetails" />
+        </EntityType>
+        <EntityType Name="TBL_PlugIn_Details">
+          <Key>
+            <PropertyRef Name="PlugInID" />
+          </Key>
+          <Property Name="PlugInID" Type="Int32" Nullable="false" />
+          <Property Name="NoOfCondition" Type="Int32" />
+          <NavigationProperty Name="TBL_PlugIns" Relationship="BSDBModel.FK__TBL_PlugI__PlugI__14E61A24" FromRole="TBL_PlugIn_Details" ToRole="TBL_PlugIns" />
+        </EntityType>
+        <EntityType Name="TBL_PlugInCities">
+          <Key>
+            <PropertyRef Name="PlugInCityID" />
+          </Key>
+          <Property Name="PlugInCityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlugInID" Type="Int32" />
+          <Property Name="CityID" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <NavigationProperty Name="TBL_Cities_CNFG" Relationship="BSDBModel.FK__TBL_PlugI__CityI__531856C7" FromRole="TBL_PlugInCities" ToRole="TBL_Cities_CNFG" />
+          <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="BSDBModel.FK__TBL_PlugI__Creat__540C7B00" FromRole="TBL_PlugInCities" ToRole="TBL_ShopLoginDetails" />
+          <NavigationProperty Name="TBL_PlugIns" Relationship="BSDBModel.FK__TBL_PlugI__PlugI__5224328E" FromRole="TBL_PlugInCities" ToRole="TBL_PlugIns" />
+          <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="BSDBModel.FK__TBL_PlugI__Updat__55009F39" FromRole="TBL_PlugInCities" ToRole="TBL_ShopLoginDetails" />
+        </EntityType>
+        <EntityType Name="TBL_PlugInImages">
+          <Key>
+            <PropertyRef Name="PlugInImageID" />
+          </Key>
+          <Property Name="PlugInImageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlugInID" Type="Int32" />
+          <Property Name="Image" Type="Binary" MaxLength="1" FixedLength="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="BSDBModel.FK__TBL_PlugI__Creat__4C6B5938" FromRole="TBL_PlugInImages" ToRole="TBL_ShopLoginDetails" />
+          <NavigationProperty Name="TBL_PlugIns" Relationship="BSDBModel.FK__TBL_PlugI__PlugI__4B7734FF" FromRole="TBL_PlugInImages" ToRole="TBL_PlugIns" />
+          <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="BSDBModel.FK__TBL_PlugI__Updat__4D5F7D71" FromRole="TBL_PlugInImages" ToRole="TBL_ShopLoginDetails" />
+        </EntityType>
+        <EntityType Name="TBL_PlugIns">
+          <Key>
+            <PropertyRef Name="PlugInID" />
+          </Key>
+          <Property Name="PlugInID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlugInName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="VideoDescriptionUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsPlugInPerShop" Type="Boolean" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="IsFreeToAll" Type="Boolean" />
+          <Property Name="IsPageType" Type="Boolean" />
+          <NavigationProperty Name="TBL_Page_Plugins" Relationship="BSDBModel.FK__TBL_Page___PlugI__7755B73D" FromRole="TBL_PlugIns" ToRole="TBL_Page_Plugins" />
+          <NavigationProperty Name="TBL_PlugIn_Details" Relationship="BSDBModel.FK__TBL_PlugI__PlugI__14E61A24" FromRole="TBL_PlugIns" ToRole="TBL_PlugIn_Details" />
+          <NavigationProperty Name="TBL_PlugInCities" Relationship="BSDBModel.FK__TBL_PlugI__PlugI__5224328E" FromRole="TBL_PlugIns" ToRole="TBL_PlugInCities" />
+          <NavigationProperty Name="TBL_PlugInImages" Relationship="BSDBModel.FK__TBL_PlugI__PlugI__4B7734FF" FromRole="TBL_PlugIns" ToRole="TBL_PlugInImages" />
+          <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="BSDBModel.FK__TBL_PlugI__Creat__45BE5BA9" FromRole="TBL_PlugIns" ToRole="TBL_ShopLoginDetails" />
+          <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="BSDBModel.FK__TBL_PlugI__Updat__46B27FE2" FromRole="TBL_PlugIns" ToRole="TBL_ShopLoginDetails" />
+          <NavigationProperty Name="TBL_Shop_PlugIn" Relationship="BSDBModel.FK__TBL_Shop___PlugI__5AB9788F" FromRole="TBL_PlugIns" ToRole="TBL_Shop_PlugIn" />
+        </EntityType>
+        <EntityType Name="TBL_Shop_PlugIn">
+          <Key>
+            <PropertyRef Name="ShopPlugInID" />
+          </Key>
+          <Property Name="ShopPlugInID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShopID" Type="Int32" />
+          <Property Name="PlugInID" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="ActivationDate" Type="DateTime" Precision="3" />
+          <Property Name="ExpiryDate" Type="DateTime" Precision="3" />
+          <Property Name="PlugInRating" Type="Byte" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <NavigationProperty Name="TBL_PlugIns" Relationship="BSDBModel.FK__TBL_Shop___PlugI__5AB9788F" FromRole="TBL_Shop_PlugIn" ToRole="TBL_PlugIns" />
+          <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="BSDBModel.FK__TBL_Shop___Creat__5BAD9CC8" FromRole="TBL_Shop_PlugIn" ToRole="TBL_ShopLoginDetails" />
+          <NavigationProperty Name="TBL_Shops" Relationship="BSDBModel.FK__TBL_Shop___ShopI__59C55456" FromRole="TBL_Shop_PlugIn" ToRole="TBL_Shops" />
+          <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="BSDBModel.FK__TBL_Shop___Updat__5CA1C101" FromRole="TBL_Shop_PlugIn" ToRole="TBL_ShopLoginDetails" />
+        </EntityType>
+        <Association Name="FK__TBL_PlugI__CityI__531856C7">
+          <End Type="BSDBModel.TBL_Cities_CNFG" Role="TBL_Cities_CNFG" Multiplicity="0..1" />
+          <End Type="BSDBModel.TBL_PlugInCities" Role="TBL_PlugInCities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Cities_CNFG">
+              <PropertyRef Name="CityID" />
+            </Principal>
+            <Dependent Role="TBL_PlugInCities">
+              <PropertyRef Name="CityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Contr__Contr__0F2D40CE">
+          <End Type="BSDBModel.TBL_ControlModule" Role="TBL_ControlModule" Multiplicity="0..1" />
+          <End Type="BSDBModel.TBL_ControlModule_Pages" Role="TBL_ControlModule_Pages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ControlModule">
+              <PropertyRef Name="ControlModuleID" />
+            </Principal>
+            <Dependent Role="TBL_ControlModule_Pages">
+              <PropertyRef Name="ControlModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Contr__PageI__10216507">
+          <End Type="BSDBModel.TBL_Pages" Role="TBL_Pages" Multiplicity="0..1" />
+          <End Type="BSDBModel.TBL_ControlModule_Pages" Role="TBL_ControlModule_Pages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Pages">
+              <PropertyRef Name="PageID" />
+            </Principal>
+            <Dependent Role="TBL_ControlModule_Pages">
+              <PropertyRef Name="PageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Menue__Creat__6166761E">
+          <End Type="BSDBModel.TBL_ShopLoginDetails" Role="TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Type="BSDBModel.TBL_Menues" Role="TBL_Menues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_Menues">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Menue__Paren__7B264821">
+          <End Type="BSDBModel.TBL_Menues" Role="TBL_Menues" Multiplicity="0..1" />
+          <End Type="BSDBModel.TBL_Menues" Role="TBL_Menues1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Menues">
+              <PropertyRef Name="MenuID" />
+            </Principal>
+            <Dependent Role="TBL_Menues1">
+              <PropertyRef Name="ParentMenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Menue__Updat__625A9A57">
+          <End Type="BSDBModel.TBL_ShopLoginDetails" Role="TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Type="BSDBModel.TBL_Menues" Role="TBL_Menues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_Menues">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Page___MenuI__7FEAFD3E">
+          <End Type="BSDBModel.TBL_Menues" Role="TBL_Menues" Multiplicity="0..1" />
+          <End Type="BSDBModel.TBL_Page_Menues" Role="TBL_Page_Menues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Menues">
+              <PropertyRef Name="MenuID" />
+            </Principal>
+            <Dependent Role="TBL_Page_Menues">
+              <PropertyRef Name="MenuID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Page___PageI__00DF2177">
+          <End Type="BSDBModel.TBL_Pages" Role="TBL_Pages" Multiplicity="0..1" />
+          <End Type="BSDBModel.TBL_Page_Menues" Role="TBL_Page_Menues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Pages">
+              <PropertyRef Name="PageID" />
+            </Principal>
+            <Dependent Role="TBL_Page_Menues">
+              <PropertyRef Name="PageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Page___Creat__793DFFAF">
+          <End Type="BSDBModel.TBL_ShopLoginDetails" Role="TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Type="BSDBModel.TBL_Page_Plugins" Role="TBL_Page_Plugins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_Page_Plugins">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Page___PageI__7849DB76">
+          <End Type="BSDBModel.TBL_Pages" Role="TBL_Pages" Multiplicity="0..1" />
+          <End Type="BSDBModel.TBL_Page_Plugins" Role="TBL_Page_Plugins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Pages">
+              <PropertyRef Name="PageID" />
+            </Principal>
+            <Dependent Role="TBL_Page_Plugins">
+              <PropertyRef Name="PageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Page___PlugI__7755B73D">
+          <End Type="BSDBModel.TBL_PlugIns" Role="TBL_PlugIns" Multiplicity="0..1" />
+          <End Type="BSDBModel.TBL_Page_Plugins" Role="TBL_Page_Plugins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_PlugIns">
+              <PropertyRef Name="PlugInID" />
+            </Principal>
+            <Dependent Role="TBL_Page_Plugins">
+              <PropertyRef Name="PlugInID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Page___Updat__7A3223E8">
+          <End Type="BSDBModel.TBL_ShopLoginDetails" Role="TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Type="BSDBModel.TBL_Page_Plugins" Role="TBL_Page_Plugins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_Page_Plugins">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Pages__Creat__719CDDE7">
+          <End Type="BSDBModel.TBL_ShopLoginDetails" Role="TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Type="BSDBModel.TBL_Pages" Role="TBL_Pages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_Pages">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Pages__Updat__72910220">
+          <End Type="BSDBModel.TBL_ShopLoginDetails" Role="TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Type="BSDBModel.TBL_Pages" Role="TBL_Pages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_Pages">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_PlugI__PlugI__14E61A24">
+          <End Type="BSDBModel.TBL_PlugIns" Role="TBL_PlugIns" Multiplicity="1" />
+          <End Type="BSDBModel.TBL_PlugIn_Details" Role="TBL_PlugIn_Details" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_PlugIns">
+              <PropertyRef Name="PlugInID" />
+            </Principal>
+            <Dependent Role="TBL_PlugIn_Details">
+              <PropertyRef Name="PlugInID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_PlugI__Creat__540C7B00">
+          <End Type="BSDBModel.TBL_ShopLoginDetails" Role="TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Type="BSDBModel.TBL_PlugInCities" Role="TBL_PlugInCities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_PlugInCities">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_PlugI__PlugI__5224328E">
+          <End Type="BSDBModel.TBL_PlugIns" Role="TBL_PlugIns" Multiplicity="0..1" />
+          <End Type="BSDBModel.TBL_PlugInCities" Role="TBL_PlugInCities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_PlugIns">
+              <PropertyRef Name="PlugInID" />
+            </Principal>
+            <Dependent Role="TBL_PlugInCities">
+              <PropertyRef Name="PlugInID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_PlugI__Updat__55009F39">
+          <End Type="BSDBModel.TBL_ShopLoginDetails" Role="TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Type="BSDBModel.TBL_PlugInCities" Role="TBL_PlugInCities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_PlugInCities">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_PlugI__Creat__4C6B5938">
+          <End Type="BSDBModel.TBL_ShopLoginDetails" Role="TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Type="BSDBModel.TBL_PlugInImages" Role="TBL_PlugInImages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_PlugInImages">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_PlugI__PlugI__4B7734FF">
+          <End Type="BSDBModel.TBL_PlugIns" Role="TBL_PlugIns" Multiplicity="0..1" />
+          <End Type="BSDBModel.TBL_PlugInImages" Role="TBL_PlugInImages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_PlugIns">
+              <PropertyRef Name="PlugInID" />
+            </Principal>
+            <Dependent Role="TBL_PlugInImages">
+              <PropertyRef Name="PlugInID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_PlugI__Updat__4D5F7D71">
+          <End Type="BSDBModel.TBL_ShopLoginDetails" Role="TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Type="BSDBModel.TBL_PlugInImages" Role="TBL_PlugInImages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_PlugInImages">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_PlugI__Creat__45BE5BA9">
+          <End Type="BSDBModel.TBL_ShopLoginDetails" Role="TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Type="BSDBModel.TBL_PlugIns" Role="TBL_PlugIns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_PlugIns">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_PlugI__Updat__46B27FE2">
+          <End Type="BSDBModel.TBL_ShopLoginDetails" Role="TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Type="BSDBModel.TBL_PlugIns" Role="TBL_PlugIns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_PlugIns">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Shop___PlugI__5AB9788F">
+          <End Type="BSDBModel.TBL_PlugIns" Role="TBL_PlugIns" Multiplicity="0..1" />
+          <End Type="BSDBModel.TBL_Shop_PlugIn" Role="TBL_Shop_PlugIn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_PlugIns">
+              <PropertyRef Name="PlugInID" />
+            </Principal>
+            <Dependent Role="TBL_Shop_PlugIn">
+              <PropertyRef Name="PlugInID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Shop___Creat__5BAD9CC8">
+          <End Type="BSDBModel.TBL_ShopLoginDetails" Role="TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Type="BSDBModel.TBL_Shop_PlugIn" Role="TBL_Shop_PlugIn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_Shop_PlugIn">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Shop___ShopI__59C55456">
+          <End Type="BSDBModel.TBL_Shops" Role="TBL_Shops" Multiplicity="0..1" />
+          <End Type="BSDBModel.TBL_Shop_PlugIn" Role="TBL_Shop_PlugIn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Shops">
+              <PropertyRef Name="ShopID" />
+            </Principal>
+            <Dependent Role="TBL_Shop_PlugIn">
+              <PropertyRef Name="ShopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_Shop___Updat__5CA1C101">
+          <End Type="BSDBModel.TBL_ShopLoginDetails" Role="TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Type="BSDBModel.TBL_Shop_PlugIn" Role="TBL_Shop_PlugIn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_Shop_PlugIn">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TBL_UserAssignedShops">
+          <Key>
+            <PropertyRef Name="UserAssignedShopsID" />
+          </Key>
+          <Property Name="UserAssignedShopsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShopLoginDetailsID" Type="Int32" />
+          <Property Name="ShopID" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="Int32" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="BSDBModel.FK__TBL_UserA__Creat__27F8EE98" FromRole="TBL_UserAssignedShops" ToRole="TBL_ShopLoginDetails" />
+          <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="BSDBModel.FK__TBL_UserA__ShopL__2610A626" FromRole="TBL_UserAssignedShops" ToRole="TBL_ShopLoginDetails" />
+          <NavigationProperty Name="TBL_ShopLoginDetails2" Relationship="BSDBModel.FK__TBL_UserA__Updat__28ED12D1" FromRole="TBL_UserAssignedShops" ToRole="TBL_ShopLoginDetails" />
+          <NavigationProperty Name="TBL_Shops" Relationship="BSDBModel.FK__TBL_UserA__ShopI__2704CA5F" FromRole="TBL_UserAssignedShops" ToRole="TBL_Shops" />
+        </EntityType>
+        <Association Name="FK__TBL_UserA__Creat__27F8EE98">
+          <End Type="BSDBModel.TBL_ShopLoginDetails" Role="TBL_ShopLoginDetails" Multiplicity="0..1" />
+          <End Type="BSDBModel.TBL_UserAssignedShops" Role="TBL_UserAssignedShops" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_UserAssignedShops">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_UserA__ShopL__2610A626">
+          <End Type="BSDBModel.TBL_ShopLoginDetails" Role="TBL_ShopLoginDetails" Multiplicity="0..1" />
+          <End Type="BSDBModel.TBL_UserAssignedShops" Role="TBL_UserAssignedShops" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_UserAssignedShops">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_UserA__Updat__28ED12D1">
+          <End Type="BSDBModel.TBL_ShopLoginDetails" Role="TBL_ShopLoginDetails" Multiplicity="0..1" />
+          <End Type="BSDBModel.TBL_UserAssignedShops" Role="TBL_UserAssignedShops" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_UserAssignedShops">
+              <PropertyRef Name="UpdateBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_UserA__ShopI__2704CA5F">
+          <End Type="BSDBModel.TBL_Shops" Role="TBL_Shops" Multiplicity="0..1" />
+          <End Type="BSDBModel.TBL_UserAssignedShops" Role="TBL_UserAssignedShops" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Shops">
+              <PropertyRef Name="ShopID" />
+            </Principal>
+            <Dependent Role="TBL_UserAssignedShops">
+              <PropertyRef Name="ShopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TBL_ShopMapDetails">
+          <Key>
+            <PropertyRef Name="ShopId" />
+          </Key>
+          <Property Name="ShopId" Type="Int32" Nullable="false" />
+          <Property Name="Latitude" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateBy" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <NavigationProperty Name="TBL_ShopLoginDetails" Relationship="BSDBModel.FK__TBL_ShopM__Creat__4F12BBB9" FromRole="TBL_ShopMapDetails" ToRole="TBL_ShopLoginDetails" />
+          <NavigationProperty Name="TBL_ShopLoginDetails1" Relationship="BSDBModel.FK__TBL_ShopM__Updat__5006DFF2" FromRole="TBL_ShopMapDetails" ToRole="TBL_ShopLoginDetails" />
+          <NavigationProperty Name="TBL_Shops" Relationship="BSDBModel.FK__TBL_ShopM__ShopI__4E1E9780" FromRole="TBL_ShopMapDetails" ToRole="TBL_Shops" />
+        </EntityType>
+        <Association Name="FK__TBL_ShopM__Creat__4F12BBB9">
+          <End Type="BSDBModel.TBL_ShopLoginDetails" Role="TBL_ShopLoginDetails" Multiplicity="1" />
+          <End Type="BSDBModel.TBL_ShopMapDetails" Role="TBL_ShopMapDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_ShopMapDetails">
+              <PropertyRef Name="CreateBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_ShopM__Updat__5006DFF2">
+          <End Type="BSDBModel.TBL_ShopLoginDetails" Role="TBL_ShopLoginDetails" Multiplicity="0..1" />
+          <End Type="BSDBModel.TBL_ShopMapDetails" Role="TBL_ShopMapDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ShopLoginDetails">
+              <PropertyRef Name="ShopLoginDetailsID" />
+            </Principal>
+            <Dependent Role="TBL_ShopMapDetails">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_ShopM__ShopI__4E1E9780">
+          <End Type="BSDBModel.TBL_Shops" Role="TBL_Shops" Multiplicity="1" />
+          <End Type="BSDBModel.TBL_ShopMapDetails" Role="TBL_ShopMapDetails" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Shops">
+              <PropertyRef Name="ShopID" />
+            </Principal>
+            <Dependent Role="TBL_ShopMapDetails">
+              <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -3340,6 +4859,188 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
                 <ScalarProperty Name="Exception" ColumnName="Exception" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_ControlModule">
+            <EntityTypeMapping TypeName="BSDBModel.TBL_ControlModule">
+              <MappingFragment StoreEntitySet="TBL_ControlModule">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ControlModuleName" ColumnName="ControlModuleName" />
+                <ScalarProperty Name="ControlModuleID" ColumnName="ControlModuleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_ControlModule_Pages">
+            <EntityTypeMapping TypeName="BSDBModel.TBL_ControlModule_Pages">
+              <MappingFragment StoreEntitySet="TBL_ControlModule_Pages">
+                <ScalarProperty Name="PageId" ColumnName="PageId" />
+                <ScalarProperty Name="ControlModuleId" ColumnName="ControlModuleId" />
+                <ScalarProperty Name="ControlModule_PagesID" ColumnName="ControlModule_PagesID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Menues">
+            <EntityTypeMapping TypeName="BSDBModel.TBL_Menues">
+              <MappingFragment StoreEntitySet="TBL_Menues">
+                <ScalarProperty Name="MenuIconPath" ColumnName="MenuIconPath" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ParentMenuId" ColumnName="ParentMenuId" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Page_Menues">
+            <EntityTypeMapping TypeName="BSDBModel.TBL_Page_Menues">
+              <MappingFragment StoreEntitySet="TBL_Page_Menues">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="PageID" ColumnName="PageID" />
+                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+                <ScalarProperty Name="Page_MenuesID" ColumnName="Page_MenuesID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Page_Plugins">
+            <EntityTypeMapping TypeName="BSDBModel.TBL_Page_Plugins">
+              <MappingFragment StoreEntitySet="TBL_Page_Plugins">
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="PageID" ColumnName="PageID" />
+                <ScalarProperty Name="PlugInID" ColumnName="PlugInID" />
+                <ScalarProperty Name="Page_PluginsID" ColumnName="Page_PluginsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Pages">
+            <EntityTypeMapping TypeName="BSDBModel.TBL_Pages">
+              <MappingFragment StoreEntitySet="TBL_Pages">
+                <ScalarProperty Name="PageURL" ColumnName="PageURL" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ModuleInfo" ColumnName="ModuleInfo" />
+                <ScalarProperty Name="PageName" ColumnName="PageName" />
+                <ScalarProperty Name="PageID" ColumnName="PageID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_PlugIn_Details">
+            <EntityTypeMapping TypeName="BSDBModel.TBL_PlugIn_Details">
+              <MappingFragment StoreEntitySet="TBL_PlugIn_Details">
+                <ScalarProperty Name="NoOfCondition" ColumnName="NoOfCondition" />
+                <ScalarProperty Name="PlugInID" ColumnName="PlugInID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_PlugInCities">
+            <EntityTypeMapping TypeName="BSDBModel.TBL_PlugInCities">
+              <MappingFragment StoreEntitySet="TBL_PlugInCities">
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+                <ScalarProperty Name="PlugInID" ColumnName="PlugInID" />
+                <ScalarProperty Name="PlugInCityID" ColumnName="PlugInCityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_PlugInImages">
+            <EntityTypeMapping TypeName="BSDBModel.TBL_PlugInImages">
+              <MappingFragment StoreEntitySet="TBL_PlugInImages">
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="PlugInID" ColumnName="PlugInID" />
+                <ScalarProperty Name="PlugInImageID" ColumnName="PlugInImageID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_PlugIns">
+            <EntityTypeMapping TypeName="BSDBModel.TBL_PlugIns">
+              <MappingFragment StoreEntitySet="TBL_PlugIns">
+                <ScalarProperty Name="IsPageType" ColumnName="IsPageType" />
+                <ScalarProperty Name="IsFreeToAll" ColumnName="IsFreeToAll" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsPlugInPerShop" ColumnName="IsPlugInPerShop" />
+                <ScalarProperty Name="VideoDescriptionUrl" ColumnName="VideoDescriptionUrl" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PlugInName" ColumnName="PlugInName" />
+                <ScalarProperty Name="PlugInID" ColumnName="PlugInID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Shop_PlugIn">
+            <EntityTypeMapping TypeName="BSDBModel.TBL_Shop_PlugIn">
+              <MappingFragment StoreEntitySet="TBL_Shop_PlugIn">
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="PlugInRating" ColumnName="PlugInRating" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="ActivationDate" ColumnName="ActivationDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="PlugInID" ColumnName="PlugInID" />
+                <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+                <ScalarProperty Name="ShopPlugInID" ColumnName="ShopPlugInID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_UserAssignedShops">
+            <EntityTypeMapping TypeName="BSDBModel.TBL_UserAssignedShops">
+              <MappingFragment StoreEntitySet="TBL_UserAssignedShops">
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+                <ScalarProperty Name="ShopLoginDetailsID" ColumnName="ShopLoginDetailsID" />
+                <ScalarProperty Name="UserAssignedShopsID" ColumnName="UserAssignedShopsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="BSDBModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_ShopMapDetails">
+            <EntityTypeMapping TypeName="BSDBModel.TBL_ShopMapDetails">
+              <MappingFragment StoreEntitySet="TBL_ShopMapDetails">
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

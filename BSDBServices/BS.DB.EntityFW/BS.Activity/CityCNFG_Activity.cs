@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
+using BS.DB.EntityFW.BS.Activity;
 using BS.DB.EntityFW.CommonTypes;
 
 namespace BS.DB.EntityFW
 {
-    public class CityCNFG_Activity
+    public class CityCNFG_Activity:BSActivity
     {
         public BSEntityFramework_ResultType InsertCity(TBL_Cities_CNFG newCity)
         {
@@ -26,8 +27,7 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, newCity, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, newCity);
             }
             catch (Exception ex)
             {
@@ -52,8 +52,7 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, null, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, null);
             }
             catch (Exception ex)
             {
@@ -79,8 +78,8 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, city, dbValidationEx, "Validation Failed");
-                return result;
+
+                return FormatException(dbValidationEx, city);
             }
             catch (Exception ex)
             {

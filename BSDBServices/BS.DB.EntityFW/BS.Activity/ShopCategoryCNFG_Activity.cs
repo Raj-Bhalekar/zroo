@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
 using System.Web.Mvc;
+using BS.DB.EntityFW.BS.Activity;
 using BS.DB.EntityFW.CommonTypes;
 
 namespace BS.DB.EntityFW
 {
-    public class ShopCategoryCNFG_Activity
+    public class ShopCategoryCNFG_Activity:BSActivity
     {
         public BSEntityFramework_ResultType InsertShopCategory(TBL_ShopCategory_CNFG newShopCategory)
         {
@@ -29,8 +30,8 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, newShopCategory, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, newShopCategory);
+
             }
             catch (Exception ex)
             {
@@ -55,8 +56,8 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, null, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, null);
+
             }
             catch (Exception ex)
             {
@@ -76,15 +77,16 @@ namespace BS.DB.EntityFW
                 {
                     var ShopCategory =
                         EF.TBL_ShopCategory_CNFG.Select(category => new 
-                        { Text = category.CategoryName, Value = category.ShopCategoryID}).ToList().Select(ct => new SelectListItem() {Text = ct.Text, Value = Convert.ToString(ct.Value)}).ToList();
+                        { Text = category.CategoryName, Value = category.ShopCategoryID}).ToList().Select(ct => new SelectListItem() {Text = ct.Text, Value = Convert.ToString(ct.Value)})
+                        .ToArray();
                     var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, ShopCategory, null, "Success");
                     return result;
                 }
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, null, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, null);
+
             }
             catch (Exception ex)
             {
@@ -110,8 +112,8 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, ShopCategory, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, ShopCategory);
+
             }
             catch (Exception ex)
             {

@@ -5,29 +5,42 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
+using BS.DB.EntityFW.BS.Activity;
 using BS.DB.EntityFW.CommonTypes;
+using BS.DB.EntityFW.ViewModels;
 
 namespace BS.DB.EntityFW
 {
-    public class ShopOffers_Activity
+    public class ShopOffers_Activity:BSActivity
     {
-        public BSEntityFramework_ResultType InsertShopOffer(TBL_ShopOffers newShopOffer)
+        public BSEntityFramework_ResultType InsertShopOffer(AddShopOffersViewModel newShopOffer)
         {
             try
             {
                 using (BSDBEntities EF = new BSDBEntities())
                 {
-                    EF.TBL_ShopOffers.Add(newShopOffer);
+
+                    var shopId = newShopOffer.ShopOffer.ShopID;
+                    var totalOffers = EF.TBL_ShopOffers.Count(x => x.ShopID == shopId) + 1;
+                    newShopOffer.ShopOffer.OfferID
+                        = CommonSafeConvert.ToInt(Convert.ToString(shopId) + Convert.ToString(totalOffers));
+
+                    EF.TBL_ShopOffers.Add(newShopOffer.ShopOffer);
                     EF.SaveChanges();
+                    var resultChild = InsertOffersonProduct(newShopOffer.OfferonProducts, newShopOffer.ShopOffer.OfferID);
+                    if (resultChild.Result != BSResult.Success)
+                    {
+                        return resultChild;
+                    }
                 }
 
-                var result = new BSEntityFramework_ResultType(BSResult.Success, newShopOffer, null, "Created Sucessfully");
+                var result = new BSEntityFramework_ResultType(BSResult.Success, newShopOffer.ShopOffer,null, "Created Sucessfully");
                 return result;
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, newShopOffer, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, newShopOffer);
+
             }
             catch (Exception ex)
             {
@@ -39,6 +52,38 @@ namespace BS.DB.EntityFW
 
         }
 
+        public BSEntityFramework_ResultType InsertOffersonProduct(List<TBL_OfferOnProducts> offeronProducts, int offerid)
+        {
+            try
+            {
+                using (BSDBEntities EF = new BSDBEntities())
+                {
+                    foreach (var product in offeronProducts)
+                    {
+                        product.OfferID = offerid;
+                        EF.TBL_OfferOnProducts.Add(product);
+                    }
+                    EF.SaveChanges();
+
+                }
+
+                var result = new BSEntityFramework_ResultType(BSResult.Success, offeronProducts, null, "Created Sucessfully");
+                return result;
+            }
+            catch (DbEntityValidationException dbValidationEx)
+            {
+                return FormatException(dbValidationEx, offeronProducts);
+
+            }
+            catch (Exception ex)
+            {
+                var logact = new LoggerActivity();
+                var result = new BSEntityFramework_ResultType(BSResult.Fail, offeronProducts, null, "Technical issue");
+                logact.ErrorSetup("WebApp", "Insert Offers on Product Failed", "", "", "", ex.Message);
+                return result;
+            }
+
+        }
         public BSEntityFramework_ResultType GetShopOffer(int id)
         {
             try
@@ -52,8 +97,8 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, null, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, null);
+
             }
             catch (Exception ex)
             {
@@ -71,15 +116,15 @@ namespace BS.DB.EntityFW
             {
                 using (BSDBEntities EF = new BSDBEntities())
                 {
-                    var ShopOffer = EF.TBL_ShopOffers.Select(bs => bs).ToList();
+                    var ShopOffer = EF.TBL_ShopOffers.Select(bs => bs).ToArray();
                     var result = new BSEntityFramework_ResultType(BSResult.Success, ShopOffer, null, "Success");
                     return result;
                 }
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, null, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, null);
+
             }
             catch (Exception ex)
             {
@@ -105,8 +150,8 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, ShopOffer, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, ShopOffer);
+
             }
             catch (Exception ex)
             {

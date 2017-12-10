@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
+using BS.DB.EntityFW.BS.Activity;
 using BS.DB.EntityFW.CommonTypes;
 
 namespace BS.DB.EntityFW
 {
-    public class InActiveShopListCNFG_Activity
+    public class InActiveShopListCNFG_Activity:BSActivity
     {
         public BSEntityFramework_ResultType InsertInActiveShopList(TBL_InActiveShopList_CNFG newInActiveShopList)
         {
@@ -26,8 +27,7 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, newInActiveShopList, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, newInActiveShopList);
             }
             catch (Exception ex)
             {
@@ -52,8 +52,7 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, null, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, null);
             }
             catch (Exception ex)
             {
@@ -79,8 +78,7 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, InActiveShopList, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, InActiveShopList);
             }
             catch (Exception ex)
             {

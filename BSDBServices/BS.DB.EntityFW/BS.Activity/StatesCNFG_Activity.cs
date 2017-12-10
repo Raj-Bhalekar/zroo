@@ -7,11 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
+using BS.DB.EntityFW.BS.Activity;
 using BS.DB.EntityFW.CommonTypes;
 
 namespace BS.DB.EntityFW
 {
-    public class StatesCNFG_Activity
+    public class StatesCNFG_Activity:BSActivity
     {
         public BSEntityFramework_ResultType InsertState(TBL_States_CNFG newState)
         {
@@ -28,8 +29,8 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, newState, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, newState);
+
             }
             catch (Exception ex)
             {
@@ -54,8 +55,8 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, null, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, null);
+
             }
             catch (Exception ex)
             {
@@ -73,15 +74,15 @@ namespace BS.DB.EntityFW
             {
                 using (BSDBEntities EF = new BSDBEntities())
                 {
-                    var states = EF.TBL_States_CNFG.Select(st =>st).ToList();
+                    var states = EF.TBL_States_CNFG.Select(st =>st).ToArray();
                     var result = new BSEntityFramework_ResultType(BSResult.Success, states, null, "Success");
                     return result;
                 }
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, null, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, null);
+
             }
             catch (Exception ex)
             {
@@ -108,8 +109,8 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, state, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, state);
+
             }
             catch (Exception ex)
             {

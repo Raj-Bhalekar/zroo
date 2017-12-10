@@ -20,6 +20,7 @@ namespace BS.DB.EntityFW
             this.TBL_AdminOffers = new HashSet<TBL_AdminOffers>();
             this.TBL_Infrastructure_CNFG = new HashSet<TBL_Infrastructure_CNFG>();
             this.TBL_PostalCodes_CNFG = new HashSet<TBL_PostalCodes_CNFG>();
+            this.TBL_PlugInCities = new HashSet<TBL_PlugInCities>();
         }
     
         public int CityID { get; set; }
@@ -40,5 +41,7 @@ namespace BS.DB.EntityFW
         public virtual ICollection<TBL_Infrastructure_CNFG> TBL_Infrastructure_CNFG { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_PostalCodes_CNFG> TBL_PostalCodes_CNFG { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_PlugInCities> TBL_PlugInCities { get; set; }
     }
 }

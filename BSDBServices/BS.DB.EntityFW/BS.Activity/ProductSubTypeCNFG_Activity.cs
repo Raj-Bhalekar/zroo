@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
 using System.Web.Mvc;
+using BS.DB.EntityFW.BS.Activity;
 using BS.DB.EntityFW.CommonTypes;
 
 namespace BS.DB.EntityFW
 {
-    public class ProductSubTypeCNFG_Activity
+    public class ProductSubTypeCNFG_Activity:BSActivity
     {
         public BSEntityFramework_ResultType InsertProductSubType(TBL_ProductSubType_CNFG newProductSubType)
         {
@@ -29,8 +30,8 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, newProductSubType, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, newProductSubType);
+
             }
             catch (Exception ex)
             {
@@ -54,15 +55,15 @@ namespace BS.DB.EntityFW
                       .Select(
                           ptype =>
                               new SelectListItem() { Text = ptype.Text, Value = Convert.ToString(ptype.Value) })
-                      .ToList();
+                      .ToArray();
                     var result = new BSEntityFramework_ResultType(BSResult.Success, productSubType, null, "Success");
                     return result;
                 }
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, null, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, null);
+
             }
             catch (Exception ex)
             {
@@ -88,8 +89,8 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, ProductSubType, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, ProductSubType);
+
             }
             catch (Exception ex)
             {

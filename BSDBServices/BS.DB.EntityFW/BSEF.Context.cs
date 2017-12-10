@@ -48,5 +48,19 @@ namespace BS.DB.EntityFW
         public virtual DbSet<TBL_ShopTypes_CNFG> TBL_ShopTypes_CNFG { get; set; }
         public virtual DbSet<TBL_States_CNFG> TBL_States_CNFG { get; set; }
         public virtual DbSet<Log> Logs { get; set; }
+        public virtual DbSet<TBL_ControlModule> TBL_ControlModule { get; set; }
+        public virtual DbSet<TBL_ControlModule_Pages> TBL_ControlModule_Pages { get; set; }
+        public virtual DbSet<TBL_Menues> TBL_Menues { get; set; }
+        public virtual DbSet<TBL_Page_Menues> TBL_Page_Menues { get; set; }
+        public virtual DbSet<TBL_Page_Plugins> TBL_Page_Plugins { get; set; }
+        public virtual DbSet<TBL_Pages> TBL_Pages { get; set; }
+        public virtual DbSet<TBL_PlugIn_Details> TBL_PlugIn_Details { get; set; }
+        public virtual DbSet<TBL_PlugInCities> TBL_PlugInCities { get; set; }
+        public virtual DbSet<TBL_PlugInImages> TBL_PlugInImages { get; set; }
+        public virtual DbSet<TBL_PlugIns> TBL_PlugIns { get; set; }
+        public virtual DbSet<TBL_Shop_PlugIn> TBL_Shop_PlugIn { get; set; }
+        public virtual DbSet<TBL_UserAssignedShops> TBL_UserAssignedShops { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<TBL_ShopMapDetails> TBL_ShopMapDetails { get; set; }
     }
 }

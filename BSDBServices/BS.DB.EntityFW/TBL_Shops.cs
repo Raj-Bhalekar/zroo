@@ -22,6 +22,8 @@ namespace BS.DB.EntityFW
             this.TBL_ShopOffers = new HashSet<TBL_ShopOffers>();
             this.TBL_ShopsInPostalCodes = new HashSet<TBL_ShopsInPostalCodes>();
             this.TBL_Shops5TopProducts = new HashSet<TBL_Shops5TopProducts>();
+            this.TBL_Shop_PlugIn = new HashSet<TBL_Shop_PlugIn>();
+            this.TBL_UserAssignedShops = new HashSet<TBL_UserAssignedShops>();
         }
     
         public int ShopID { get; set; }
@@ -59,5 +61,10 @@ namespace BS.DB.EntityFW
         public virtual TBL_ShopTypes_CNFG TBL_ShopTypes_CNFG { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_Shops5TopProducts> TBL_Shops5TopProducts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_Shop_PlugIn> TBL_Shop_PlugIn { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_UserAssignedShops> TBL_UserAssignedShops { get; set; }
+        public virtual TBL_ShopMapDetails TBL_ShopMapDetails { get; set; }
     }
 }

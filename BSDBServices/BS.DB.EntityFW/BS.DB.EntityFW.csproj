@@ -46,6 +46,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Linq.Dynamic">
+      <HintPath>C:\Users\BLACKswastik\Downloads\MVCReactPart3\MVCReactPart3\packages\System.Linq.Dynamic.1.0.6\lib\net40\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -82,11 +85,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BS.Activity\AdminOffersActivity.cs" />
+    <Compile Include="BS.Activity\BSActivity.cs" />
     <Compile Include="BS.Activity\CityCNFG_Activity.cs" />
+    <Compile Include="BS.Activity\Home_Activity.cs" />
     <Compile Include="BS.Activity\InActiveShopListCNFG_Activity.cs" />
     <Compile Include="BS.Activity\InActiveShopReasonsCNFG_Activity.cs" />
     <Compile Include="BS.Activity\InfrastructureCategoriesCNFG_Activity.cs" />
     <Compile Include="BS.Activity\InfrastructureCNFG_Activity.cs" />
+    <Compile Include="BS.Activity\Plugins_Activity.cs" />
     <Compile Include="BS.Activity\Product_Activity.cs" />
     <Compile Include="BS.Activity\Shopes_Activity.cs" />
     <Compile Include="BS.Activity\ShopOffers_Activity.cs" />
@@ -115,6 +121,8 @@
     <Compile Include="BSEF_Integration.cs" />
     <Compile Include="CommonTypes\BSEntityFramework_ResultType.cs" />
     <Compile Include="CommonTypes\BSEntityInterface.cs" />
+    <Compile Include="CommonTypes\CommonSafeConvert.cs" />
+    <Compile Include="CommonTypes\LoginResult.cs" />
     <Compile Include="Log.cs">
       <DependentUpon>BSEF.tt</DependentUpon>
     </Compile>
@@ -126,10 +134,19 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="BS.Activity\StatesCNFG_Activity.cs" />
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
     <Compile Include="TBL_AdminOffers.cs">
       <DependentUpon>BSEF.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_Cities_CNFG.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_ControlModule.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_ControlModule_Pages.cs">
       <DependentUpon>BSEF.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_InActiveShopList_CNFG.cs">
@@ -144,7 +161,31 @@
     <Compile Include="TBL_Infrastructure_CNFG.cs">
       <DependentUpon>BSEF.tt</DependentUpon>
     </Compile>
+    <Compile Include="TBL_Menues.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
     <Compile Include="TBL_OfferOnProducts.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Pages.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Page_Menues.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Page_Plugins.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_PlugInCities.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_PlugInImages.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_PlugIns.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_PlugIn_Details.cs">
       <DependentUpon>BSEF.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_PostalCodes_CNFG.cs">
@@ -174,6 +215,9 @@
     <Compile Include="TBL_ShopLoginDetails.cs">
       <DependentUpon>BSEF.tt</DependentUpon>
     </Compile>
+    <Compile Include="TBL_ShopMapDetails.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
     <Compile Include="TBL_ShopOffers.cs">
       <DependentUpon>BSEF.tt</DependentUpon>
     </Compile>
@@ -189,7 +233,13 @@
     <Compile Include="TBL_ShopTypes_CNFG.cs">
       <DependentUpon>BSEF.tt</DependentUpon>
     </Compile>
+    <Compile Include="TBL_Shop_PlugIn.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
     <Compile Include="TBL_States_CNFG.cs">
+      <DependentUpon>BSEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_UserAssignedShops.cs">
       <DependentUpon>BSEF.tt</DependentUpon>
     </Compile>
     <Compile Include="Validations\BSCommonValidation.cs" />
@@ -207,6 +257,7 @@
     <Compile Include="Validations\TBL_Products_Valid.cs" />
     <Compile Include="Validations\TBL_ProductType_CNFG_Valid.cs" />
     <Compile Include="Validations\TBL_ShopCategory_CNFG_Valid.cs" />
+    <Compile Include="Validations\TBL_ShopMapDetails_Valid.cs" />
     <Compile Include="Validations\TBL_ShopsInPostalCodes_Valid.cs" />
     <Compile Include="Validations\TBL_Shops_Valid.cs" />
     <Compile Include="Validations\TBL_ShopLoginDetails_Valid.cs" />
@@ -220,6 +271,7 @@
       <DependentUpon>ValidationMsg.resx</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AddProductViewModel.cs" />
+    <Compile Include="ViewModels\AddShopOffersViewModel.cs" />
     <Compile Include="ViewModels\AddShopViewModel.cs" />
     <Compile Include="ViewModels\LoginModel.cs" />
   </ItemGroup>

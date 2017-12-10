@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +7,12 @@ using System.Threading.Tasks;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
 using System.Web.Mvc;
+using BS.DB.EntityFW.BS.Activity;
 using BS.DB.EntityFW.CommonTypes;
 
 namespace BS.DB.EntityFW
 {
-    public class ProductCategoriesCNFG_Activity
+    public class ProductCategoriesCNFG_Activity:BSActivity
     {
         public BSEntityFramework_ResultType InsertProductCategoriesCNFG(TBL_ProductCategories_CNFG newProductCategoriesCNFG)
         {
@@ -27,8 +29,8 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, newProductCategoriesCNFG, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, newProductCategoriesCNFG);
+
             }
             catch (Exception ex)
             {
@@ -47,20 +49,21 @@ namespace BS.DB.EntityFW
                 using (BSDBEntities EF = new BSDBEntities())
                 {
                     var productCategoriesCnfg = EF.TBL_ProductCategories_CNFG.Select(
-                         type => new { Text = type.ProductCategoryName, Value = type.ProductCategoryID })
-                      .ToList()
-                      .Select(
-                          ptype =>
-                              new SelectListItem() { Text = ptype.Text, Value = Convert.ToString(ptype.Value) })
-                      .ToList();
+                            type => new {Text = type.ProductCategoryName, Value = type.ProductCategoryID})
+                        .ToList()
+                        .Select(
+                            ptype =>
+                                new SelectListItem() {Text = ptype.Text, Value = Convert.ToString(ptype.Value)})
+                        .ToArray();
                     var result = new BSEntityFramework_ResultType(BSResult.Success, productCategoriesCnfg, null, "Success");
+                   // var result = new BSEntityFramework_ResultType(BSResult.Success, null, null, "Success");
                     return result;
                 }
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, null, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, null);
+
             }
             catch (Exception ex)
             {
@@ -86,8 +89,8 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, ProductCategoriesCNFG, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, ProductCategoriesCNFG);
+
             }
             catch (Exception ex)
             {

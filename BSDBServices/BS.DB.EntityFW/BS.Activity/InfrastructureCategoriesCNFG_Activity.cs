@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
+using BS.DB.EntityFW.BS.Activity;
 using BS.DB.EntityFW.CommonTypes;
 
 namespace BS.DB.EntityFW
 {
-    public class InfrastructureCategoriesCNFG_Activity
+    public class InfrastructureCategoriesCNFG_Activity:BSActivity
     {
         public BSEntityFramework_ResultType InsertInfrastructureCategories(TBL_InfrastructureCategories_CNFG newInfrastructureCategories)
         {
@@ -26,8 +27,8 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, newInfrastructureCategories, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, newInfrastructureCategories);
+
             }
             catch (Exception ex)
             {
@@ -52,8 +53,8 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, null, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, null);
+
             }
             catch (Exception ex)
             {
@@ -79,8 +80,8 @@ namespace BS.DB.EntityFW
             }
             catch (DbEntityValidationException dbValidationEx)
             {
-                var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, InfrastructureCategories, dbValidationEx, "Validation Failed");
-                return result;
+                return FormatException(dbValidationEx, InfrastructureCategories);
+
             }
             catch (Exception ex)
             {

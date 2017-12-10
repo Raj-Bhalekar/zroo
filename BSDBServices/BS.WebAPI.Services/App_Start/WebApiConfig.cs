@@ -48,6 +48,8 @@ namespace BS.WebAPI.Services
                 name: "ControllerAndAction",
                 routeTemplate: "api/{controller}/{action}"
             );
+
+            GlobalConfiguration.Configuration.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
         }
     }
 }

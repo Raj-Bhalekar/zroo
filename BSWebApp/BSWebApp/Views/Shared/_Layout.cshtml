@@ -1,49 +1,369 @@
-﻿<!DOCTYPE html>
+﻿@using BSWebApp.Common
+<!DOCTYPE html>
 <html>
 <head>
     
 
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>Find a store @@ your next door</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-</head>
-<body>
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#">About</a>
-        <a href="#">Services</a>
-        <a href="#">Clients</a>
-        <a href="#">Contact</a>
-    </div>
-
-    <h2>Animated Sidenav Example</h2>
-    <p>Click on the element below to open the side navigation menu.</p>
-    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
-
-    <script>
-function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-}
-
-function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-}
-    </script>
-
-
-<div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
-
+    <link href="/Content/Dhapu.css" rel="stylesheet" />
+    
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jquerybs")
+    @Scripts.Render("~/bundles/jquerygrd")
+    
+    <style>
+        .footerholder {
+            background: none repeat scroll 0 0 transparent;
+            bottom: 0;
+            position:center;
+            text-align: center;
+            width: 100%;
+        }
 
-    @RenderSection("scripts", required: false)
+        .footer {
+            background: none repeat scroll 0 0;
+            height: auto;
+            }
+
+
+
+
+        #mask {
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 9000;
+            background-color: #000;
+            display: none;
+        }
+
+        #boxes .window {
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: none;
+            z-index: 9999;
+            border-radius: 15px;
+            text-align: center;
+            margin: auto;
+            padding: 2em;
+        }
+
+        #boxes #dialog {
+            padding: 10px;
+            background-color: #ffffff;
+            margin: auto;
+            padding: 2em;
+        }
+
+ .sidebar-wrapper ul li ul {
+  padding: 0;
+  position: absolute;
+  left: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+}
+   .sidebar-wrapper ul li ul li { 
+  background: #555; 
+  display: block; 
+  color: #fff;
+  text-shadow: 0 -1px 0 #000;
+}
+     .sidebar-wrapper  ul li:hover { background: #555555; }
+    .sidebar-wrapper  ul li ul li:hover { background: #666; }
+    .sidebar-wrapper  ul li:hover ul {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+
+    display: block;
+  padding: 15px 10px 15px 15px;
+  line-height: 22px;
+  position: relative;
+  border-bottom: 1px groove #000;
+}
+
+ 
+
+.sub-menu-parent {text-align: center; position: relative; }
+
+.sub-menu {
+    visibility: hidden; /* hides sub-menu */
+  opacity: 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+    -ms-transform: translateY(-2em);
+    -webkit-transform: translateY(-2em);
+    transform: translateY(-2em);
+  z-index: -1;
+    -ms-transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
+    -o-transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
+    -webkit-transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
+    transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
+}
+
+        .sub-menu-parent:hover .sub-menu {
+    visibility: visible; /* shows sub-menu */
+  opacity: 1;
+  z-index: 1;
+    -ms-transform: translateY(0%);
+    -webkit-transform: translateY(0%);
+    transform: translateY(0%);
+    -ms-transition-delay: 0s, 0s, 0.6s;
+    -o-transition-delay: 0s, 0s, 0.6s;
+    -webkit-transition-delay: 0, 0s, 0.6s;
+    transition-delay: 0s, 0s, 0.6s; /* this removes the transition delay so the menu will be visible while the other styles transition */
+}
+
+
+
+nav a { color: #555555; display: block; padding: 0.5em 1em; text-decoration: none; }
+nav a:hover { color: #0000ff;}
+nav ul,
+nav ul li { list-style-type: none; padding: 0; margin: 0;
+}
+
+nav > ul {  text-align: right; }
+nav > ul > li { display: inline-block; border-left: solid 1px #aaa;
+}
+nav > ul > li > ul > li 
+{ 
+  color: #778899;  
+  /*text-shadow: 0 -1px 0 #000;*/
+    height: 30px;
+    text-decoration-color: #000000;
+   /*background: #5c9ccc url(images/ui-bg_gloss-wave_55_5c9ccc_500x100_White.png) 50% 50% repeat-x;*/
+    background-color: white;
+   margin: 0 0 0 0;
+   
+}
+
+nav > ul > li:first-child { border-left: none; }
+
+    nav ul li:hover ul {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+
+    display: block;
+  padding: 15px 10px 15px 15px;
+  line-height: 22px;
+  position: relative;
+  border-bottom: 1px groove #000;
+}
+
+     nav ul li ul li:hover {
+           background: #5c9ccc url(/images/ui-bg_gloss-wave_55_5c9ccc_500x100_Red.png) 50% 50% repeat-x;
+         color: white;
+
+     }
+      .LoggOffLinkClass:hover {color: white}
+
+.sub-menu {
+    text-align: center;
+  background: transparent;
+}
+
+                                                                                                                                                                                                                                                                                                                                                     
+    </style>
+    <script>
+        function LoginSignUpPopupBoxShow() {
+        var id = '#dialog';
+
+        //Get the screen height and width
+        var maskHeight = $(document).height();
+        var maskWidth = $(window).width();
+
+        //Set heigth and width to mask to fill up the whole screen
+        $('#mask').css({ 'width': maskWidth, 'height': maskHeight });
+
+        //transition effect
+        $('#mask').fadeIn(500);
+        $('#mask').fadeTo("slow", 0.9);
+
+        //Get the window height and width
+        var winH = $(window).height();
+        var winW = $(window).width();
+
+        //$(id).css('height', winH / 2 );
+        $(id).css('width', (winW / 10)*7 );
+
+
+        //Set the popup window to center
+        $(id).css('top', winH / 2 - $(id).height() / 2);
+        $(id).css('left', winW / 2 - $(id).width() / 2);
+
+        //transition effect
+        $(id).fadeIn(2000);
+    }
+
+    function RemanageDialog() {
+        var id = '#dialog';
+        var winH = $(window).height();
+        var winW = $(window).width();
+        $(id).css('width', (winW / 10) * 7);
+        //Set the popup window to center
+        $(id).css('top', winH / 3 - $(id).height() / 3);
+        $(id).css('left', winW / 2 - $(id).width() / 2);
+    }
+    function LoginSignUpPopupBoxHide() {
+
+        $('#mask').hide();
+        $('.window').hide();
+       // e.preventDefault();
+    }
+
+    $(document).ready(function() {
+
+        $('#bsSignUpLogin').click(function(e) {
+            LoginSignUpPopupBoxShow();
+            e.preventDefault();
+        });
+
+
+
+        //if close button is clicked
+        $('.window .close').click(function(e) {
+            //Cancel the link behavior
+            LoginSignUpPopupBoxHide();
+        });
+
+        //if mask is clicked
+        $('#mask').click(function() {
+            $(this).hide();
+            $('.window').hide();
+        });
+
+        $('#mask').click(function () {
+            $(this).hide();
+            $('.window').hide();
+        });
+
+    });
+
+    </script>
+        @{
+            var menuData = Session["menuData"] as string;
+            var shopAssignedList = Session["ShopAssignedList"] as string;
+            var currentUserId = Session["CurrentUser"] as string;
+        }
+</head>
+<body>
+    <div class="app">
+        <div class="header alignItemsCenter flex">
+            <div class="extendedHeader alignItemsCenter flex">
+                <a href="#"><img class="logo" src="~/Images/appLogoICON.png" alt="header_logo" /></a>
+            </div>
+            <div align="right" class="extendedHeader alignItemsCenter flex" style="width:auto; margin-right: 10px; ">
+                <div>
+                    <nav>
+                        <ul>
+                            <li class="sub-menu-parent" id="UserProfileMenu">
+                                <a href="#" style="width: 200px; ">
+                                    <div>
+                                        <svg fill="#4C4C4C" width="30" height="28" viewBox="0 0 30 30" preserveAspectRatio="xMidYMid meet" style="vertical-align: middle; margin-top: 5px;"><g id="Icons" fill="#ffffff" transform="translate(-157.000000, -229.000000)"><g id="ic-profile" transform="translate(150.000000, 223.000000)"><g><rect id="spacing" x="0" y="0" width="30" height="30"></rect><path d="M16.29124,16.0655507 C16.8490666,17.3027278 18.8190023,18.1139272 20.6498534,18.9811725 C22.4953829,19.8741706 22.5549161,22.1364325 22.4358497,22.9103642 C22.4358497,23.0889638 22.3763165,23.2080302 22.2572501,23.3270967 C20.2926542,24.9940265 14.6965326,24.9344933 14.6965326,24.9344933 C14.6965326,24.9344933 9.10041105,24.9940265 7.19534839,23.3270967 C7.07628198,23.2080302 7.01674877,23.0889638 7.01674877,22.9103642 C6.95721556,22.1364325 6.95721556,19.8741706 8.80274501,18.9811725 C10.5653898,18.1462355 12.1111871,17.6727109 12.7079898,16.5468566 C12.6688525,16.5163668 12.6346351,16.4874114 12.6064951,16.4612672 C12.4160148,16.2842963 12.1498557,16.1690829 11.7642099,15.7960764 C11.3785641,15.4230699 11.5992866,15.6135623 11.2229733,15.1230894 C10.84666,14.6326165 10.8603641,13.8566461 10.7272733,13.8566461 C10.5941826,13.8566461 10.349158,13.7033337 10.2856557,13.3591664 C10.2221533,13.0149992 10.2282909,12.6386162 10.1481058,12.4248861 C10.0679206,12.211156 10,11.6088524 10,11.2954358 C10,10.9820192 10.442547,11.0316802 10.442547,11.0316802 C10.442547,11.0316802 10.4966548,10.5681462 10.4966548,9.93418509 L10.4966548,8.82487 C10.4966548,8.82487 10.4984445,8.38777837 10.7042917,8.09942259 C10.910139,7.81106682 10.964037,7.58024438 11.1668335,7.41601576 C11.3696301,7.25178714 12.1162538,6.84021665 12.1162538,6.84021665 C12.1162538,6.84021665 11.5660693,6.72198686 11.9018844,6.50912276 C12.0174526,6.43586723 12.4934962,6.14257319 12.707753,6.09347339 C12.9460151,6.03887246 13.254625,6.00702248 13.6543267,6.01530475 C14.1314073,6.02519039 14.5593776,5.97637453 14.8933596,6.01530475 C15.8219651,6.12354655 16.2677203,6.39240001 16.4138946,6.50912276 C16.5229272,6.59618726 16.7220487,6.77586973 16.8118961,6.92856842 C16.8858246,7.05421252 16.8007937,7.09106109 16.8774953,7.1992458 C17.0372074,7.19346567 17.30891,7.12986621 17.5126008,7.33408723 C17.7162917,7.53830825 17.9209485,8.20757312 17.9860188,8.3760363 C18.1189114,8.72008756 18.1029953,9.31939201 18.1029953,9.48258382 C18.1029953,9.64577563 18.1733802,9.81501265 18.1733802,9.81501265 C18.1733802,9.81501265 18.175191,9.93836481 18.1733802,10.0249389 C18.1715694,10.111513 18.1783007,10.605544 18.1733802,10.6649352 C18.1667204,10.7453203 18.1308347,11.0316802 18.1733802,11.0316802 C18.2159257,11.0316802 18.4001942,11.0250731 18.4609302,11.2509273 C18.5216662,11.4767815 18.4979472,12.2961804 18.3537715,12.6097124 C18.2095958,12.9232443 18.0512129,13.2201644 17.9860188,13.3591664 C17.9208246,13.4981684 17.8871578,13.7493255 17.8111194,13.8970762 C17.7350809,14.0448269 17.5130156,14.2191364 17.3800865,14.4557866 C17.2471574,14.6924367 17.1694855,14.9930247 17.0527388,15.2871359 C16.9734224,15.4869516 16.6140646,15.7777025 16.29124,16.0655507 L16.29124,16.0655507 Z" id="ProfileIcon" fill="#999999" fill-rule="nonzero"></path></g></g></g></svg>
+
+                                        <span style="margin-top: 5px" class="medium profilePadding" id="bsSignUpLogin">
+                                            @{
+                                                var userlabel = "";
+                                                userlabel = string.IsNullOrWhiteSpace(currentUserId) ? @"SignUp / Login" : currentUserId;
+                                            }
+                                            @userlabel
+
+                                        </span>
+                                    </div>
+                                </a>
+                                @{
+                                  if (!string.IsNullOrWhiteSpace(currentUserId))
+                                     {
+                                         <ul class="sub-menu">
+                                             <li><a href="~/home/LogOff" class="LoggOffLinkClass">Logout</a></li>
+                                        </ul>
+                                     }
+                                }
+                            </li>
+                        </ul>
+                    </nav>
+                   
+                    <nav id="ShopListMenu">
+                        @*<ul>
+                            <li class="sub-menu-parent">
+                                <a href="#" style="width: 200px">Shops &#9662;</a>
+                                <ul class="sub-menu">
+                                    <li>ABC ShopName</li>
+                                    <li>XYZ ShopName</li>
+                                    <li>PQR ShopName</li>
+                                    <li>LMN ShopName</li>
+                                </ul>
+                            </li>
+                        </ul>*@
+                        @{
+
+                            if (!string.IsNullOrWhiteSpace(shopAssignedList))
+                            {
+                                    @Html.Raw(shopAssignedList)
+                            }
+                         }
+
+                    </nav>
+
+                </div>
+            </div>
+           
+        </div>
+        
+    @{
+
+        if (!string.IsNullOrWhiteSpace(menuData))
+        {
+            <div class="sidebar-wrapper" id="MainMenuSideBarSec">
+             @Html.Raw(menuData)  
+            </div>
+        }
+        else
+        {
+            <div class="sidebar-wrapper" id="MainMenuSideBarSec">
+                
+            </div>
+        }
+    }
+        <div id="boxes">
+            <div id="dialog" class="window">
+                @Html.Partial("~/Views/Home/LoginPage.cshtml", new BSWebApp.Models.ViewModels.LoginViewModel());
+            </div>
+            <div id="mask"></div>
+        </div>
+
+        <div class="container">
+            <div class="ChildGnd">
+                @RenderBody()
+
+                <hr />
+
+                <div align="center" class="footerholder">
+                    @*<div class="footer">*@
+                        <footer>
+                            <p style="color: black">Copyright &copy; ZROO Technologies @DateTime.Now.Year</p>
+                        </footer>
+                   @* </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+@RenderSection("scripts", required: false)
 </body>
 </html>

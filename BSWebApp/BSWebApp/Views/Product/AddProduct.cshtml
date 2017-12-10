@@ -1,0 +1,289 @@
+﻿@using BSWebApp.Common
+@model BSWebApp.Models.ViewModels.AddProductViewModel
+
+@{
+    ViewBag.Title = "Add Product";
+}
+<script type="text/javascript">
+    function fileCheck(obj) {
+        var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+        if ($.inArray($(obj).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+            alert("Only '.jpeg','.jpg', '.png', '.gif', '.bmp' formats are allowed.");
+        }
+
+        if (typeof FileReader !== "undefined") {
+            var size = document.getElementById('ImageData').files[0].size;
+            // check file size
+            if (size > 500000) {
+                alert("File size can not exceed 500kb");
+                $(obj).val('');
+            } else {
+                readURL(obj);
+            }
+        }
+    }
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#ProdImg')
+                    .attr('src', e.target.result)
+                    .width(250)
+                    .height(300);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+
+
+<div class="row">
+    <div class="col-sm-12">
+        @using (Html.BeginForm("AddProduct", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            var selectListData = ViewData["SelectListData"] as Dictionary<string, List<SelectListItem>>;
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <div class="alert alert-danger">
+
+                    <strong> @Html.ValidationSummary(false, null)</strong>
+
+                    <strong> @Html.CustomValidationSummary(true)</strong>
+                </div>
+                <h3>Add Product</h3>
+                <hr />
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-offset-1">
+                            @Html.LabelFor(model => model.ProductDetails.ProductName, htmlAttributes: new { @class = "label PL10 LH30 control-label" })
+                        </div> <div class="col-lg-3 col-md-3">
+                            @Html.EditorFor(model => model.ProductDetails.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ProductDetails.ProductName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-offset-1">
+                            @Html.LabelFor(model => model.ProductDetails.ProductBrand, htmlAttributes: new { @class = "label PL10 LH30 control-label" })
+                        </div> <div class="col-lg-3 col-md-3">
+                            @Html.EditorFor(model => model.ProductDetails.ProductBrand, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ProductDetails.ProductBrand, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-offset-1">
+                            @Html.LabelFor(model => model.ProductDetails.BarCode, htmlAttributes: new { @class = "label PL10 LH30 control-label" })
+                        </div> <div class="col-lg-3 col-md-3">
+                            @Html.EditorFor(model => model.ProductDetails.BarCode, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ProductDetails.BarCode, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-offset-1">
+                            @Html.LabelFor(model => model.ProductDetails.ProductTypeID, htmlAttributes: new { @class = "label PL10 LH30 control-label" })
+                        </div> <div class="col-lg-3 col-md-3">
+                            @Html.DropDownListFor(model => model.ProductDetails.ProductTypeID, selectListData["TBL_ProductTypes_CNFG"],new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ProductDetails.ProductTypeID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-offset-1">
+                            @Html.LabelFor(model => model.ProductDetails.IsAvailable, htmlAttributes: new { @class = "label PL10 LH30 control-label" })
+                        </div> <div class="col-lg-3 col-md-3">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.ProductDetails.IsAvailable)
+                                @Html.ValidationMessageFor(model => model.ProductDetails.IsAvailable, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-offset-1">
+                            @Html.LabelFor(model => model.ProductDetails.AvailableQuantity, htmlAttributes: new { @class = "label PL10 LH30 control-label" })
+                        </div> <div class="col-lg-3 col-md-3">
+                            @Html.EditorFor(model => model.ProductDetails.AvailableQuantity, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ProductDetails.AvailableQuantity, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-offset-1">
+                            @Html.LabelFor(model => model.ProductDetails.OtherJsonDetails, htmlAttributes: new { @class = "label PL10 LH30 control-label" })
+                        </div> <div class="col-lg-3 col-md-3">
+                            @Html.EditorFor(model => model.ProductDetails.OtherJsonDetails, new { htmlAttributes = new { @class = "form-control", @id = "txtOtherJsondtl" } })
+                            @Html.ValidationMessageFor(model => model.ProductDetails.OtherJsonDetails, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-offset-1">
+                            @Html.LabelFor(model => model.ProductDetails.IsActive, htmlAttributes: new { @class = "label PL10 LH30 control-label" })
+                        </div> <div class="col-lg-3 col-md-3">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.ProductDetails.IsActive)
+                                @Html.ValidationMessageFor(model => model.ProductDetails.IsActive, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-offset-1">
+                            @Html.LabelFor(model => model.ProductDetails.ProductCategoryID, htmlAttributes: new { @class = "label PL10 LH30 control-label" })
+                        </div> <div class="col-lg-3 col-md-3">
+                            @Html.DropDownListFor(model => model.ProductDetails.ProductCategoryID, selectListData["TBL_ProductCategory_CNFG"], new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ProductDetails.ProductCategoryID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-offset-1">
+                            @Html.LabelFor(model => model.ProductDetails.ProductSubTypeID, htmlAttributes: new { @class = "label PL10 LH30 control-label" })
+                        </div> <div class="col-lg-3 col-md-3">
+                            @Html.DropDownListFor(model => model.ProductDetails.ProductSubTypeID, selectListData["TBL_ProductSubType_CNFG"], new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ProductDetails.ProductSubTypeID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-offset-1">
+                            @Html.LabelFor(model => model.ProductDetails.MRP, htmlAttributes: new { @class = "label PL10 LH30 control-label" })
+                        </div> <div class="col-lg-3 col-md-3">
+                            @Html.EditorFor(model => model.ProductDetails.MRP, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ProductDetails.MRP, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-offset-1">
+                            @Html.LabelFor(model => model.ProductDetails.ShopPrice, htmlAttributes: new { @class = "label PL10 LH30 control-label" })
+                        </div> <div class="col-lg-3 col-md-3">
+                            @Html.EditorFor(model => model.ProductDetails.ShopPrice, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ProductDetails.ShopPrice, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-offset-1">
+
+                            <table id="ProdOtherDetails_grid"></table>
+                            <div id="ServiceGridicons1">
+                            </div>
+                            <script type="text/javascript">
+
+                                var data = [
+                                    [1, "Color", "Red"]
+                                ];
+
+                                var names = ["id", "Key", "Value"];
+                                var mydata = [];
+
+                                for (var i = 0; i < data.length; i++) {
+                                    mydata[i] = {};
+                                    for (var j = 0; j < data[i].length; j++) {
+                                        mydata[i][names[j]] = data[i][j];
+                                    }
+                                }
+
+                                $('#ProdOtherDetails_grid').jqGrid({
+                                    data: mydata,
+                                    datatype: "local",
+                                    colNames: ['id', 'Key', 'Value'],
+                                    colModel: [
+                                        {
+                                            name: 'id',
+                                            index: 'id',
+                                            editable: false,
+                                            hidden: true,
+                                            width: 20,
+                                            sorttype: "int"
+                                        },
+                                        {
+                                            name: 'Key',
+                                            index: 'Key',
+                                            editable: true,
+
+                                            width: 200,
+                                            sorttype: "date"
+                                        },
+                                        {
+                                            name: 'Value',
+                                            editable: true,
+                                            index: 'Value',
+                                            width: 200
+                                        }
+                                    ],
+                                    pager: true,
+                                    // iconSet: "fontAwesome",
+                                    autoencode: true,
+                                    viewrecords: false,
+                                    rowNum: 10,
+                                    idPrefix: "1",
+                                    altRows: true,
+                                    altclass: "myAltRowClass",
+                                    rowList: [5, 10, 20, "10000:All"],
+                                    caption: "Product Other Details",
+                                    navOptions: {
+                                        add: true,
+                                        del: true,
+                                        search: false,
+                                        refresh: false,
+                                        edit: true
+                                    },
+                                    searching: {
+                                        closeAfterSearch: true,
+                                        closeAfterReset: true,
+                                        closeOnEscape: true,
+                                        searchOnEnter: true,
+                                        multipleSearch: true,
+                                        multipleGroup: true,
+                                        showQuery: true
+                                    }
+                                }).jqGrid("navGrid");
+
+                                function OnSubmitProcess() {
+                                    $('#txtOtherJsondtl').val(JSON.stringify(mydata));
+                                }
+
+                            </script>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-offset-1">
+
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            <input type="submit" value="Create" class="btn btn-sm btn-primary" onclick="OnSubmitProcess();" />
+                        </div>
+                    </div>
+                </div>
+            <div class="col-sm-4">
+               
+                <div class="form-group">
+                    <div class="col-lg-3 col-lg-offset-1 col-md-3 col-md-offset-1">
+                        @Html.Label("Select Image", htmlAttributes: new { @class = "label PL10 LH30 control-label" })
+                    </div>
+                    <div align="center" class="col-lg-5 col-md-5">
+                        <input type="file" name="ImageData" onchange="fileCheck(this);" id="ImageData" accept=".jpg,.jpeg,.png" />
+                        <hr />
+            <img id="ProdImg" src="" alt="your image" />
+                    </div>
+                </div>
+            </div>
+            </div>
+
+        }
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
+    </div>
+</div>

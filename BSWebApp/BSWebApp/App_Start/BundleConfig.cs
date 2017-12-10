@@ -33,11 +33,12 @@ namespace BSWebApp
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"
+                      "~/Content/bootstrap.css"
+                      ,"~/Content/site.css"
+                      , "~/Content/ui.jqgrid.min.css"
                       , "~/Content/themes/base/minified/jquery-ui.min.css"
                       , "~/Content/themes/base/minified/jquery.timepicker.css"
-                      , "~/Content/ui.jqgrid.min.css"
+                    
                       ));
 
 

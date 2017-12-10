@@ -1,0 +1,40 @@
+﻿@using System.Diagnostics
+@using BSWebApp.Common
+
+@{
+    ViewBag.Title = "HomeLink";
+}
+
+<style>
+    .HomeLink {
+        height: 120px;
+        width: 120px;
+    }
+    .row{
+        margin-left: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px
+}
+</style>
+
+@Html.AntiForgeryToken()
+@{
+    var coreMenuData = Session["HomeLinkMenuList"] as string;
+}
+
+
+@if (!string.IsNullOrWhiteSpace(ViewBag.HardStopMessage))
+{
+    <div class="alert alert-danger alert-dismissable" style="color: #fff;background-image: url(/images/ui-bg_gloss-wave_55_5c9ccc_500x100_Red.png); height: 50px; width: auto;">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: #fff;">×</a>
+        <strong>Message!</strong>  @ViewBag.HardStopMessage
+    </div>
+}
+
+@if (!string.IsNullOrWhiteSpace(coreMenuData))
+{
+    @Html.Raw(coreMenuData);
+}
+
+
+

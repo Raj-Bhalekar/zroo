@@ -25,7 +25,7 @@ namespace BS.DB.EntityFW
         public string ContactNumber { get; set; }
 
 
-        [Display(Name = "WhatsApp / Hike Number")]
+        [Display(Name = "WhatsApp/Hike Number")]
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid Phone number")]
         public string WhatsAppHikeNumber { get; set; }
@@ -36,7 +36,7 @@ namespace BS.DB.EntityFW
              
         public string ShopTypeName { get; set; }
 
-        [Display(Name = "Shop Opning Time")]
+        [Display(Name = "Shop Opening Time")]
         public Nullable<System.TimeSpan> ShopOpningTime { get; set; }
 
         [Display(Name = "Shop Closing Time")]

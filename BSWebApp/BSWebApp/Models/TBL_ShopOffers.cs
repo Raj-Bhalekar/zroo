@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel;
+
 namespace BS.DB.EntityFW
 {
     using System;
@@ -22,14 +24,25 @@ namespace BS.DB.EntityFW
     
         public int OfferID { get; set; }
         public int ShopID { get; set; }
+
+        [DisplayName("Offer Short Details")]
         public string OfferShortText { get; set; }
+
+        [DisplayName("Offer Start Date")]
         public Nullable<System.DateTime> OfferStartDate { get; set; }
+        [DisplayName("Offer End Date")]
         public Nullable<System.DateTime> OfferEndDate { get; set; }
+        [DisplayName("Offer On Brand")]
         public string OfferOnBrand { get; set; }
+        [DisplayName("Is Offer On Product")]
         public bool IsOfferOnProducts { get; set; }
+        [DisplayName("Is Active")]
         public bool IsActive { get; set; }
+        [DisplayName("Offer Long Detail")]
         public string OfferDetailText { get; set; }
+        [DisplayName("Offer Image")]
         public byte[] OfferImage { get; set; }
+
         public Nullable<System.DateTime> CreateDate { get; set; }
         public int CreatedBy { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }

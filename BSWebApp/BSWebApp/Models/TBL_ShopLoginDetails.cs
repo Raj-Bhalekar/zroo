@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel;
+
 namespace BS.DB.EntityFW
 {
     using System;
@@ -74,12 +76,17 @@ namespace BS.DB.EntityFW
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
+        [DataType(DataType.Password)]
+        [Compare(nameof(Password), ErrorMessage = "Passwords don't match.")]
+        [DisplayName("Confirm Password")]
+       public string ConfirmPassword { get; set; }
+
         [Required]
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
         [Required]
-        [DataType(DataType.EmailAddress)]
+        [EmailAddress]
         public string EmailID { get; set; }
         public Nullable<int> ShopDirectoryID { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }

@@ -1,0 +1,152 @@
+﻿@using BSWebApp.Common
+@model BSWebApp.Models.ViewModels.AddShopOffersViewModel
+
+@{
+    ViewBag.Title = "AddShopOffer";
+   // Layout = null;
+    var selectListData = ViewData["SelectListData"] as Dictionary<string, List<SelectListItem>>;
+
+}
+@*<link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/Scripts/DataTableJS/jquery.dataTables.min.js"></script>*@
+<script>
+    var BSGnd = '@Convert.ToString(ViewData["SpGnd"])';
+</script>
+<script src="~/Scripts/Client/AddShopOffer/AddShopOfferScript.js"></script>
+
+
+
+@using (Html.BeginForm("AddShopOffer", "ShopOffers"))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <div class="alert alert-danger">
+            
+            <strong> @Html.ValidationSummary(false, null)</strong>
+            
+            <strong> @Html.CustomValidationSummary(true)</strong>
+        </div>
+        <h3>Shop Offers</h3>
+        <hr />
+
+        <div class="form-group">
+            <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-offset-1">
+                @Html.LabelFor(model => model.ShopOffer.OfferShortText, htmlAttributes: new {@class = "label PL10 LH30 control-label"})
+            </div>
+            <div class="col-lg-3 col-md-3">
+                @Html.EditorFor(model => model.ShopOffer.OfferShortText, new { htmlAttributes = new { @class = "form-control", Placeholder=@Html.DisplayNameFor(name=>name.ShopOffer.OfferShortText)} })
+                @Html.ValidationMessageFor(model => model.ShopOffer.OfferShortText, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-offset-1">
+                @Html.LabelFor(model => model.ShopOffer.OfferStartDate
+                    , htmlAttributes: new { @class = "label PL10 LH30 control-label" })
+            </div>
+            <div class="col-lg-3 col-md-3">
+                @Html.EditorFor(model => model.ShopOffer.OfferStartDate, new { htmlAttributes = new { @class = "form-control", Placeholder = @Html.DisplayNameFor(name => name.ShopOffer.OfferStartDate) } })
+                @Html.ValidationMessageFor(model => model.ShopOffer.OfferStartDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-offset-1">
+                @Html.LabelFor(model => model.ShopOffer.OfferEndDate, htmlAttributes: new { @class = "label PL10 LH30 control-label" })
+            </div>
+            <div class="col-lg-3 col-md-3">
+                @Html.EditorFor(model => model.ShopOffer.OfferEndDate, new { htmlAttributes = new { @class = "form-control", Placeholder = @Html.DisplayNameFor(name => name.ShopOffer.OfferEndDate) } })
+                @Html.ValidationMessageFor(model => model.ShopOffer.OfferEndDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-offset-1">
+                @Html.LabelFor(model => model.ShopOffer.OfferOnBrand, htmlAttributes: new { @class = "label PL10 LH30 control-label" })
+            </div>
+            <div class="col-lg-3 col-md-3">
+                @if (selectListData["ShopBrandList"] != null)
+                {
+                    @Html.DropDownListFor(model => model.ShopOffer.OfferOnBrand, selectListData["ShopBrandList"],  new {id= "shopOffers_Brand", @class = "form-control", Placeholder = @Html.DisplayNameFor(name => name.ShopOffer.OfferOnBrand) } )
+                }
+                else
+                {
+                    @Html.DropDownListFor(model => model.ShopOffer.OfferOnBrand, new List<SelectListItem>() { new SelectListItem() { Text = "Select" } }, new { id="shopOffers_Brand", @class = "form-control", Placeholder = @Html.DisplayNameFor(name => name.ShopOffer.OfferOnBrand) })
+                }
+                @Html.ValidationMessageFor(model => model.ShopOffer.OfferOnBrand, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-offset-1">
+                @Html.LabelFor(model => model.ShopOffer.IsOfferOnProducts, htmlAttributes: new { @class = "label PL10 LH30 control-label" })
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.ShopOffer.IsOfferOnProducts, new { htmlAttributes = new { id = "ShopOffer_chkIsOfferOnProducts" }})
+                    @Html.ValidationMessageFor(model => model.ShopOffer.IsOfferOnProducts, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-offset-1">
+                @Html.LabelFor(model => model.ShopOffer.IsActive, htmlAttributes: new { @class = "label PL10 LH30 control-label" })
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.ShopOffer.IsActive)
+                    @Html.ValidationMessageFor(model => model.ShopOffer.IsActive, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-offset-1">
+                @Html.LabelFor(model => model.ShopOffer.OfferDetailText, htmlAttributes: new { @class = "label PL10 LH30 control-label" })
+            </div>
+            <div class="col-lg-3 col-md-3">
+                @Html.TextAreaFor(model => model.ShopOffer.OfferDetailText, new { htmlAttributes = new { @class = "form-control", Placeholder = @Html.DisplayNameFor(name => name.ShopOffer.OfferDetailText), cols = "40", rows = "5" } })
+                @Html.ValidationMessageFor(model => model.ShopOffer.OfferDetailText, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group" id="divProductGrid">
+            <div class="col-sm-6">
+                <table id="Product_grid"></table>
+                <div id="gridPager"></div>
+            </div>
+            <div class="col-sm-6">
+                <table id="SelectedProduct_grid"></table>
+                <div id="SelectedgridPager"></div>
+            </div>
+        </div>
+        <div>
+        
+            @Html.EditorFor(model => model.SelectedProductJson, new { htmlAttributes = new { id = "ShopOffer_hidselprodList",style="display:none;" } })
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" id="btnSumbit_AddOffer" value="Create" class="btn btn-sm btn-primary"/>
+            </div>
+        </div>
+    </div>
+
+    
+}
+
+
+
+
+
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
+
+

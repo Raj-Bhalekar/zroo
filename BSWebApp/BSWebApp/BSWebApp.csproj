@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
-  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -25,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>1.7</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -76,10 +76,6 @@
       <HintPath>..\packages\Microsoft.ApplicationInsights.2.2.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.ScriptManager.jQuery.UI.Combined, Version=1.8.20.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ScriptManager.jQuery.UI.Combined.1.8.20.1\lib\net40\Microsoft.ScriptManager.jQuery.UI.Combined.dll</HintPath>
@@ -87,6 +83,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.SqlXml" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
@@ -169,17 +166,23 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Areas\Product\Controllers\ProductController.cs" />
-    <Compile Include="Areas\Product\ProductAreaRegistration.cs" />
-    <Compile Include="Areas\Shop\Controllers\ShopController.cs" />
-    <Compile Include="Areas\Shop\ShopAreaRegistration.cs" />
     <Compile Include="Common\AntiForgeryTokenWrapper.cs" />
+    <Compile Include="Common\BaseController.cs" />
+    <Compile Include="Common\BSSecurityEncryption.cs" />
     <Compile Include="Common\CommonAjaxCallToWebAPI.cs" />
+    <Compile Include="Common\CommonSafeConvert.cs" />
+    <Compile Include="Common\HtmlHelperExtension.cs" />
+    <Compile Include="Common\CommonTypes.cs" />
+    <Compile Include="Common\LoginResult.cs" />
     <Compile Include="Common\WebAppConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ShopController.cs" />
+    <Compile Include="Controllers\ShopOffersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Common\BSÈntityFrameword_ResultType.cs" />
     <Compile Include="Models\Log.cs" />
     <Compile Include="Models\TBL_AdminOffers.cs" />
     <Compile Include="Models\TBL_Cities_CNFG.cs" />
@@ -197,6 +200,7 @@
     <Compile Include="Models\TBL_ShopCategory_CNFG.cs" />
     <Compile Include="Models\TBL_ShopDirectory.cs" />
     <Compile Include="Models\TBL_ShopLoginDetails.cs" />
+    <Compile Include="Models\TBL_ShopMapDetails.cs" />
     <Compile Include="Models\TBL_ShopOffers.cs" />
     <Compile Include="Models\TBL_Shops.cs" />
     <Compile Include="Models\TBL_Shops5TopProducts.cs" />
@@ -204,12 +208,17 @@
     <Compile Include="Models\TBL_ShopTypes_CNFG.cs" />
     <Compile Include="Models\TBL_States_CNFG.cs" />
     <Compile Include="Models\ViewModels\AddProductViewModel.cs" />
+    <Compile Include="Models\ViewModels\AddShopOffersViewModel.cs" />
     <Compile Include="Models\ViewModels\AddShopViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
+    <Compile Include="Models\ViewModels\MapAddressViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Dhapu.css" />
+    <Content Include="Content\jquery.dataTables.min.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -293,12 +302,28 @@
     <Content Include="Content\themes\smoothness\jquery.ui.slider.css" />
     <Content Include="Content\themes\smoothness\jquery.ui.tabs.css" />
     <Content Include="Content\themes\smoothness\jquery.ui.theme.css" />
+    <Content Include="Content\ui.jqgrid.css" />
     <Content Include="Content\ui.jqgrid.min.css" />
+    <Content Include="Images\20160104_008.gif" />
+    <Content Include="Images\ajax_loader_red_512.gif" />
+    <Content Include="Images\appLogo.jpeg" />
+    <Content Include="Images\appLogoICON.png" />
     <Content Include="Images\backgroundBS.jpg" />
     <Content Include="Images\banner.jpg" />
     <Content Include="Images\bg.jpg" />
     <Content Include="Images\bg3.jpg" />
     <Content Include="Images\icon1.png" />
+    <Content Include="Images\Icons\AddOf.png" />
+    <Content Include="Images\Icons\addOffers.ico.gif" />
+    <Content Include="Images\Icons\AddPr.png" />
+    <Content Include="Images\Icons\addProd.ico.gif" />
+    <Content Include="Images\Icons\AddSh.png" />
+    <Content Include="Images\Icons\addShop.ico.gif" />
+    <Content Include="Images\Icons\AddShopIcon.ico" />
+    <Content Include="Images\Icons\AddT5.png" />
+    <Content Include="Images\Icons\BuyPg.png" />
+    <Content Include="Images\Icons\EditSh.png" />
+    <Content Include="Images\Icons\shopOnmap.png" />
     <Content Include="Images\image1.jpg" />
     <Content Include="Images\image2.jpg" />
     <Content Include="Images\image3.jpg" />
@@ -312,25 +337,30 @@
     <Content Include="Images\search-bg.jpg" />
     <Content Include="Images\search-btn.jpg" />
     <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\sort_asc.png" />
+    <Content Include="Images\sort_asc_disabled.png" />
+    <Content Include="Images\sort_both.png" />
+    <Content Include="Images\sort_desc.png" />
+    <Content Include="Images\sort_desc_disabled.png" />
+    <Content Include="Images\ui-bg_gloss-wave_55_5c9ccc_500x100.png" />
+    <Content Include="Images\ui-bg_gloss-wave_55_5c9ccc_500x100_Red.png" />
+    <Content Include="Images\ui-bg_gloss-wave_55_5c9ccc_500x100_Red1.png" />
+    <Content Include="Images\ui-bg_gloss-wave_55_5c9ccc_500x100_White.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Shop\Views\web.config" />
-    <Content Include="Areas\Shop\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Shop\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Shop\Views\Shop\AddShop.cshtml" />
-    <Content Include="Areas\Product\Views\web.config" />
-    <Content Include="Areas\Product\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Product\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Product\Views\Product\AddProduct.cshtml" />
+    <Content Include="README.md" />
+    <Content Include="Content\tilt.scss" />
+    <None Include="Properties\PublishProfiles\nexdoors.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Client\AddShopOffer\AddShopOfferScript.js" />
+    <Content Include="Scripts\DataTableJS\jquery.dataTables.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -345,8 +375,11 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\tilt.jquery.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -357,15 +390,22 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index_bkp.cshtml" />
     <Content Include="Views\Home\LoginPage.cshtml" />
+    <Content Include="Views\ShopOffers\AddShopOffer.cshtml" />
+    <Content Include="Views\Shop\AddShop.cshtml" />
+    <Content Include="Views\Product\AddProduct.cshtml" />
+    <Content Include="Views\Product\ViewProduct.cshtml" />
+    <Content Include="Views\Shared\LatLongMap.cshtml" />
+    <Content Include="Views\Shop\ShopMapAddress.cshtml" />
+    <Content Include="Views\Home\HomeLink.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Product\Models\" />
-    <Folder Include="Areas\Shop\Models\" />
+    <Folder Include="Areas\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -375,11 +415,30 @@
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptModuleKind>None</TypeScriptModuleKind>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
@@ -403,13 +462,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

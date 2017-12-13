@@ -3,7 +3,7 @@
 function onLoadBS(chck) {
     
     //if ($("#ShopOffer_chkIsOfferOnProducts").checked) {
-        if ( $("input:checkbox[id^=ShopOffer_chkIsOfferOnProducts]").checked) {
+        if ( chck.checked) {
         $("#divProductGrid").css("visibility", "visible");
         loadProductGrid();
         
@@ -50,6 +50,8 @@ function loadProductGrid() {
     //}
 
     //alert($('#shopOffers_Brand').val());
+    
+
     $('#Product_grid').jqGrid({
         url: '/shopoffers/getproductlist/',
         datatype: "json",
@@ -294,8 +296,9 @@ $(document).ready(function () {
     onLoadBS($("#ShopOffer_chkIsOfferOnProducts"));
 
     $("#shopOffers_Brand").change(function () {
-        alert($("#shopOffers_Brand").val());
-     onLoadBS();
+        $('#Product_grid').GridUnload();
+        loadProductGrid();
+   
     });
 
     $("#ShopOffer_chkIsOfferOnProducts").change(function () {

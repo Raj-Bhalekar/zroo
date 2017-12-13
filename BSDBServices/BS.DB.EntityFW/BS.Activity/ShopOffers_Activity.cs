@@ -24,14 +24,16 @@ namespace BS.DB.EntityFW
                     var totalOffers = EF.TBL_ShopOffers.Count(x => x.ShopID == shopId) + 1;
                     newShopOffer.ShopOffer.OfferID
                         = CommonSafeConvert.ToInt(Convert.ToString(shopId) + Convert.ToString(totalOffers));
-
+                    foreach (var prod in newShopOffer.OfferonProducts)
+                    {
+                        prod.CreatedBy = newShopOffer.ShopOffer.CreatedBy;
+                        prod.CreateDate= DateTime.Now;
+                        prod.IsActive = true;
+                    }
+                    newShopOffer.ShopOffer.TBL_OfferOnProducts=(newShopOffer.OfferonProducts);
                     EF.TBL_ShopOffers.Add(newShopOffer.ShopOffer);
                     EF.SaveChanges();
-                    var resultChild = InsertOffersonProduct(newShopOffer.OfferonProducts, newShopOffer.ShopOffer.OfferID);
-                    if (resultChild.Result != BSResult.Success)
-                    {
-                        return resultChild;
-                    }
+                   
                 }
 
                 var result = new BSEntityFramework_ResultType(BSResult.Success, newShopOffer.ShopOffer,null, "Created Sucessfully");

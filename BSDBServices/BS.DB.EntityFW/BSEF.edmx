@@ -158,7 +158,7 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OfferID" Type="int" Nullable="false" />
           <Property Name="ProductID" Type="int" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
@@ -416,7 +416,7 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
           <Property Name="IsOfferOnProducts" Type="bit" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="OfferDetailText" Type="nvarchar" MaxLength="1000" Nullable="false" />
-          <Property Name="OfferImage" Type="binary" MaxLength="1" Nullable="false" />
+          <Property Name="OfferImage" Type="varbinary" MaxLength="1" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="UpdateDate" Type="datetime" />
@@ -735,7 +735,7 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TBL_Offer__Creat__6C190EBB">
+        <Association Name="FK__TBL_Offer__Creat__52E34C9D">
           <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="1" />
           <End Role="TBL_OfferOnProducts" Type="Self.TBL_OfferOnProducts" Multiplicity="*" />
           <ReferentialConstraint>
@@ -747,7 +747,7 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TBL_Offer__Updat__6D0D32F4">
+        <Association Name="FK__TBL_Offer__Updat__53D770D6">
           <End Role="TBL_ShopLoginDetails" Type="Self.TBL_ShopLoginDetails" Multiplicity="0..1" />
           <End Role="TBL_OfferOnProducts" Type="Self.TBL_OfferOnProducts" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1838,11 +1838,11 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
             <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
             <End Role="TBL_Menues" EntitySet="TBL_Menues" />
           </AssociationSet>
-          <AssociationSet Name="FK__TBL_Offer__Creat__6C190EBB" Association="Self.FK__TBL_Offer__Creat__6C190EBB">
+          <AssociationSet Name="FK__TBL_Offer__Creat__52E34C9D" Association="Self.FK__TBL_Offer__Creat__52E34C9D">
             <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
             <End Role="TBL_OfferOnProducts" EntitySet="TBL_OfferOnProducts" />
           </AssociationSet>
-          <AssociationSet Name="FK__TBL_Offer__Updat__6D0D32F4" Association="Self.FK__TBL_Offer__Updat__6D0D32F4">
+          <AssociationSet Name="FK__TBL_Offer__Updat__53D770D6" Association="Self.FK__TBL_Offer__Updat__53D770D6">
             <End Role="TBL_ShopLoginDetails" EntitySet="TBL_ShopLoginDetails" />
             <End Role="TBL_OfferOnProducts" EntitySet="TBL_OfferOnProducts" />
           </AssociationSet>
@@ -2520,7 +2520,7 @@ warning 6002: The table/view 'BSDB.dbo.Log' does not have a primary key defined.
           <Property Name="IsOfferOnProducts" Type="Boolean" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="OfferDetailText" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="OfferImage" Type="Binary" MaxLength="1" FixedLength="true" Nullable="false" />
+          <Property Name="OfferImage" Type="Binary" MaxLength="1" FixedLength="false" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />

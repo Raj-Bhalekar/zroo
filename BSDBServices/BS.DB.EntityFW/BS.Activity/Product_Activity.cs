@@ -190,15 +190,117 @@ namespace BS.DB.EntityFW
             return result;
         }
 
+        public BSEntityFramework_ResultType GetProductListView(int shopId, string sortColumnName, string sortOrder, int pageSize, int currentPage,
+            string prodName = "", string brandName = "", string barCode = "", int productType = 0,
+                bool isAvailable = true,
+                string availableQty = "",
+                bool isActive = true,
+                int prodCategory =0,
+                int prodSubType = 0,
+                decimal prodMrp =0,
+                decimal prodShopPrice =0
+            )
+        {
+            var List = new object();
+            int totalPage = 0;
+            int totalRecord = 0;
+
+            using (BSDBEntities EF = new BSDBEntities())
+            {
+
+                var prod =
+                  EF.TBL_Products.Where(prd => prd.ShopID == shopId && prd.IsActive &&
+                                                      (brandName == null|| brandName == "0" || brandName.Trim() == "" || prd.ProductBrand.Equals(brandName))
+                                                     && (prodName == null || prodName.Trim() == "" || prd.ProductName.Equals(prodName))
+                                                     && (barCode == null || barCode.Trim() == "" || prd.BarCode.Equals(barCode))
+                                                     && (productType == 0  || prd.ProductTypeID==productType)
+                                                     && (prd.IsAvailable==isAvailable)
+                                                     && (availableQty == null || availableQty.Trim() == "" || prd.ProductBrand.Equals(availableQty))
+                                                     && (prd.IsActive.Equals(isActive))
+                                                     && (prodCategory == 0 || prd.ProductCategoryID.Equals(prodCategory))
+                                                     && (prodSubType == 0 || prd.ProductSubTypeID.Equals(prodSubType))
+                                                     && (prodMrp == 0 || prd.MRP==prodMrp)
+                                                     && (prodShopPrice == 0 || prd.ShopPrice==prodShopPrice)
+                                                      );
+
+                var prodListBS = prod.Select(prd => new {
+                    prd.ProductID,
+                    prd.ProductName,
+                    prd.ProductBrand,
+                    prd.BarCode,
+                    prd.IsActive,
+                    IsAvailable= prd.IsActive,
+                    prd.AvailableQuantity,
+                    prd.MRP,
+                    prd.ShopPrice,
+                    prd.OtherJsonDetails,
+                    prd.ProductCategoryID,
+                    prd.TBL_ProductCategories_CNFG.ProductCategoryName,
+                    prd.ProductTypeID,
+                    prd.TBL_ProductType_CNFG.ProductTypeName,
+                    prd.ProductSubTypeID,
+                    prd.TBL_ProductSubType_CNFG.ProductSubTypeName,
+                    prd.ShopID
 
 
-        public BSEntityFramework_ResultType UpdateProducts(TBL_Products Products)
+                }).ToArray();
+
+
+                totalRecord = prodListBS.Length;
+                sortColumnName = sortColumnName ?? "ProductID";
+                if (pageSize > 0)
+                {
+                    totalPage = totalRecord / pageSize + ((totalRecord % pageSize) > 0 ? 1 : 0);
+                    List = prodListBS
+                        .OrderBy(sortColumnName + " " + sortOrder)
+                        .Skip(pageSize * (currentPage - 1))
+                        .Take(pageSize).ToArray();
+                }
+                else
+                {
+                    var prodList = prodListBS.ToArray();
+                    List = prodList;
+                }
+            }
+
+            var jsonresult = new JsonResult
+            {
+                Data = new { List = List, totalPage = totalPage, sortColumnName = sortColumnName, sortOrder = sortOrder, currentPage = currentPage },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+
+            var result = new BSEntityFramework_ResultType(BSResult.Success, List, null, "Fetched Successfully");
+            return result;
+        }
+
+
+        public BSEntityFramework_ResultType UpdateProducts(AddProductViewModel Products)
         {
             try
             {
                 using (BSDBEntities EF = new BSDBEntities())
                 {
-                    EF.TBL_Products.AddOrUpdate(Products);
+                   // EF.TBL_Products.AddOrUpdate(Products.ProductDetails);
+                    EF.TBL_Products.Attach(Products.ProductDetails);
+                    EF.Entry(Products.ProductDetails).Property(x => x.IsActive).IsModified = true;
+                    EF.Entry(Products.ProductDetails).Property(x => x.AvailableQuantity).IsModified = true;
+                    EF.Entry(Products.ProductDetails).Property(x => x.BarCode).IsModified = true;
+                    EF.Entry(Products.ProductDetails).Property(x => x.IsAvailable).IsModified = true;
+                    EF.Entry(Products.ProductDetails).Property(x => x.MRP).IsModified = true;
+                    EF.Entry(Products.ProductDetails).Property(x => x.OtherJsonDetails).IsModified = true;
+                    EF.Entry(Products.ProductDetails).Property(x => x.ProductBrand).IsModified = true;
+                    EF.Entry(Products.ProductDetails).Property(x => x.ProductCategoryID).IsModified = true;
+                    EF.Entry(Products.ProductDetails).Property(x => x.ProductName).IsModified = true;
+                    EF.Entry(Products.ProductDetails).Property(x => x.ProductSubTypeID).IsModified = true;
+                    EF.Entry(Products.ProductDetails).Property(x => x.ProductTypeID).IsModified = true;
+                    EF.Entry(Products.ProductDetails).Property(x => x.ShopPrice).IsModified = true;
+                    EF.Entry(Products.ProductDetails).Property(x => x.ShopID).IsModified = false;
+
+                    if (Products.ProductImages != null&& Products.ProductImages.Count>0 && Products.ProductImages[0]!=null)
+                    {
+                        EF.TBL_ProductImages.Attach(Products.ProductImages[0]);
+                        EF.Entry(Products.ProductImages[0]).Property(x => x.ProductImage).IsModified = true;
+                    }
                     EF.SaveChanges();
                     var result = new BSEntityFramework_ResultType(BSResult.Success, Products, null, "Updated Successfully");
                     return result;
@@ -215,6 +317,29 @@ namespace BS.DB.EntityFW
                 var result = new BSEntityFramework_ResultType(BSResult.Fail, Products, null, "Technical issue");
                 logact.ErrorSetup("WebApp", "UpdateProducts Failed", "", "", "", ex.Message);
                 return result;
+            }
+        }
+
+        public BSEntityFramework_ResultType GetProductImage(int shopId , int prodId )
+        {
+            try
+            {
+                using (BSDBEntities EF = new BSDBEntities())
+                {
+                    var prodImage = EF.TBL_ProductImages.FirstOrDefault(p => p.ProductID == prodId && p.IsActive);
+                    var result = new BSEntityFramework_ResultType(BSResult.Success,
+                        new ImageDetails() { ImgID = prodImage?.ImageID ?? -1, ImgData = prodImage!=null? String.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(prodImage.ProductImage)):null},
+                        null, "Updated Successfully");
+                
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                var logact = new LoggerActivity();
+                var result = new BSEntityFramework_ResultType(BSResult.Fail, null, null, "Technical issue");
+                logact.ErrorSetup("WebApp", "Fetch Product Image Failed", "", "", "", ex.Message);
+                return null;
             }
         }
     }

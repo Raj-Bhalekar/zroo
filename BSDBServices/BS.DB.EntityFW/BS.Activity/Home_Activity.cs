@@ -14,15 +14,15 @@ namespace BS.DB.EntityFW.BS.Activity
 {
     public class Home_Activity: BSActivity
     {
-        public BSEntityFramework_ResultType ValidateLogin(string userId, string password)
+        public BSEntityFramework_ResultType ValidateLogin(string userId)
         {
             try
             {
                 using (BSDBEntities EF = new BSDBEntities())
                 {
-                    
-                    var Userid = EF.TBL_ShopLoginDetails.Where(p => p.LoginName == userId && p.Password == password).Select(x=>x.ShopLoginDetailsID).First();
-                    if (Userid>0)
+
+                    var Userid = EF.TBL_ShopLoginDetails.Where(p => p.LoginName == userId).Select(x => x.ShopLoginDetailsID).First();
+                    if (Userid > 0)
                     {
                         Plugins_Activity obj = new Plugins_Activity();
                         var menus=obj.GetPluginMenuDetailList(userId);

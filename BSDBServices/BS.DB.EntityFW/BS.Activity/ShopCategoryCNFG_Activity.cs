@@ -79,7 +79,17 @@ namespace BS.DB.EntityFW
                         EF.TBL_ShopCategory_CNFG.Select(category => new 
                         { Text = category.CategoryName, Value = category.ShopCategoryID}).ToList().Select(ct => new SelectListItem() {Text = ct.Text, Value = Convert.ToString(ct.Value)})
                         .ToArray();
-                    var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, ShopCategory, null, "Success");
+
+                    SelectListItem[] DefaultItem = {
+                    new SelectListItem()
+                    {
+                        Text = "Select Product Type",
+                        Value ="0"
+                    }};
+                    var finalShopCategory = DefaultItem.Concat(ShopCategory).OrderBy(v => v.Value).ToArray();
+
+
+                    var result = new BSEntityFramework_ResultType(BSResult.FailForValidation, finalShopCategory, null, "Success");
                     return result;
                 }
             }

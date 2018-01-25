@@ -55,7 +55,15 @@ namespace BS.DB.EntityFW
                             ptype =>
                                 new SelectListItem() {Text = ptype.Text, Value = Convert.ToString(ptype.Value)})
                         .ToArray();
-                    var result = new BSEntityFramework_ResultType(BSResult.Success, productCategoriesCnfg, null, "Success");
+
+                    SelectListItem[] DefaultItem = {
+                    new SelectListItem()
+                    {
+                        Text = "Select Categories",
+                        Value ="0"
+                    }};
+                    var finalCategories = DefaultItem.Concat(productCategoriesCnfg).OrderBy(v => v.Value).ToArray();
+                    var result = new BSEntityFramework_ResultType(BSResult.Success, finalCategories, null, "Success");
                    // var result = new BSEntityFramework_ResultType(BSResult.Success, null, null, "Success");
                     return result;
                 }

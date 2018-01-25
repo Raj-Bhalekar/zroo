@@ -349,7 +349,16 @@ namespace BS.DB.EntityFW
                             ptype =>
                                 new SelectListItem() {Text = ptype.Text, Value = Convert.ToString(ptype.Value)})
                         .ToArray();
-                    var result = new BSEntityFramework_ResultType(BSResult.Success, brandList, null, "Success");
+
+
+                    SelectListItem[] DefaultItem = {
+                    new SelectListItem()
+                    {
+                        Text = "Select Brand",
+                        Value ="0"
+                    }};
+                    var finalBrands = DefaultItem.Concat(brandList).OrderBy(v => v.Value).ToArray();
+                    var result = new BSEntityFramework_ResultType(BSResult.Success, finalBrands, null, "Success");
                     return result;
                 }
             }

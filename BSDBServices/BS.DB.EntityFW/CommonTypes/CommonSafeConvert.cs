@@ -19,6 +19,18 @@ namespace BS.DB.EntityFW.CommonTypes
                 return -1;
             }
         }
+        public static decimal ToDecimal(string val)
+        {
+            try
+            {
+                return Convert.ToDecimal(val);
+            }
+            catch
+            {
+                return -1;
+            }
+        }
+
         public static int ToInt(object val)
         {
             try

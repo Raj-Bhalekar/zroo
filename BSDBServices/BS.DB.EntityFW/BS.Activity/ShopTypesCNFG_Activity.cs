@@ -83,7 +83,16 @@ namespace BS.DB.EntityFW
                                 shptype =>
                                     new SelectListItem() {Text = shptype.Text, Value = Convert.ToString(shptype.Value)})
                             .ToArray();
-                    var result = new BSEntityFramework_ResultType(BSResult.Success, ShopTypes, null, "Success");
+
+                    SelectListItem[] DefaultItem = {
+                    new SelectListItem()
+                    {
+                        Text = "Select Shop Type",
+                        Value ="0"
+                    }};
+
+                    var finalShopTypes = DefaultItem.Concat(ShopTypes).OrderBy(v=>v.Value).ToArray(); 
+                    var result = new BSEntityFramework_ResultType(BSResult.Success, finalShopTypes, null, "Success");
                     return result;
                 }
             }

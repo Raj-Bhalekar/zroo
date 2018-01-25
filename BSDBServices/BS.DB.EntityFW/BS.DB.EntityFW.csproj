@@ -122,6 +122,7 @@
     <Compile Include="CommonTypes\BSEntityFramework_ResultType.cs" />
     <Compile Include="CommonTypes\BSEntityInterface.cs" />
     <Compile Include="CommonTypes\CommonSafeConvert.cs" />
+    <Compile Include="CommonTypes\CommonTypes.cs" />
     <Compile Include="CommonTypes\LoginResult.cs" />
     <Compile Include="Log.cs">
       <DependentUpon>BSEF.tt</DependentUpon>

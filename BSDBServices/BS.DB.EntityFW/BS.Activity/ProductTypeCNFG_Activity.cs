@@ -58,7 +58,16 @@ namespace BS.DB.EntityFW
                           ptype =>
                               new SelectListItem() { Text = ptype.Text, Value = Convert.ToString(ptype.Value) })
                       .ToArray();
-                    var result = new BSEntityFramework_ResultType(BSResult.Success, productTypes, null, "Success");
+
+                    SelectListItem[] DefaultItem = {
+                    new SelectListItem()
+                    {
+                        Text = "Select Product Types",
+                        Value ="0"
+                    }};
+                    var finalproductType = DefaultItem.Concat(productTypes).OrderBy(v => v.Value).ToArray();
+                    
+                    var result = new BSEntityFramework_ResultType(BSResult.Success, finalproductType, null, "Success");
                     return result;
                 }
             }

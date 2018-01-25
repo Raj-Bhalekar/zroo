@@ -111,6 +111,7 @@
         });
 
         function SearchByAddress() {
+            alert('searchbyadd');
             geocoder.geocode({ address: document.getElementById("search-txt").value }, function(results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     var result = results[0];

@@ -24,8 +24,13 @@ namespace BSWebApp.Controllers
             FillViewDatasForAddShopOffers();
             return View();
         }
-       
-        
+
+        public ActionResult ViewShopOffers()
+        {
+            FillViewDatasForAddShopOffers();
+            return View();
+        }
+
         [HttpPost]
         public async Task<ActionResult> AddShopOffer(AddShopOffersViewModel model)
         {
@@ -100,29 +105,10 @@ namespace BSWebApp.Controllers
             ViewData["SpGnd"] = BSSecurityEncryption.Encrypt(Convert.ToString(shopId),
                 WebAppConfig.GetConfigValue("BSGnd"));
         }
-        private List<SelectListItem> GetShopBrandList(int shopId)
-        {
-            try
-            {
-                var param = new List<KeyValuePair<string, string>>
-                {
-                    new KeyValuePair<string, string>("shopId", shopId.ToString())
-                };
-
-                var reslt = new CommonAjaxCallToWebAPI().AjaxGet(@"/api/shop/GetallbrandList", param);
-                return new JavaScriptSerializer().Deserialize<List<SelectListItem>>(reslt);
-            }
-            catch
-            {
-                return null;
-            }
-
-        }
-
+       
 
         [HttpGet]
-       // public JsonResult GetProductList(string brand)
-            public JsonResult GetProductList(string bsGnd ="", string brand = "", string sidx = "ProductName", string sord = "asc", int rows = 3, int page = 1)
+       public JsonResult GetProductList(string bsGnd ="", string brand = "", string sidx = "ProductName", string sord = "asc", int rows = 3, int page = 1)
         {
         
             try
@@ -139,7 +125,7 @@ namespace BSWebApp.Controllers
                     new KeyValuePair<string, string>("brand", Convert.ToString(brand))
                 };
 
-                var data= new CommonAjaxCallToWebAPI().AjaxGet(@"/api/product/GetProductList", param);
+                var data= new CommonAjaxCallToWebAPI().AjaxGet(@"/api/product/GetProductList", param, Convert.ToString(Session["BSWebApiToken"]));
                 //  return Json(data, JsonRequestBehavior.AllowGet);
 
                 var jqGridData = new JqGridType()
@@ -160,5 +146,69 @@ namespace BSWebApp.Controllers
             }
         }
 
+
+        [HttpGet]
+        public JsonResult GetOffersList(string offerShortDetails = "", string offerStartDate = "", string offerEndDate = "", string offerOnBrand = "",
+              string isOfferOnProduct = null,
+              string isActive = null,
+              string bsGnd = "",
+              string sord = "asc", int rows = 3, int page = 1, string sidx = "OfferID")
+        {
+
+            try
+            {
+                var currentShopId =
+                    BSSecurityEncryption.Decrypt(bsGnd, WebAppConfig.GetConfigValue("BSGnd"));
+                var param = new List<KeyValuePair<string, string>>
+                {
+                    new KeyValuePair<string, string>("offerShortDetails", offerShortDetails),
+                    new KeyValuePair<string, string>("offerStartDate", offerStartDate),
+                    new KeyValuePair<string, string>("offerEndDate", offerEndDate),
+                    new KeyValuePair<string, string>("offerOnBrand", offerOnBrand),
+                    new KeyValuePair<string, string>("isOfferOnProduct", isOfferOnProduct),
+                    new KeyValuePair<string, string>("isActive", isActive),
+                    new KeyValuePair<string, string>("shopId", currentShopId),
+                    new KeyValuePair<string, string>("sortColumnName", sidx),
+                    new KeyValuePair<string, string>("sortOrder", sord),
+                    new KeyValuePair<string, string>("pageSize", Convert.ToString(rows)),
+                    new KeyValuePair<string, string>("currentPage", Convert.ToString(page)),
+
+                };
+
+                var data = new CommonAjaxCallToWebAPI().AjaxGet(@"api/shopoffers/GetShopOffersListView", param
+                    , Convert.ToString(Session["BSWebApiToken"]));
+                //  return Json(data, JsonRequestBehavior.AllowGet);
+
+                var jqGridData = new JqGridType()
+                {
+                    Data = data,
+                    Page = "1",
+                    PageSize = "3", // u can change this !
+                    SortColumn = "1",
+                    SortOrder = "asc"
+                };
+
+                return Json(jqGridData, JsonRequestBehavior.AllowGet);
+
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        [HttpGet]
+
+        public string GetProdImage(string id, string bsGnd)
+        {
+            var param = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("prodId", id),
+                new KeyValuePair<string, string>("shopId", "0")
+            };
+            var reslt = new CommonAjaxCallToWebAPI().AjaxGet(@"/api/product/GetProductImage", param, Convert.ToString(Session["BSWebApiToken"]));
+            var prodImageDtls = new JavaScriptSerializer().Deserialize<ImageDetails>(reslt);
+            return "<img id= 'Prodid" + id + "img' name='" + prodImageDtls.ImgID + "' style='display: block; margin: 0 auto; height: 200px; width: 200px;' src = " + prodImageDtls.ImgData + " />";
+        }
     }
 }

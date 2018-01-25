@@ -1,7 +1,6 @@
 ﻿@using BSWebApp.Common
 @model BSWebApp.Models.ViewModels.LoginViewModel
 
-<link href="~/Content/Dhapu.css" rel="stylesheet" />
 <style>
     .form-horizontal .control-label {
         text-align: left;
@@ -83,7 +82,7 @@ float: left;
                 dataType: "json",
                 // contentType: "application/json;", //charset=utf-8
                 success: function (result) {
-                    debugger;
+                
                     $(targetProgress).hide();
                     $('#btnSignUpubmit').removeClass('btn-disable').addClass('btn-primary');
                     $('#btnLoginSubmit').prop('disabled', false);
@@ -181,12 +180,12 @@ float: left;
             <div class="form-horizontal">
                 <div class="form-group">
                     <div class="col-lg-3 col-lg-offset-1 col-md-2 col-md-offset-1">
-                        @Html.LabelFor(x => x.loginModel.UserId
+                        @Html.LabelFor(x => x.loginModel.UserName
                             , htmlAttributes: new {@class = "label PL10 LH30 control-label"})
                     </div>
                     <div class="col-lg-6 col-md-6">
-                        @Html.EditorFor(x => x.loginModel.UserId, new {htmlAttributes = new {@class = "form-control", id = "loginModel_UserId", Placeholder = @Html.DisplayNameFor(name => name.loginModel.UserId)}})
-                        @Html.ValidationMessageFor(model => model.loginModel.UserId, "", new {@class = "text-danger"})
+                        @Html.EditorFor(x => x.loginModel.UserName, new {htmlAttributes = new {@class = "form-control", id = "loginModel_UserId", Placeholder = @Html.DisplayNameFor(name => name.loginModel.UserName)}})
+                        @Html.ValidationMessageFor(model => model.loginModel.UserName, "", new {@class = "text-danger"})
                     </div>
                 </div>
 

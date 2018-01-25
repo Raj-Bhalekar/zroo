@@ -72,7 +72,7 @@ namespace BSWebApp.Controllers
                         model.ShopPostalDetails.CreatedBy = currentUserId;
                         model.ShopPostalDetails.IsActive = true;
                      
-                        var response = new CommonAjaxCallToWebAPI().AjaxPost("/api/shop/PostNewShopes", model).Result;
+                        var response = new CommonAjaxCallToWebAPI().AjaxPost("/api/shop/PostNewShopes", model,Convert.ToString(Session["BSWebApiToken"])).Result;
                         if (response.IsSuccessStatusCode)
                         {
                             var rslt = response.Content.ReadAsStringAsync().Result;
@@ -100,7 +100,7 @@ namespace BSWebApp.Controllers
         // GET: Shops/Edit/5
         public ActionResult Edit()
         {
-            var response = new CommonAjaxCallToWebAPI().AjaxPost("/api/shop/EditShopDetails", GetCurrentShopId()).Result;
+            var response = new CommonAjaxCallToWebAPI().AjaxPost("/api/shop/EditShopDetails", GetCurrentShopId(),Convert.ToString(Session["BSWebApiToken"])).Result;
             if (response.IsSuccessStatusCode)
             {
                 var rslt = response.Content.ReadAsStringAsync().Result;
@@ -195,7 +195,7 @@ namespace BSWebApp.Controllers
                 var param = new KeyValuePair<string, string>("postalCode", postalCode);
                 paramlist.Add(param);
 
-                var reslt = new CommonAjaxCallToWebAPI().AjaxGet(@"/api/common/GetInfrastructureDetails", paramlist);
+                var reslt = new CommonAjaxCallToWebAPI().AjaxGet(@"/api/common/GetInfrastructureDetails", paramlist, Convert.ToString(Session["BSWebApiToken"]));
                 return Json(new JavaScriptSerializer().Deserialize<object>(reslt), JsonRequestBehavior.AllowGet);
             }
             catch
@@ -210,7 +210,7 @@ namespace BSWebApp.Controllers
         {
             try
             {
-                var reslt = new CommonAjaxCallToWebAPI().AjaxGet(@"/api/common/GetShopCategoryDetails", null);
+                var reslt = new CommonAjaxCallToWebAPI().AjaxGet(@"/api/common/GetShopCategoryDetails", null, Convert.ToString(Session["BSWebApiToken"]));
                 return new JavaScriptSerializer().Deserialize<List<SelectListItem>>(reslt);
             }
             catch
@@ -224,7 +224,7 @@ namespace BSWebApp.Controllers
         {
             try
             {
-                var reslt = new CommonAjaxCallToWebAPI().AjaxGet(@"/api/common/GetShopTypesDetails", null);
+                var reslt = new CommonAjaxCallToWebAPI().AjaxGet(@"/api/common/GetShopTypesDetails", null, Convert.ToString(Session["BSWebApiToken"]));
                 return new JavaScriptSerializer().Deserialize<List<SelectListItem>>(reslt);
             }
             catch
@@ -242,7 +242,7 @@ namespace BSWebApp.Controllers
                 var paramlist = new List<KeyValuePair<string, string>>();
                 var param = new KeyValuePair<string, string>("shopId", Convert.ToString(shopId));
                 paramlist.Add(param);
-                var reslt = new CommonAjaxCallToWebAPI().AjaxGet(@"/api/shop/GetShopAddress", paramlist);
+                var reslt = new CommonAjaxCallToWebAPI().AjaxGet(@"/api/shop/GetShopAddress", paramlist, Convert.ToString(Session["BSWebApiToken"]));
                 return new JavaScriptSerializer().Deserialize<string>(reslt);
             }
             catch
@@ -261,7 +261,7 @@ namespace BSWebApp.Controllers
                 var paramlist = new List<KeyValuePair<string, string>>();
                 var param = new KeyValuePair<string, string>("shopId", Convert.ToString(shopId));
                 paramlist.Add(param);
-                var reslt = new CommonAjaxCallToWebAPI().AjaxGet(@"/api/shop/GetShopMapDetails", paramlist);
+                var reslt = new CommonAjaxCallToWebAPI().AjaxGet(@"/api/shop/GetShopMapDetails", paramlist, Convert.ToString(Session["BSWebApiToken"]));
                 var finalresult= new JavaScriptSerializer().Deserialize<BSEntityFramework_ResultType>(reslt);
                 return
                            new JavaScriptSerializer().Deserialize<MapAddressViewModel>(
@@ -284,7 +284,7 @@ namespace BSWebApp.Controllers
 
                     changeShopRequestobject.ShopId = shopId;
                     changeShopRequestobject.Userid = currentUserId;
-                var response = new CommonAjaxCallToWebAPI().AjaxPost("/api/common/ValidateAndChangeShop", changeShopRequestobject).Result;
+                var response = new CommonAjaxCallToWebAPI().AjaxPost("/api/common/ValidateAndChangeShop", changeShopRequestobject,Convert.ToString(Session["BSWebApiToken"])).Result;
                 
                     if (response.IsSuccessStatusCode)
                     {
@@ -349,26 +349,17 @@ namespace BSWebApp.Controllers
                 {
                     using (var client = new HttpClient())
                     {
-                        client.BaseAddress = new Uri(WebAppConfig.GetConfigValue("WebAPIUrl"));
-
-
-                        client.DefaultRequestHeaders.Accept.Clear();
-                        client.DefaultRequestHeaders.Accept.Add(
-                            new MediaTypeWithQualityHeaderValue("application/json"));
-                        var response = await client.PostAsJsonAsync("/api/shop/PostShopMapDetails", model.shopMapDetails);
+                        var response = new CommonAjaxCallToWebAPI().AjaxPost("/api/shop/PostShopMapDetails", model.shopMapDetails, Convert.ToString(Session["BSWebApiToken"])).Result;
                         if (response.StatusCode == System.Net.HttpStatusCode.OK)
                         {
-
                             var rslt = await response.Content.ReadAsStringAsync();
                             var reslt = new JavaScriptSerializer().Deserialize<BSEntityFramework_ResultType>(rslt);
-
                             if (reslt.Result == BSResult.Success)
                             {
                                 return View("~/Views/Product/AddProduct.cshtml");
                             }
                             else
                             {
-
                                 foreach (var valerr in reslt.EntityValidationException)
                                     ModelState.AddModelError("BS Errors", valerr);
                                 return View();

@@ -53,7 +53,7 @@ namespace BSWebApp.Controllers
             // Lets first check if the Model is valid or not
             if (ModelState.IsValidField("signUpModel"))
             {
-                    var response = new CommonAjaxCallToWebAPI().AjaxPost("/api/Home/SignUp",model.signUpModel).Result;
+                    var response = new CommonAjaxCallToWebAPI().AjaxPost("/api/Home/SignUp",model.signUpModel,"").Result;
 
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
@@ -196,75 +196,131 @@ namespace BSWebApp.Controllers
             // Lets first check if the Model is valid or not
             if (ModelState.IsValidField("loginModel"))
             {
-                var response = new CommonAjaxCallToWebAPI().AjaxPost("/api/home/ValidateLogin", model.loginModel).Result;
+              //  var response = new CommonAjaxCallToWebAPI().AjaxPost("/api/home/ValidateLogin", model.loginModel).Result;
+                var responseToken = new CommonAjaxCallToWebAPI().AjaxPostToken(model.loginModel).Result;
+                if (string.IsNullOrWhiteSpace(responseToken.Error))
+                {
+                    Session["BSWebApiToken"] = responseToken.AccessToken;
+                    model.loginModel.Password = null;
+                    var response = new CommonAjaxCallToWebAPI().AjaxPost("/api/home/ValidateLogin", model.loginModel,responseToken.AccessToken).Result;
+                    var rslt = await response.Content.ReadAsStringAsync();
+                    var reslt = new JavaScriptSerializer().Deserialize<BSEntityFramework_ResultType>(rslt);
+                    bool userValid = false;
+                    var loginResult =
+                        new JavaScriptSerializer().Deserialize<LoginResult>(
+                            (new JavaScriptSerializer().Serialize(reslt.Entity)));
 
-                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    if (loginResult != null && !(Convert.ToBoolean(loginResult.IsValid)))
                     {
-
-                        var rslt = await response.Content.ReadAsStringAsync();
-                        var reslt = new JavaScriptSerializer().Deserialize<BSEntityFramework_ResultType>(rslt);
-                        bool userValid = false;
-                        var loginResult =
-                            new JavaScriptSerializer().Deserialize<LoginResult>(
-                                (new JavaScriptSerializer().Serialize(reslt.Entity)));
-
-                        if (loginResult!=null && !(Convert.ToBoolean(loginResult.IsValid)))
+                        if (reslt.Result == BSResult.FailForValidation)
                         {
-                            if (reslt.Result == BSResult.FailForValidation)
-                            {
-                                foreach (var valerr in reslt.EntityValidationException)
-                                    ModelState.AddModelError("BS Errors", valerr);
-                            }
-                            else
-                            {
-                                ModelState.AddModelError("BS Errors", reslt.ResultMsg);
-                            }
+                            foreach (var valerr in reslt.EntityValidationException)
+                                ModelState.AddModelError("BS Errors", valerr);
                         }
                         else
                         {
-                            userValid = true;
+                            ModelState.AddModelError("BS Errors", reslt.ResultMsg);
                         }
-                        // User found in the database
-
-                        if (userValid)
-                        {
-
-                            FormsAuthentication.SetAuthCookie(model.loginModel.UserId, false);
-                            var authTicket = new FormsAuthenticationTicket(1, model.loginModel.UserId, DateTime.Now, DateTime.Now.AddMinutes(20), false, Convert.ToString(loginResult.UserId));
-                            string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
-                            var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-                            HttpContext.Response.Cookies.Add(authCookie);
-                            ModelState.AddModelError("ServerSuccess", reslt.ResultMsg);
-                            
-                            if (loginResult?.MenuDetailList != null)
-                            {
-                                return ValidateModel("ServerSuccess", loginResult,model.loginModel.UserId);
-                            }
-                            return ValidateModel("ServerSuccess", null, "SignUp / Login");
-                        }
-                        ModelState.AddModelError("ServerError", "The user name or password provided is incorrect.");
-                        return ValidateModel("FailedFromServer",null, "SignUp / Login");
                     }
+                    else
+                    {
+                        userValid = true;
+                    }
+                    // User found in the database
 
-                    // If we got this far, something failed, redisplay form
-                    return View();
-              
+                    if (userValid)
+                    {
+
+                        FormsAuthentication.SetAuthCookie(model.loginModel.UserName, false);
+                        var authTicket = new FormsAuthenticationTicket(1, model.loginModel.UserName, DateTime.Now,
+                            DateTime.Now.AddMinutes(20), false, Convert.ToString(loginResult.UserId));
+                        string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+                        var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                        HttpContext.Response.Cookies.Add(authCookie);
+                        ModelState.AddModelError("ServerSuccess", reslt.ResultMsg);
+
+                        if (loginResult?.MenuDetailList != null)
+                        {
+                            return ValidateModel("ServerSuccess", loginResult, model.loginModel.UserName);
+                        }
+                        return ValidateModel("ServerSuccess", null, "SignUp / Login");
+                    }
+                    ModelState.AddModelError("ServerError", "The user name or password provided is incorrect.");
+                    return ValidateModel("FailedFromServer", null, "SignUp / Login");
+                }
+                ModelState.AddModelError("ServerError", "The user name or password provided is incorrect.");
+                return ValidateModel("FailedFromServer", null, "SignUp / Login");
             }
             return ValidateModel("",null,"SignUp / Login");
         }
 
-       
+        //public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        //{
+        //    // Lets first check if the Model is valid or not
+        //    if (ModelState.IsValidField("loginModel"))
+        //    {
+        //        //  var response = new CommonAjaxCallToWebAPI().AjaxPost("/api/home/ValidateLogin", model.loginModel).Result;
+        //        var response = new CommonAjaxCallToWebAPI().AjaxPostToken(model.loginModel).Result;
+        //        if (string.IsNullOrWhiteSpace(response.Error))
+        //        {
+        //            var rslt = await response.Content.ReadAsStringAsync();
+        //            var reslt = new JavaScriptSerializer().Deserialize<BSEntityFramework_ResultType>(rslt);
+        //            bool userValid = false;
+        //            var loginResult =
+        //                new JavaScriptSerializer().Deserialize<LoginResult>(
+        //                    (new JavaScriptSerializer().Serialize(reslt.Entity)));
+
+        //            if (loginResult != null && !(Convert.ToBoolean(loginResult.IsValid)))
+        //            {
+        //                if (reslt.Result == BSResult.FailForValidation)
+        //                {
+        //                    foreach (var valerr in reslt.EntityValidationException)
+        //                        ModelState.AddModelError("BS Errors", valerr);
+        //                }
+        //                else
+        //                {
+        //                    ModelState.AddModelError("BS Errors", reslt.ResultMsg);
+        //                }
+        //            }
+        //            else
+        //            {
+        //                userValid = true;
+        //            }
+        //            // User found in the database
+
+        //            if (userValid)
+        //            {
+
+        //                FormsAuthentication.SetAuthCookie(model.loginModel.UserName, false);
+        //                var authTicket = new FormsAuthenticationTicket(1, model.loginModel.UserName, DateTime.Now, DateTime.Now.AddMinutes(20), false, Convert.ToString(loginResult.UserId));
+        //                string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+        //                var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+        //                HttpContext.Response.Cookies.Add(authCookie);
+        //                ModelState.AddModelError("ServerSuccess", reslt.ResultMsg);
+
+        //                if (loginResult?.MenuDetailList != null)
+        //                {
+        //                    return ValidateModel("ServerSuccess", loginResult, model.loginModel.UserName);
+        //                }
+        //                return ValidateModel("ServerSuccess", null, "SignUp / Login");
+        //            }
+        //            ModelState.AddModelError("ServerError", "The user name or password provided is incorrect.");
+        //            return ValidateModel("FailedFromServer", null, "SignUp / Login");
+        //        }
+
+        //        // If we got this far, something failed, redisplay form
+        //        return View();
+
+        //    }
+        //    return ValidateModel("", null, "SignUp / Login");
+        //}
+
 
         //  [NoCache]
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
             Session.Clear();
-            //Response.Cookies.Clear();
-            //Request.Cookies.Clear();
-            //Session["CurrentUser"] = "";
-            //Session["CurrentUserID"] = "";
-
             Session.Abandon();
 
             // clear authentication cookie

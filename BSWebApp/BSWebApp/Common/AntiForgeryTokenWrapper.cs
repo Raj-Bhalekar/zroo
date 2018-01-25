@@ -7,6 +7,7 @@ using System.Web.Mvc;
 namespace BSWebApp.Common
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
+    
     public class ValidateAntiForgeryTokenWrapperAttribute : FilterAttribute, IAuthorizationFilter
     {
         private readonly ValidateAntiForgeryTokenAttribute _validator;

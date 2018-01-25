@@ -10,8 +10,12 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="/Content/Dhapu.css" rel="stylesheet" />
-    
-    @Scripts.Render("~/bundles/jquery")
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+@*<link href="~/Content/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />*@
+  
+    <link href="~/Content/Site.css" rel="stylesheet" />
+
+@Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     
     @Scripts.Render("~/bundles/jqueryui")
@@ -352,18 +356,19 @@ nav > ul > li:first-child { border-left: none; }
 
                 <hr />
 
-                <div align="center" class="footerholder">
-                    @*<div class="footer">*@
-                        <footer>
-                            <p style="color: black">Copyright &copy; ZROO Technologies @DateTime.Now.Year</p>
-                        </footer>
-                   @* </div>*@
-                </div>
+               
             </div>
         </div>
     </div>
 
-
+    <div style="width : 100%;" align="center" class="footerholder">
+        <div style="margin-left: 100px" align="left">AboutUs | Terms & Conditions | Customer service</div>
+        @*<div class="footer">*@
+        <footer>
+            <p style="color: black">Copyright &copy; ZROO Technologies @DateTime.Now.Year</p>
+        </footer>
+        @* </div>*@
+    </div>
 @RenderSection("scripts", required: false)
 </body>
 </html>

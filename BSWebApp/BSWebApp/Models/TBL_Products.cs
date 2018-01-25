@@ -38,7 +38,7 @@ namespace BS.DB.EntityFW
         
         public int ShopID { get; set; }
 
-        [Display(Name = "Availablity")]
+       // [Display(Name = "Availablity")]
         public bool IsAvailable { get; set; }
 
         [Display(Name = "Available Quantity")]

@@ -42,6 +42,24 @@ namespace BS.WebAPI.Services.Controllers
             return Json<BSEntityFramework_ResultType>(BSResult);
         }
 
+        [Route("api/shopoffers/GetShopOffersListView")]
+        [HttpGet]
+        public JsonResult<object> GetShopOffersListView(int shopId, string sortColumnName, string sortOrder, int pageSize, int currentPage,
+           string offerShortDetails = "", 
+               DateTime? offerStartDate = null,
+               DateTime? offerEndDate = null,
+               string offerOnBrand = "",
+               bool? isOfferOnProduct = null,
+               bool? isActive = null
+           )
+        {
+            var BSResult = ShopOffersActivity.GetShopOfferListView(shopId, sortColumnName, sortOrder, pageSize, currentPage,
+                offerShortDetails, offerStartDate, offerEndDate, offerOnBrand,isOfferOnProduct, isActive
+                );
+            return Json<object>(BSResult.Entity);
+            //  return Json<object>(obj);
+        }
+
 
 
     }

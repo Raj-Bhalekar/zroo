@@ -14,6 +14,7 @@ using BS.DB.EntityFW.ViewModels;
 
 namespace BS.WebAPI.Services.Controllers
 {
+    [System.Web.Http.Authorize]
     public class CommonController : ApiController
     {
         [System.Web.Http.HttpGet]
@@ -22,6 +23,7 @@ namespace BS.WebAPI.Services.Controllers
            
             PostalCodesCNFG_Activity postalActivity = new PostalCodesCNFG_Activity();
             var BSResult = postalActivity.GetPostalCodesCNFG(hint);
+
             return Json<object>(BSResult.Entity);
         }
 
@@ -42,7 +44,6 @@ namespace BS.WebAPI.Services.Controllers
             ShopCategoryCNFG_Activity shopCatengoryActivity = new ShopCategoryCNFG_Activity();
             var BSResult = shopCatengoryActivity.GetShopCategory();
             return Json<object>(BSResult.Entity);
-
         }
 
         [System.Web.Http.Route("api/common/GetShopTypesDetails")]

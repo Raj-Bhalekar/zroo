@@ -12,6 +12,7 @@ using BS.DB.EntityFW.ViewModels;
 
 namespace BS.WebAPI.Services.Controllers
 {
+    [System.Web.Http.Authorize]
     public class HomeController : ApiController
     {
         [Route("api/home/ValidateLogin")]
@@ -19,7 +20,7 @@ namespace BS.WebAPI.Services.Controllers
         public JsonResult<BSEntityFramework_ResultType> ValidateLogin(LoginModel model)
         {
             Home_Activity homeActivity= new Home_Activity();
-            var BSResult = homeActivity.ValidateLogin(model.UserId,model.Password);
+            var BSResult = homeActivity.ValidateLogin(model.UserName);
             return Json<BSEntityFramework_ResultType>(BSResult);
         }
 

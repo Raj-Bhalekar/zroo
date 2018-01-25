@@ -11,6 +11,7 @@ using BS.DB.EntityFW.ViewModels;
 
 namespace BS.WebAPI.Services.Controllers
 {
+    [System.Web.Http.Authorize]
     public class ProductController : ApiController
     {
         private Product_Activity ProductsActivity = new Product_Activity();
@@ -23,9 +24,22 @@ namespace BS.WebAPI.Services.Controllers
             return Json<object>(BSResult);
         }
 
+        
+             [HttpPost]
+        [System.Web.Http.Route("api/product/PostEditProduct")]
+        public JsonResult<object> PostEditProduct(AddProductViewModel editProduct)
+        {
+            var BSResult = ProductsActivity.UpdateProducts(editProduct);
+            // var newShopId = ((TBL_Shops) BSResult.Entity).ShopID;
+
+            return Json<object>(BSResult);
+        }
+
+        [System.Web.Http.Route("api/product/GetProductList")]
+        [System.Web.Http.HttpGet]
         public JsonResult<object> GetProductList(int shopId,string brand, string sortColumnName, string sortOrder, int pageSize, int currentPage)
         {
-              var BSResult = ProductsActivity.GetProductList(shopId,brand, sortColumnName, sortOrder, pageSize, currentPage);
+            var BSResult = ProductsActivity.GetProductList(shopId,brand, sortColumnName, sortOrder, pageSize, currentPage);
             var gnd =  new
             {
                 IsSelected=1,
@@ -181,5 +195,34 @@ namespace BS.WebAPI.Services.Controllers
 
         }
 
+
+        [System.Web.Http.Route("api/product/GetProductListView")]
+        [System.Web.Http.HttpGet]
+        public JsonResult<object> GetProductListView(int shopId, string sortColumnName, string sortOrder, int pageSize, int currentPage,
+            string prodName = "", string brandName = "", string barCode = "", string productType = "",
+                string isAvailable = "true",
+                string availableQty = "",
+                string isActive = "true",
+                string prodCategory = "",
+                string prodSubType = "",
+                string prodMrp = "",
+                string prodShopPrice = ""
+            )
+        {
+            var BSResult = ProductsActivity.GetProductListView(shopId, sortColumnName, sortOrder, pageSize, currentPage,
+                prodName, brandName, barCode, CommonSafeConvert.ToInt(productType), Convert.ToBoolean(isAvailable), availableQty,Convert.ToBoolean(isActive), CommonSafeConvert.ToInt(prodCategory), CommonSafeConvert.ToInt(prodSubType), CommonSafeConvert.ToDecimal(prodMrp), CommonSafeConvert.ToDecimal(prodShopPrice)
+                );
+            return Json<object>(BSResult.Entity);
+            //  return Json<object>(obj);
+        }
+
+
+        [System.Web.Http.Route("api/product/GetProductImage")]
+        [System.Web.Http.HttpGet]
+        public JsonResult<object> GetProductImage(int shopId, int prodId)
+        {
+            var BSResult = ProductsActivity.GetProductImage(shopId, prodId);
+            return Json(BSResult?.Entity);
+        }
     }
 }

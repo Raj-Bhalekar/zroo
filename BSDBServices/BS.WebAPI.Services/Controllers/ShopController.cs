@@ -12,6 +12,7 @@ using BS.DB.EntityFW.ViewModels;
 
 namespace BS.WebAPI.Services.Controllers
 {
+    [Authorize]
     public class ShopController : ApiController
     {
         private Shopes_Activity ShopesActivity = new Shopes_Activity();

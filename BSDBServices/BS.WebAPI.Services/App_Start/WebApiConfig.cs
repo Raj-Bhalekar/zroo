@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Web.Http;
+using Microsoft.Owin.Security.OAuth;
 
 namespace BS.WebAPI.Services
 {
@@ -48,6 +49,11 @@ namespace BS.WebAPI.Services
                 name: "ControllerAndAction",
                 routeTemplate: "api/{controller}/{action}"
             );
+
+            // Web API configuration and services
+            // Configure Web API to use only bearer token authentication.
+            config.SuppressDefaultHostAuthentication();
+            config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
             GlobalConfiguration.Configuration.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
         }

@@ -60,7 +60,13 @@ namespace BS.WebAPI.Services.Controllers
             //  return Json<object>(obj);
         }
 
-
+        [System.Web.Http.Route("api/shopoffers/GetOfferImage")]
+        [System.Web.Http.HttpGet]
+        public JsonResult<object> GetProductImage(int shopId, int offerId)
+        {
+            var BSResult = ShopOffersActivity.GetOfferImage(shopId, offerId);
+            return Json(BSResult?.Entity);
+        }
 
     }
 }

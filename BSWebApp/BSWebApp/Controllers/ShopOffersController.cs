@@ -199,16 +199,85 @@ namespace BSWebApp.Controllers
 
         [HttpGet]
 
-        public string GetProdImage(string id, string bsGnd)
+        public string GetOfferImage(string id, string bsGnd)
         {
             var param = new List<KeyValuePair<string, string>>
             {
-                new KeyValuePair<string, string>("prodId", id),
+                new KeyValuePair<string, string>("offerId", id),
                 new KeyValuePair<string, string>("shopId", "0")
             };
-            var reslt = new CommonAjaxCallToWebAPI().AjaxGet(@"/api/product/GetProductImage", param, Convert.ToString(Session["BSWebApiToken"]));
+            var reslt = new CommonAjaxCallToWebAPI().AjaxGet(@"/api/shopoffers/GetOfferImage", param, Convert.ToString(Session["BSWebApiToken"]));
             var prodImageDtls = new JavaScriptSerializer().Deserialize<ImageDetails>(reslt);
-            return "<img id= 'Prodid" + id + "img' name='" + prodImageDtls.ImgID + "' style='display: block; margin: 0 auto; height: 200px; width: 200px;' src = " + prodImageDtls.ImgData + " />";
+            return "<img id= 'Offerid" + id + "img' name='" + prodImageDtls.ImgID + "' style='display: block; margin: 0 auto; height: 200px; width: 200px;' src = " + prodImageDtls.ImgData + " />";
+        }
+
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<ActionResult> EditOffer(ProductUpdateForm formDATA)
+        {
+            var ProductDetails = new JavaScriptSerializer().Deserialize<TBL_Products>(formDATA.ProductDetails);
+            UserDetails currentUser = GetCurrentUserDetails();
+            AddProductViewModel model = new AddProductViewModel();
+            model.ProductDetails = ProductDetails;
+            if (formDATA.file != null)
+            {
+                model.ProductImages = new List<TBL_ProductImages>();
+                model.ProductImages.Add(new TBL_ProductImages()
+                {
+                    ImageID = CommonSafeConvert.ToInt(formDATA.imgId),
+                    ProductID = ProductDetails.ProductID,
+                    UpdatedBy = currentUser.UserId,
+                    UpdateDate = DateTime.Now,
+                    IsActive = true,
+                    ProductImage = CommonSafeConvert.ConvertToBytesFromFile(formDATA.file)
+                });
+            }
+
+            if (ModelState.IsValid)
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(WebAppConfig.GetConfigValue("WebAPIUrl"));
+
+                    // Add an Accept header for JSON format.
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(
+                        new MediaTypeWithQualityHeaderValue("application/json"));
+                    var response = new CommonAjaxCallToWebAPI().AjaxPost("/api/product/PostEditProduct", model, Convert.ToString(Session["BSWebApiToken"])).Result;
+                    //  var response = await client.PostAsJsonAsync("/api/product/PostEditProduct", model);
+
+                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+
+                        var rslt = await response.Content.ReadAsStringAsync();
+                        var reslt = new JavaScriptSerializer().Deserialize<BSEntityFramework_ResultType>(rslt);
+                        if (reslt.Result == BSResult.FailForValidation)
+                        {
+                            foreach (var valerr in reslt.EntityValidationException)
+                                ModelState.AddModelError("BS Errors", valerr);
+                        }
+                        //return reslt;
+                        //FillViewDatasForAddShop();
+                        var allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                        return Json(allErrors, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json("Failed", JsonRequestBehavior.AllowGet);
+                    }
+                }
+
+
+            }
+            return Json(new
+            {
+                Valid = ModelState.IsValid,
+                UserID = currentUser.UserId,
+                //Errors = GetErrorsFromModelState(),
+                Status = "Validation Failed"
+            });
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿
+﻿var mydata = [];
+var selectedProdOfferView = "";
 
 var ShopOfferImageUpload = function (file) {
     this.file = file;
@@ -25,7 +26,7 @@ ShopOfferImageUpload.prototype.doUpload = function (frm) {
     var dataString = new FormData();
     dataString.append('file', form);
     dataString.append('imgId', $(imgOffercntl).attr("name"));
-    dataString.append('OfferDetails', JSON.stringify(frm));
+    dataString.append('ProductDetails', JSON.stringify(frm));
     $.ajax({
         type: "POST",
         url: "/ShopOffers/EditOffer",
@@ -109,11 +110,12 @@ function saveOfferDetails(editedrowid, subGridId) {
     $("#progress-wrp" + " .status").text(0 + "%");
     $('#ShopOffers_grid').jqGrid("editCell", 0, 0, false);
     var dataFromTheRow = jQuery('#ShopOffers_grid').jqGrid('getRowData', editedrowid);
-    var otherjsongridid = '#' + editedrowid + 'ProdDtlschldgrid' + subGridId;
+   
+    var otherjsongridid = '#' + editedrowid + "SelectedProduct_gridViewOffer" + subGridId;
     dataFromTheRow['ProductsJsonDetails'] = JSON.stringify($(otherjsongridid).jqGrid('getRowData'));
-    fileImageCntrl = '#' + editedrowid + '_OfferImageData';
-    var file = $(fileImageCntrl)[0].files[0];
-    var upload = new Upload(file);
+    offerfileImageCntrl = '#' + editedrowid + '_OfferImageData';
+    var file = $(offerfileImageCntrl)[0].files[0];
+    var upload = new ShopOfferImageUpload(file);
     upload.doUpload((dataFromTheRow)
    );
 }
@@ -149,7 +151,8 @@ function loadOffersGrid() {
             "Create Date",
             "Created By",
             "Update Date",
-            "UpdatedBy"
+            "UpdatedBy",
+            "ProductListOffer"
         ],
         postData: {
             offerShortDetails: $('#vwofferShortDetails').val(),
@@ -296,7 +299,15 @@ function loadOffersGrid() {
                 editable: true,
                 width: 80,
                 index: 'UpdatedBy'
-            }
+            },
+              {
+                  name: 'ProductsJsonDetails',
+                  editable: true,
+                  hidden:true,
+                  width: 80,
+                  index: 'ProductsJsonDetails'
+              }
+        
         ],
         jsonReader: {
             root: function (data) {
@@ -387,8 +398,9 @@ function getddlforVwOfferOptions(getFrom) {
 
 
 function callAjaxImg(subgrid_id, row_id) {
-    var rowDatapid = $('#Product_grid').getRowData(row_id);
-    var colDatapid = rowDatapid['ProductID'];
+   
+    var rowDatapid = $('#ShopOffers_grid').getRowData(row_id);
+    var colDatapid = rowDatapid['OfferID'];
     var resultdata = '';
     $.ajax({
         url: "/ShopOffers/GetOfferImage?id=" + colDatapid + "&bsGnd=" + BSGnd,
@@ -396,18 +408,41 @@ function callAjaxImg(subgrid_id, row_id) {
 
         success: function (data) {
 
+            //jQuery('#' + subgrid_id)
+            //    .append("<div class='row'><div class='col-sm-4'>" + data
+            //        + "</div><div class='col-sm-8'> <table id='" + row_id + "ProductDtlschldgrid" + subgrid_id
+            //        + "' class='display' cellspacing='0' width='100%'></table><div id='"
+            //        + row_id + "pager2chldProductDtls'></div><div id='" + row_id + "footerchldOffergrid'></div> " + "</div></div>"
+            //        + "<div class='row'><div style='align:right' class='col-sm-4'>"
+            //        + "<input type='file' name='ImageData' onchange='fileCheck(this, \"#Offerid" + colDatapid + "img\", \"" + row_id + "\", \"" + subgrid_id + "\");' id='" + row_id
+            //        + "_OfferImageData' accept='.jpg,.jpeg,.png' />"
+            //        + " <div id='progress-wrp'><div class='progress-bar'></div><div class='status'>0%</div></div></div>"
+            //        + "<div style='align:right' class='col-sm-8'>"
+            //        + "<input type='button' class='btn btn-sm btn-primary' value = 'Save' onClick=\"saveProductDetails('" + row_id + "', '" + subgrid_id + "')\" />" + "</div></div>"
+            //        );
+
+
             jQuery('#' + subgrid_id)
-                .append("<div class='row'><div class='col-sm-6'>" + data
-                    + "</div><div class='col-sm-6'> <table id='" + row_id + "ProductDtlschldgrid" + subgrid_id
-                    + "' class='display' cellspacing='0' width='100%'></table><div id='"
-                    + row_id + "pager2chldProductDtls'></div><div id='" + row_id + "footerchldOffergrid'></div> " + "</div></div>"
-                    + "<div class='row'><div style='align:right' class='col-sm-6'>"
-                    + "<input type='file' name='ImageData' onchange='fileCheck(this, \"#Prodid" + colDatapid + "img\", \"" + row_id + "\", \"" + subgrid_id + "\");' id='" + row_id
-                    + "_ImageData' accept='.jpg,.jpeg,.png' />"
-                    + " <div id='progress-wrp'><div class='progress-bar'></div><div class='status'>0%</div></div></div>"
-                    + "<div style='align:right' class='col-sm-6'>"
-                    + "<input type='button' class='btn btn-sm btn-primary' value = 'Save' onClick=\"saveProductDetails('" + row_id + "', '" + subgrid_id + "')\" />" + "</div></div>"
-                    );
+               .append("<div class='row'><div class='col-sm-3'>" + data
+                   + "</div><div class='col-sm-9'> " +
+                   "<div class='row'><div class='col-sm-8'><table id='" + row_id + "OfferProduct_grid" + subgrid_id
+                   + "' class='display' cellspacing='0' width='100%'>" +
+                   "</table>" +
+                   "<div id='"
+                   + row_id + "pager2OfferProduct_grid'></div><div id='"
+                   + row_id
+                   + "footerOfferProduct_grid'></div></div><div class='col-sm-4'> "
+                   + "<table id='"+
+                    row_id + "SelectedProduct_gridViewOffer" + subgrid_id
+                   + "'></table>    <div id='" + row_id + "SelectedgridPager" + subgrid_id + "'></div>"
+                   + "</div></div></div></div>"
+                   + "<div class='row'><div style='align:right' class='col-sm-3'>"
+                   + "<input type='file' name='ImageData' onchange='fileCheck(this, \"#Offerid" + colDatapid + "img\", \"" + row_id + "\", \"" + subgrid_id + "\");' id='" + row_id
+                   + "_OfferImageData' accept='.jpg,.jpeg,.png' />"
+                   + " <div id='progress-wrp'><div class='progress-bar'></div><div class='status'>0%</div></div></div>"
+                   + "<div style='align:right' class='col-sm-9'>"
+                   + "<input type='button' class='btn btn-sm btn-primary' value = 'Save' onClick=\"saveOfferDetails('" + row_id + "', '" + subgrid_id + "')\" />" + "</div></div>"
+                   );
             resultdata = data;
             showOtherDetails(subgrid_id, row_id);
             var childPager = '#' + row_id + "pager2chldOtherDtls";
@@ -433,61 +468,96 @@ function callAjaxImg(subgrid_id, row_id) {
 
 function showOtherDetails(subgrid_id, row_id) {
 
-    var rowDatav = $('#Product_grid').getRowData(row_id);
-    var colDatav = rowDatav['OtherJsonDetails'];
+    var rowDatav = $('#ShopOffers_grid').getRowData(row_id);
+   // var colDatav = rowDatav['OtherJsonDetails'];
 
-    var gndchildgrd = "#" + row_id + "OtherDtlschldgrid" + subgrid_id;
+    var gndchildgrd = "#"+
+    row_id + "OfferProduct_grid" + subgrid_id;
+    var gndchildgrdpager= "#" + row_id + "pager2OfferProduct_grid";
 
-    var pager2chld = "#" + row_id + "pager2chldOtherDtls";
+
+     selectedProdOfferView = '#' + row_id + "SelectedProduct_gridViewOffer" + subgrid_id;
+    var SelectedgridPager = '#' + row_id + "SelectedgridPager" + subgrid_id;
+
+
     $(gndchildgrd).jqGrid({
-        data: JSON.parse(colDatav),
-        datatype: "local",
-        colNames: ['id', 'Key', 'Value'],
+        url: '/shopoffers/getproductlist/',
+        datatype: "json",
+        colNames: ['Selected', 'Product ID', 'Product Name', 'Brand', 'Category', 'Type', 'SubType'],
+        postData: { brand: $('#vwofferOnBrand').val(), bsGnd: window.BSGnd },
         colModel: [
             {
-                name: 'id',
-                index: 'id',
+                name: 'IsSelected',
+                index: 'IsSelected',
+                formatter: cboxFormatter,
+                //formatoptions: {disabled : false},
+                //edittype:"checkbox",
+                editable: true,
+                hidden: false,
+                width: 50
+            },
+            {
+                name: 'ProductID',
+                index: 'ProductID',
                 editable: false,
-                hidden: true,
-                width: 20,
-                sorttype: "int"
+                width: 50
             },
             {
-                name: 'Key',
-                index: 'Key',
-                editable: true,
-
-                width: 200,
-                sorttype: "date"
+                name: 'ProductName',
+                editable: false,
+                index: 'ProductName',
+                width: 80
             },
             {
-                name: 'Value',
-                editable: true,
-                index: 'Value',
-                width: 200
+                name: 'ProductBrand',
+                editable: false,
+                index: 'ProductBrand',
+                width: 60
+            },
+            {
+                name: 'ProductCategoryName',
+                editable: false,
+                index: 'ProductCategoryName',
+                width: 80
+            },
+            {
+                name: 'ProductTypeName',
+                editable: false,
+                index: 'ProductTypeName',
+                width: 80
+            },
+            {
+                name: 'ProductSubTypeName',
+                editable: false,
+                index: 'ProductSubTypeName',
+                width: 80
             }
         ],
-        pager: $(pager2chld),
-        'cellEdit': true,
+        jsonReader: {
+            root: function (data) {
+
+                return JSON.parse(data.Data);
+            },
+            page: 'Page',
+            total: 'PageSize'
+        },
+        pager: $(gndchildgrdpager),
+        // iconSet: "fontAwesome",
         autoencode: true,
         viewrecords: false,
-        rowNum: 10,
+        rowNum: 5,
         idPrefix: "1",
         altRows: true,
         altclass: "myAltRowClass",
         rowList: [5, 10, 20, "10000:All"],
-        caption: "Product Other Details",
+        caption: "Product List",
         navOptions: {
-            add: true,
-            del: true,
-            search: false,
-            refresh: false,
-            edit: true
+            add: false,
+            del: false,
+            search: true,
+            refresh: true,
+            edit: false
         },
-        //afterEditCell: function () {
-        //    alert('le');
-        //    jQuery(gndchildgrd).jqGrid('restoreRow', lastSelectRoot);
-        //},
         searching: {
             closeAfterSearch: true,
             closeAfterReset: true,
@@ -497,8 +567,103 @@ function showOtherDetails(subgrid_id, row_id) {
             multipleGroup: true,
             showQuery: true
         }
+    }).jqGrid("navGrid");
+
+
+   
+    
+    $(selectedProdOfferView).jqGrid({
+        datatype: "local",
+        colNames: ['Selected', 'Product ID', 'Product Name'],
+        colModel: [
+            {
+                name: 'IsSelected',
+                index: 'IsSelected',
+                formatter: "checkbox",
+                formatoptions: { disabled: false },
+                edittype: "checkbox",
+                editable: true,
+                hidden: false,
+                width: 50
+            },
+            {
+                name: 'ProductID',
+                index: 'ProductID',
+                editable: false,
+                width: 60
+            },
+            {
+                name: 'ProductName',
+                editable: false,
+                index: 'ProductName',
+                width: 80
+            }
+        ],
+        jsonReader: {
+            root: function (data) {
+
+                return JSON.parse(data.Data);
+            },
+            page: 'Page',
+            total: 'PageSize'
+        },
+        pager: $(SelectedgridPager),
+        // iconSet: "fontAwesome",
+        autoencode: true,
+        viewrecords: false,
+        rowNum: 5,
+        idPrefix: "1",
+        altRows: true,
+        altclass: "myAltRowClass",
+        rowList: [5, 10, 20, "10000:All"],
+        caption: "Selected Product List",
+        navOptions: {
+            add: false,
+            del: false,
+            search: true,
+            refresh: true,
+            edit: false
+        },
+        searching: {
+            closeAfterSearch: true,
+            closeAfterReset: true,
+            closeOnEscape: true,
+            searchOnEnter: true,
+            multipleSearch: true,
+            multipleGroup: true,
+            showQuery: true
+        }
+    }).jqGrid("navGrid");
+
+
+    bindAfterLoad($(gndchildgrd));
+    bindAfterLoad($(selectedProdOfferView));
+}
+
+function bindAfterLoad(grd) {
+    grd.bind("jqGridAfterLoadComplete", function () {
+        var $this = $(this), iCol, iRow, rows, row, cm, colWidth,
+            $cells = $this.find(">tbody>tr>td"),
+            $colHeaders = $(this.grid.hDiv).find(">.ui-jqgrid-hbox>.ui-jqgrid-htable>thead>.ui-jqgrid-labels>.ui-th-column>div"),
+            colModel = $this.jqGrid("getGridParam", "colModel"),
+            n = $.isArray(colModel) ? colModel.length : 0,
+            idColHeadPrexif = "jqgh_" + this.id + "_";
+
+        $cells.wrapInner("<span class='mywrapping'></span>");
+        $colHeaders.wrapInner("<span class='mywrapping'></span>");
+
+        for (iCol = 0; iCol < n; iCol++) {
+            cm = colModel[iCol];
+            colWidth = $("#" + idColHeadPrexif + $.jgrid.jqID(cm.name) + ">.mywrapping").outerWidth() + 25; // 25px for sorting icons
+            for (iRow = 0, rows = this.rows; iRow < rows.length; iRow++) {
+                row = rows[iRow];
+                if ($(row).hasClass("jqgrow")) {
+                    colWidth = Math.max(colWidth, $(row.cells[iCol]).find(".mywrapping").outerWidth());
+                }
+            }
+            $this.jqGrid("setColWidth", iCol, colWidth);
+        }
     });
-    $(gndchildgrd).jqGrid('navGrid', pager2chld, { edit: false, add: true, del: true });
 }
 
 function EditPost(params) {
@@ -546,11 +711,55 @@ function EditPost(params) {
 }
 
 function cboxFormatter(cellvalue, options, rowObject) {
+   //selectedProdOfferView
     return "<input type='checkbox' onclick='AddSelected(this,\"" +
         rowObject.ProductID +
         "\",\"" +
-        rowObject.ProductName +
-        "\"" + ")'/>";
+        rowObject.ProductName
+        +"\"" + ")'/>";
 }
 
+
+function refreshGrid($grid, results) {
+    $grid.jqGrid("clearGridData");
+    $grid.jqGrid('setGridParam',
+        {
+            datatype: 'local',
+            data: results
+        })
+    .trigger("reloadGrid");
+}
+function checkAvailability(arr, val) {
+    return arr.some(arrVal => arrVal.ProductID === val);
+}
+function AddSelected(chk, pId, pName) {
+    //debugger;
+    var selectdCount = mydata.length;
+
+    if (chk.checked === false) {
+        mydata = $.grep(mydata, function (e) {
+            return e.ProductID !== pId;
+        });
+
+    } else {
+        // alert(checkAvailability(mydata, pId));
+        if (!checkAvailability(mydata, pId)) {
+            if (mydata != null && mydata.length > 0) {
+                mydata[selectdCount] = {};
+                mydata[selectdCount]["IsSelected"] = 1;
+                mydata[selectdCount]["ProductID"] = pId;
+                mydata[selectdCount]["ProductName"] = pName;
+            } else {
+
+                mydata[0] = {};
+                mydata[0]["IsSelected"] = 1;
+                mydata[0]["ProductID"] = pId;
+                mydata[0]["ProductName"] = pName;
+            }
+        }
+    }
+    // debugger;
+    refreshGrid($(selectedProdOfferView), mydata);
+    //  alert(mydata[2].ProductName);
+}
 

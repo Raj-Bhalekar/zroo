@@ -51,6 +51,8 @@ namespace BSWebApp.Common
         public string imgId { get; set; }
     }
 
+
+
     public class UserDetails
     {
         public int UserId { get; set; }

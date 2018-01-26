@@ -143,7 +143,7 @@ namespace BS.DB.EntityFW
             using (BSDBEntities EF = new BSDBEntities())
             {
                 var prod = 
-                    string.IsNullOrWhiteSpace(brand)?
+                    string.IsNullOrWhiteSpace(brand) || brand =="0"?
                     EF.TBL_Products.Where(prd=>prd.ShopID == shopId && prd.IsActive)
                     : 
                     EF.TBL_Products.Where(prd => prd.ShopID == shopId && prd.IsActive &&

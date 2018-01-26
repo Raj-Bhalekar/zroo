@@ -266,6 +266,29 @@ namespace BS.DB.EntityFW
             var result = new BSEntityFramework_ResultType(BSResult.Success, List, null, "Fetched Successfully");
             return result;
         }
+        public BSEntityFramework_ResultType GetOfferImage(int shopId, int offerId)
+        {
+            try
+            {
+                using (BSDBEntities EF = new BSDBEntities())
+                {
+                    var offerImage = EF.TBL_ShopOffers.FirstOrDefault(p => p.OfferID == offerId);
+                    var result = new BSEntityFramework_ResultType(BSResult.Success,
+                        new ImageDetails() { ImgID = offerImage?.OfferID ?? -1,
+                            ImgData = offerImage != null ? String.Format("data:image/jpg;base64,{0}",
+                            Convert.ToBase64String(offerImage.OfferImage!=null? offerImage.OfferImage : new byte[] {} )) : null },
+                        null, "Updated Successfully");
 
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                var logact = new LoggerActivity();
+                var result = new BSEntityFramework_ResultType(BSResult.Fail, null, null, "Technical issue");
+                logact.ErrorSetup("WebApp", "Fetch Product Image Failed", "", "", "", ex.Message);
+                return null;
+            }
+        }
     }
 }
